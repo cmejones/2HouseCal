@@ -124,6 +124,7 @@ class Login extends Component {
 }
 
 function mapStateToProps(state) {
+    console.log(state, 'state');
     return {
         isLoggingIn: state.auth.isLoggingIn,
         loginError: state.auth.loginError,
