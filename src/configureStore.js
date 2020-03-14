@@ -1,4 +1,4 @@
-import { applyMiddleware, createStore, combineReducers } from 'redux';
+import { applyMiddleware, createStore, combineReducers, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
 //need to change root under Reducers?
@@ -11,7 +11,10 @@ export default function configureStore(persistedState) {
     const store = createStore(
         rootReducer,
         persistedState,
-        applyMiddleware(thunkMiddleware)
+        compose(
+            applyMiddleware(thunkMiddleware),
+            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        )
     );
     store.dispatch(verifyAuth());
     return store;
