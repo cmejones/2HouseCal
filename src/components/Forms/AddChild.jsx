@@ -14,7 +14,13 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 
+function mapStateToProps(state) { //need to render redux store
+    return {
+        user: state.auth.user.uid,
+        userName: state.auth.user.firstName + state.auth.user.lastName
+    };
 
+}
 const styles = () => ({
     "@global": {
         body: {
@@ -46,7 +52,6 @@ const styles = () => ({
 class AddChild extends React.Component {
     constructor(props) {
         super(props);
-        console.log(this.props.auth);
 
         this.state = {
             firstName: '',
@@ -57,7 +62,7 @@ class AddChild extends React.Component {
             allergies: '',
             medications: '',
             bedtime: '',
-            parentId: this.props
+            parentId: this.props.user
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -108,12 +113,9 @@ class AddChild extends React.Component {
 
     };
     render() {
-        // const { classes } = this.state;
-        // console.log(this.props, 'props');
         console.log(this.state, 'this state');
-        
-        const { user } = this.props; //needed to render redux store
-        console.log(this.props, 'user');
+       // const { user } = this.props; //needed to render redux store
+
         return (
                 <Container component="main" maxWidth="xs">
                     <Paper className={styles.paper}>
@@ -242,7 +244,7 @@ class AddChild extends React.Component {
 
                         <div className="field">
                             <div className="control">
-                                <Button>Add Child</Button>
+                                <button>Add Child</button>
                             </div>
                         </div>
                     </form>
@@ -252,6 +254,4 @@ class AddChild extends React.Component {
     }
 }
 
-
-
-export default AddChild;
+export default connect(mapStateToProps)(AddChild);
