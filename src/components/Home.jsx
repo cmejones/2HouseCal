@@ -25,7 +25,7 @@ function mapStateToProps(state) { //need to render redux store
     return {
         isLoggingOut: state.auth.isLoggingOut,
         logoutError: state.auth.logoutError,
-        user: state.auth.user.email
+        user: state.auth.user
     };
 
 }

@@ -2,48 +2,81 @@ import React from 'react';
 import { db } from '../../firebase/firebase';
 import FormInput from '../styles/FormInput/FormInput';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
-
+//update to better date picker: https://github.com/clauderic/react-infinite-calendar
 import 'react-datepicker/dist/react-datepicker.css';
+import { connect } from 'react-redux';
+import { withStyles } from "@material-ui/styles";
 
-// import Moment from 'moment'
-// import momentLocalizer from 'react-widgets-moment';
-// import DateTimePicker from 'react-widgets/lib/DateTimePicker';
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
+import Paper from "@material-ui/core/Paper";
+import Container from "@material-ui/core/Container";
 
-//let { DateTimePicker } = ReactWidgets;
-// Moment.locale('en')
-// momentLocalizer()
 
-// let formatter = momentLocalizer();
-
-// () => {
-//   const [startDate, setStartDate] = useState(new Date());
-//   return (
-//     <DatePicker selected={startDate} onChange={date => setStartDate(date)} />
-//   );
-// };
+const styles = () => ({
+    "@global": {
+        body: {
+        backgroundColor: "#fff"
+        }
+    },
+    paper: {
+        marginTop: 100,
+        display: "flex",
+        padding: 20,
+        flexDirection: "column",
+        alignItems: "center"
+    },
+    avatar: {
+        marginLeft: "auto",
+        marginRight: "auto",
+        backgroundColor: "#f50057"
+    },
+    form: {
+        marginTop: 1
+    },
+    errorText: {
+        color: "#f50057",
+        marginBottom: 5,
+        textAlign: "center"
+    }
+});
 
 class AddChild extends React.Component {
     constructor(props) {
         super(props);
+        console.log(this.props.auth);
 
         this.state = {
             firstName: '',
             lastName: '',
             childPhoto: '',
-            bloodType: '',
-            birthday: moment()
+            bloodType: 'bloodDefault',
+            birthday: new Date(),
+            allergies: '',
+            medications: '',
+            bedtime: '',
+            parentId: this.props
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+        handleSelectChange(event) {
+            this.setState({bloodType: event.target.value});
+        }
+
         handleDateChange = (date) => {
+            const birthday = this.state.birthday;
+
             this.setState({
                 birthday: date
             })
         }
-        
+
         handleChange = (event) => {
             event.preventDefault();
         
@@ -60,18 +93,36 @@ class AddChild extends React.Component {
 
             let setDoc = db.collection('children').doc().set(data);
 
+            this.setState({
+                firstName: '',
+                lastName: '',
+                childPhoto: '',
+                bloodType: 'bloodDefault',
+                birthday: new Date(),
+                medications: '',
+                allergies: '',
+                bedtime: ''
+
+            })
         //update here
 
     };
     render() {
-        const { firstName, lastName, birthday, bloodType, childPhoto } = this.state;
+        // const { classes } = this.state;
+        // console.log(this.props, 'props');
         console.log(this.state, 'this state');
-
+        
+        const { user } = this.props; //needed to render redux store
+        console.log(this.props, 'user');
         return (
-            <div className="App">
-
-                <div className="container">
-                    <h2 className="title">Enter Child Details</h2>
+                <Container component="main" maxWidth="xs">
+                    <Paper className={styles.paper}>
+                    <Avatar className={styles.avatar}>
+                        
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Add Child Details
+                    </Typography>
                     <form className="form" onSubmit={this.handleSubmit}>
                         <div className="field">
                             <div className="control">
@@ -113,18 +164,13 @@ class AddChild extends React.Component {
                             </div>
                         </div>
 
-                        {/* <div className="field">
+                        <div className="field">
                             <div className="control">
-                                <label className="label">Blood Type</label>
-                                <div className="select">
-                                <input
-                                    className="input" 
-                                    name="bloodType"
-                                    value={this.state.bloodType}
-                                    onChange={this.handleChange} 
-                                    component="select">
-                                    <option />
-                                    <option value="oneg">O negative</option>
+                                <div className="group">
+                                    <label className="label" type="text">Blood Type 
+                                
+                                <select value={this.state.bloodType.value} onChange={this.handleSelectChange}>
+                                    <option value="bloodDefault">-- Select --</option>
                                     <option value="opos">O positive</option>
                                     <option value="aneg">A negative</option>
                                     <option value="apos">A positive</option>
@@ -132,23 +178,61 @@ class AddChild extends React.Component {
                                     <option value="bpos">B positive</option>
                                     <option value="abneg">AB negative</option>
                                     <option value="abpos">AB positive</option>
-                                </input>
-                                </div>
+                                </select>
+    
+                                </label>
                             </div>
-                        </div> */}
+                            </div>
+                        </div>
 
                         <div className="field">
                             <div className="control">
-                                <DatePicker
-                                    //editFormat={formatter}
-                                    //defaultValue={new Date()}
-                                    dateFormat="MM/DD/YYYY"
-                                    time={false}
+                                <FormInput
                                     className="input" 
+                                    name="medications" 
+                                    component="input" 
+                                    type="text" 
+                                    value={this.state.medications}
+                                    onChange={this.handleChange}
+                                    label="medications"/>
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <div className="control">
+                                <FormInput
+                                    className="input" 
+                                    name="allergies" 
+                                    component="input" 
+                                    type="text" 
+                                    value={this.state.allergies}
+                                    onChange={this.handleChange}
+                                    label="allergies"/>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <div className="control">
+                                <FormInput
+                                    className="input" 
+                                    name="bedtime" 
+                                    component="input" 
+                                    type="text" 
+                                    value={this.state.bedtime}
+                                    onChange={this.handleChange}
+                                    label="Bedtime"/>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <div className="control">
+                                {/* <label className="label">Birthday</label> */}
+                                <DatePicker
+                                    dateFormat="MM/dd/yyyy"
+                                    time={false}
+                                    //className="input" 
                                     name="birthday" 
                                     component="date" 
                                     type="date" 
-                                    //selected={birthday}
+                                    selected={this.state.birthday}
                                     value={this.state.birthday}
                                     onChange={this.handleDateChange}
                                     label="Birthday"
@@ -156,33 +240,18 @@ class AddChild extends React.Component {
                             </div>
                         </div>
 
-                        {/* <div className="field">
-                            <div className="control">
-                                <label className="checkbox">
-                                <Field name="saveDetails" id="saveDetails" component="input" type="checkbox"/>
-                                Save Details
-                                </label>
-                            </div>
-                        </div> */}
-
-                        {/* <div className="field">
-                            <div className="control">
-                                <label className="label">Message</label>
-                                <Field className="textarea" name="message" component="textarea" />
-                            </div>
-                        </div> */}
-
                         <div className="field">
                             <div className="control">
-                                <button className="button is-link">Submit</button>
+                                <Button>Add Child</Button>
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
+                </Paper>
+            </Container>
         );
     }
 }
+
 
 
 export default AddChild;
