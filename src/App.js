@@ -9,6 +9,9 @@ import Register from './pages/Register';
 //import AddChild from "./components/Forms/AddChild";
 import AddChildPage from './pages/AddChildPage';
 
+import ProfileMenu from './components/menu-profile/menu-profile.component'
+import AccountView from './components/account-view/account-view.component'
+
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
@@ -32,6 +35,20 @@ function App(props) {
         exact
         path="/addChild"
         component={AddChildPage}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <ProtectedRoute
+        exact
+        path="/account"
+        component={ProfileMenu}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <ProtectedRoute
+        exact
+        path="/account/view"
+        component={AccountView}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />

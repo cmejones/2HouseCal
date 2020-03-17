@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions";
-import { stat } from "fs";
+// import { stat } from "fs";
 
 class Home extends Component {
     handleLogout = () => {
