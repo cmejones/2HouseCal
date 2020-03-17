@@ -8,6 +8,7 @@ import Calendar from './components/Calendar';
 import Register from './pages/Register';
 //import AddChild from "./components/Forms/AddChild";
 import AddChildPage from './pages/AddChildPage';
+import MyChild from "./pages/MyChild";
 
 
 function App(props) {
@@ -32,6 +33,13 @@ function App(props) {
         exact
         path="/addChild"
         component={AddChildPage}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <ProtectedRoute
+        exact
+        path="/myChild"
+        component={MyChild}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
