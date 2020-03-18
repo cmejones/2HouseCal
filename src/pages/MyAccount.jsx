@@ -4,7 +4,7 @@ import { db } from '../firebase/firebase';
 import { connect } from 'react-redux';
 
 //import '../components/products/products.css';
-import MyChild from '../pages/MyChild';
+import MyChild from '../components/MyChild';
 
 function mapStateToProps(state) { //need to render redux store
     return {

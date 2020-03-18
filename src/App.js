@@ -8,7 +8,7 @@ import Calendar from './components/Calendar';
 import Register from './pages/Register';
 //import AddChild from "./components/Forms/AddChild";
 import AddChildPage from './pages/AddChildPage';
-import MyChild from "./pages/MyChild";
+import MyChild from "./components/MyChild";
 import UpdateChild from "./components/Forms/UpdateChild";
 import MyAccount from './pages/MyAccount';
 
