@@ -20,9 +20,8 @@ class MyChild extends React.Component {
         }
     }
 
-    async getChildren() {
-        
-    }
+    async getChildren() {}
+
     componentDidMount() {
         //console.log('here');
         let parentId = this.props.user;
@@ -52,12 +51,9 @@ class MyChild extends React.Component {
     }
 
         render() {
-            // let link = '/products/' + this.props.productId;
             let editLink = '/updateChild/' + this.props.id;
 
-            console.log(this.state);
-            //need to map through results
-            //const myChildren = this.state;
+            //console.log(this.state);
 
             return (
                 <div className="col s12 m6 l4">

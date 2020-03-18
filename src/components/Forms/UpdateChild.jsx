@@ -8,7 +8,6 @@ import { connect } from 'react-redux';
 //import { withStyles } from "@material-ui/styles";
 
 import Avatar from "@material-ui/core/Avatar";
-//import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -65,14 +64,12 @@ class UpdateChild extends React.Component {
             bedtime: '',
             parentId: this.props.user
         };
-        console.log('edit', this.props);
-
+        //console.log('edit', this.props);
 
         this.handleChange = this.handleChange.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    // }
     }
 
     componentDidMount() {
@@ -106,61 +103,57 @@ class UpdateChild extends React.Component {
         })
     }
     
+    handleSelectChange(event) {
+        this.setState({bloodType: event.target.value});
+    }
 
-        handleSelectChange(event) {
-            this.setState({bloodType: event.target.value});
-        }
+    handleDateChange = (date) => {
+        const birthday = this.state.birthday;
 
-        handleDateChange = (date) => {
-            const birthday = this.state.birthday;
+        this.setState({
+            birthday: date
+        })
+    }
 
-            this.setState({
-                birthday: date
-            })
-        }
+    handleChange = (event) => {
+        event.preventDefault();
+    
+        const { name, value } = event.target
+        this.setState({
+            [name]: value
+        })
+    }
 
-        handleChange = (event) => {
-            event.preventDefault();
-        
-            const { name, value } = event.target
-            this.setState({
-                [name]: value
-            })
-        }
+    handleSubmit = async event => {
+        event.preventDefault();
 
-        handleSubmit = async event => {
-            event.preventDefault();
+        const data = this.state;
+        console.log(this.props);
+        let id = this.state.id;
 
-            const data = this.state;
-            console.log(this.props);
-            let id = this.state.id;
+        let childRef = db.collection('children').doc(id);
 
-            let childRef = db.collection('children').doc(id);
+        let updateDoc = childRef.update(data);
 
-            let updateDoc = childRef.update(data);
+        this.setState({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            childPhoto: data.childPhoto,
+            bloodType: data.bloodType,
+            birthday: data.birthday,
+            medications: data.medications,
+            allergies: data.allergies,
+            bedtime: data.bedtime,
+            id: data.id
 
-            this.setState({
-                firstName: data.firstName,
-                lastName: data.lastName,
-                childPhoto: data.childPhoto,
-                bloodType: data.bloodType,
-                birthday: data.birthday,
-                medications: data.medications,
-                allergies: data.allergies,
-                bedtime: data.bedtime,
-                id: data.id
-
-            })
-        //update here
+        })
 
     };
     render() {
-        console.log(this.state, 'this state');
-       // const { user } = this.props; //needed to render redux store
-
+        //console.log(this.state, 'this state');
         return (
-                <Container component="main" maxWidth="xs">
-                    <Paper className={styles.paper}>
+            <Container component="main" maxWidth="xs">
+                <Paper className={styles.paper}>
                     <Avatar className={styles.avatar}>
                         
                     </Avatar>
@@ -223,7 +216,7 @@ class UpdateChild extends React.Component {
                                     <option value="abneg">AB negative</option>
                                     <option value="abpos">AB positive</option>
                                 </select>
-    
+
                                 </label>
                             </div>
                             </div>
@@ -266,7 +259,7 @@ class UpdateChild extends React.Component {
                                     label="Bedtime"/>
                             </div>
                         </div>
-                         {/* <div className="field">
+                            {/* <div className="field">
                             <div className="control">
                     
                                 <DatePicker

@@ -29,7 +29,6 @@ class MyAccount extends Component {
         let parentId = this.props.user; //set parentId to logged in user
 
         const childrenRef = db.collection('children').where('parentId', '==', parentId);
-        //const childrenRef = db.collection('children')
     
         let allChildren = childrenRef.get()
         .then(snapshot => {
@@ -54,7 +53,6 @@ class MyAccount extends Component {
     }
 
     render() {
-
     
         console.log(this.state);
         const { isLoading, children } = this.state;
@@ -72,20 +70,6 @@ class MyAccount extends Component {
                 <div className="container">
                     <div className="row">
                         {myChildren}
-                        {/* {products.map(product => ( */}
-                            {/* <ProductList
-                                key={product.id}
-                                id={product.id}
-                                name={product.name} 
-                                type={product.type} 
-                                category={product.category} 
-                                subTitle={product.subTitle}
-                                imageUrl={product.imageUrl} 
-                                description={product.description} 
-                                size={product.size}
-                                price={product.price} /> */}
-                        {/* ))} */}
-
                     </div>
                 </div>
             </div>
