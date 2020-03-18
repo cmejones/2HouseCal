@@ -24,13 +24,13 @@ class MyChild extends React.Component {
         
     }
     componentDidMount() {
-        console.log('here');
+        //console.log('here');
 
         const childrenRef = db.collection('children')
     
         let allChildren = childrenRef.get()
         .then(snapshot => {
-            console.log(snapshot);
+            //console.log(snapshot);
             let children = [];
             snapshot.forEach(doc => {
                 children.push({
@@ -40,6 +40,7 @@ class MyChild extends React.Component {
                 console.log(doc.id, '=>', doc.data()); //showing children
                 console.log(children, 'children')
             });
+        
             this.setState({
                 children: children
             })
@@ -50,24 +51,41 @@ class MyChild extends React.Component {
     }
 
         render() {
-            const {  children } = this.state;
-        
-            const myChildren = this.state.children.map((child) => {
-            return <div key={child.id} {...child}></div>
-        });
+            // let link = '/products/' + this.props.productId;
+            let editLink = '/updateChild/' + this.props.id;
+
             console.log(this.state);
-            //const allChildren = this.state;
+            //const myChildren = this.state;
+
             return (
-                <section className='display-item'>
-                    <div className="wrapper">
-                        <div>{myChildren}</div>
-                        <div>hello</div>
-                    </div>
-                </section>
-            );
-        }
-
+                <div className="col s12 m6 l4">
     
+                    {/* <a href={link}> */}
+                        <div className="card medium" key={this.state.id} id={this.state.id}>
+                        <div className="card-image">
+                            <img className="product-image pos-rel responsive-img" alt={this.state.firstName} src={`${this.state.childPhoto}`} />
+                        </div>
+                        
+                        <div className="card-content">
+                            <div className="card-title">
+                                {this.state.firstName} {this.state.lastName}
+                            </div>
+                            
+                            <div className="" key={this.state.id}>
+                                {/* <p>Birthday: {this.props.birthday}</p> */}
+                                <p>Blood Type: {this.state.bloodType}</p>
+                                <p>Allergies: {this.state.allergies}</p>
+                                <p>Medications: {this.state.medications}</p>
+                                <p>Bedtime: {this.state.bedtime}</p>
+                            </div>
+                        </div>
+        
+                    </div>
+                {/* </a> */}
+                <div><a href={editLink}>Edit</a></div>
+        
+            </div>
+        );
+    }
 }
-
 export default connect(mapStateToProps)(MyChild);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { db } from '../../utils/auth';
+import { db } from '../../firebase/firebase';
 import FormInput from '../styles/FormInput/FormInput';
 import DatePicker from 'react-datepicker';
 //update to better date picker: https://github.com/clauderic/react-infinite-calendar
@@ -52,6 +52,10 @@ const styles = () => ({
 class UpdateChild extends React.Component {
     constructor(props) {
         super(props);
+        
+        this.state = {
+            isLoading: true
+        }
         console.log('edit', this.props);
 
     //     this.state = {
@@ -72,7 +76,35 @@ class UpdateChild extends React.Component {
     // }
     }
 
+    componentDidMount() {
+        //console.log('here');
+        const id = this.props.match.params.id;
+        
+        const childRef = db.collection('children').doc(id);
+    
+        childRef.get().then (doc => {
+            if (doc.exists) {
+                console.log('child exists!', doc.data());
+                const data = doc.data();
+                this.setState({
+                    isLoading: false,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    childPhoto: data.childPhoto,
+                    bloodType: data.bloodType,
+                    birthday: data.birthday,
+                    medications: data.medications,
+                    allergies: data.allergies,
+                    bedtime: data.bedtime
+                })            
+            } else {
+                console.log('no doc');
+            }
 
+        }).catch(function(error) {
+            console.log("error getting child", error)
+        })
+    }
     
 
         handleSelectChange(event) {
@@ -134,11 +166,125 @@ class UpdateChild extends React.Component {
                         Update Child Details
                     </Typography>
                     <form className="form" onSubmit={this.handleSubmit}>
-          
+                        <div className="field">
+                            <div className="control">
+                                {/* <label className="label">First Name</label> */}
+                                <FormInput
+                                    className="input" 
+                                    name="firstName" 
+                                    component="input" 
+                                    type="text" 
+                                    value={this.state.firstName}
+                                    onChange={this.handleChange}
+                                    label="First Name"/>
+                            </div>
+                        </div>
 
                         <div className="field">
                             <div className="control">
-                                <button>Update Information</button>
+                                <FormInput
+                                    className="input" 
+                                    name="lastName" 
+                                    component="input" 
+                                    type="text" 
+                                    value={this.state.lastName}
+                                    onChange={this.handleChange}
+                                    label="Last Name"/>
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <div className="control">
+                                <FormInput
+                                    className="input" 
+                                    name="childPhoto" 
+                                    component="input" 
+                                    type="text" 
+                                    value={this.state.childPhoto}
+                                    onChange={this.handleChange}
+                                    label="Child Photo"/>
+                            </div>
+                        </div>
+
+                        {/* <div className="field">
+                            <div className="control">
+                                <div className="group">
+                                    <label className="label" type="text">Blood Type 
+                                
+                                <select value={this.state.bloodType.value} onChange={this.handleSelectChange}>
+                                    <option value="bloodDefault">-- Select --</option>
+                                    <option value="opos">O positive</option>
+                                    <option value="aneg">A negative</option>
+                                    <option value="apos">A positive</option>
+                                    <option value="bneg">B negative</option>
+                                    <option value="bpos">B positive</option>
+                                    <option value="abneg">AB negative</option>
+                                    <option value="abpos">AB positive</option>
+                                </select>
+    
+                                </label>
+                            </div>
+                            </div>
+                        </div>  */}
+
+                        <div className="field">
+                            <div className="control">
+                                <FormInput
+                                    className="input" 
+                                    name="medications" 
+                                    component="input" 
+                                    type="text" 
+                                    value={this.state.medications}
+                                    onChange={this.handleChange}
+                                    label="medications"/>
+                            </div>
+                        </div>
+
+                        <div className="field">
+                            <div className="control">
+                                <FormInput
+                                    className="input" 
+                                    name="allergies" 
+                                    component="input" 
+                                    type="text" 
+                                    value={this.state.allergies}
+                                    onChange={this.handleChange}
+                                    label="allergies"/>
+                            </div>
+                        </div>
+                        <div className="field">
+                            <div className="control">
+                                <FormInput
+                                    className="input" 
+                                    name="bedtime" 
+                                    component="input" 
+                                    type="text" 
+                                    value={this.state.bedtime}
+                                    onChange={this.handleChange}
+                                    label="Bedtime"/>
+                            </div>
+                        </div>
+                         {/* <div className="field">
+                            <div className="control">
+                    
+                                <DatePicker
+                                    dateFormat="MM/dd/yyyy"
+                                    time={false}
+                                    
+                                    name="birthday" 
+                                    component="date" 
+                                    type="date" 
+                                    selected={this.state.birthday}
+                                    value={this.state.birthday}
+                                    onChange={this.handleDateChange}
+                                    label="Birthday"
+                                />
+                            </div>
+                        </div>  */}
+
+                        <div className="field">
+                            <div className="control">
+                                <button>Save Changes</button>
                             </div>
                         </div>
                     </form>

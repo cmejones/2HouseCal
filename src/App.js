@@ -9,6 +9,8 @@ import Register from './pages/Register';
 //import AddChild from "./components/Forms/AddChild";
 import AddChildPage from './pages/AddChildPage';
 import MyChild from "./pages/MyChild";
+import UpdateChild from "./components/Forms/UpdateChild";
+import MyAccount from './pages/MyAccount';
 
 
 function App(props) {
@@ -37,9 +39,22 @@ function App(props) {
         isVerifying={isVerifying}
       />
       <ProtectedRoute
+        path="/updateChild/:id"
+        component={UpdateChild}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <ProtectedRoute
         exact
         path="/myChild"
         component={MyChild}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <ProtectedRoute
+        exact
+        path="/myAccount"
+        component={MyAccount}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
