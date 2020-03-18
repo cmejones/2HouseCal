@@ -12,6 +12,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+import ImageUpload from '../../ImageUpload';
 
 function mapStateToProps(state) { //need to render redux store
     return {
@@ -190,7 +191,7 @@ class UpdateChild extends React.Component {
 
                         <div className="field">
                             <div className="control">
-                                <FormInput
+                                <ImageUpload
                                     className="input" 
                                     name="childPhoto" 
                                     component="input" 
