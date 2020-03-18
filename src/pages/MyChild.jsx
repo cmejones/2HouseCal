@@ -25,10 +25,11 @@ class MyChild extends React.Component {
     }
     componentDidMount() {
         //console.log('here');
-
-        const childrenRef = db.collection('children')
+        let parentId = this.props.user;
+        console.log(this.props, 'user');
+        const childrenRef = db.collection('children').where('parentId', '==', parentId)
     
-        let allChildren = childrenRef.get()
+        let myChildren = childrenRef.get()
         .then(snapshot => {
             //console.log(snapshot);
             let children = [];
@@ -37,8 +38,8 @@ class MyChild extends React.Component {
                     id:doc.id,
                     ...doc.data()
                 });
-                console.log(doc.id, '=>', doc.data()); //showing children
-                console.log(children, 'children')
+                //console.log(doc.id, '=>', doc.data()); //showing children
+                //console.log(children, 'children')
             });
         
             this.setState({
@@ -55,28 +56,29 @@ class MyChild extends React.Component {
             let editLink = '/updateChild/' + this.props.id;
 
             console.log(this.state);
+            //need to map through results
             //const myChildren = this.state;
 
             return (
                 <div className="col s12 m6 l4">
     
                     {/* <a href={link}> */}
-                        <div className="card medium" key={this.state.id} id={this.state.id}>
+                        <div className="card medium" key={this.props.id} id={this.props.id}>
                         <div className="card-image">
-                            <img className="product-image pos-rel responsive-img" alt={this.state.firstName} src={`${this.state.childPhoto}`} />
+                            <img className="product-image pos-rel responsive-img" alt={this.props.firstName} src={`${this.state.childPhoto}`} />
                         </div>
                         
                         <div className="card-content">
                             <div className="card-title">
-                                {this.state.firstName} {this.state.lastName}
+                                {this.props.firstName} {this.props.lastName}
                             </div>
                             
-                            <div className="" key={this.state.id}>
+                            <div className="" key={this.props.id}>
                                 {/* <p>Birthday: {this.props.birthday}</p> */}
-                                <p>Blood Type: {this.state.bloodType}</p>
-                                <p>Allergies: {this.state.allergies}</p>
-                                <p>Medications: {this.state.medications}</p>
-                                <p>Bedtime: {this.state.bedtime}</p>
+                                <p>Blood Type: {this.props.bloodType}</p>
+                                <p>Allergies: {this.props.allergies}</p>
+                                <p>Medications: {this.props.medications}</p>
+                                <p>Bedtime: {this.props.bedtime}</p>
                             </div>
                         </div>
         

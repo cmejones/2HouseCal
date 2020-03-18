@@ -6,6 +6,12 @@ import { connect } from 'react-redux';
 //import '../components/products/products.css';
 import MyChild from '../pages/MyChild';
 
+function mapStateToProps(state) { //need to render redux store
+    return {
+        user: state.auth.user.uid
+       // userName: state.auth.user.firstName + state.auth.user.lastName
+    };
+}
 
 class MyAccount extends Component {
     constructor(props) {
@@ -19,9 +25,11 @@ class MyAccount extends Component {
         
     }
     componentDidMount() {
-        console.log('here');
+        console.log(this.props.user, 'user');
+        let parentId = this.props.user; //set parentId to logged in user
 
-        const childrenRef = db.collection('children')
+        const childrenRef = db.collection('children').where('parentId', '==', parentId);
+        //const childrenRef = db.collection('children')
     
         let allChildren = childrenRef.get()
         .then(snapshot => {
@@ -29,11 +37,11 @@ class MyAccount extends Component {
             let children = [];
             snapshot.forEach(doc => {
                 children.push({
-                    id:doc.id,
+                    id:doc.id, //child id
                     ...doc.data()
                 });
-                console.log(doc.id, '=>', doc.data()); //showing children
-                console.log(children, 'children')
+                //console.log(doc.id, '=>', doc.data()); //showing children
+                //console.log(children, 'children')
             });
             this.setState({
                 children: children,
@@ -48,13 +56,14 @@ class MyAccount extends Component {
     render() {
 
     
-        
-        const { isLoading, children } = this.state;
         console.log(this.state);
+        const { isLoading, children } = this.state;
+        // console.log(this.state);
         
         const myChildren = this.state.children.map((child) => {
             return <MyChild key={child.id} {...child} />
         });
+        console.log(myChildren);  //children now in props
 
         return (
             this.state.isLoading ? <div>I am loading</div> :
@@ -84,4 +93,4 @@ class MyAccount extends Component {
         );
     }
 }
-export default MyAccount;
+export default connect(mapStateToProps)(MyAccount);

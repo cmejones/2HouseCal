@@ -45,8 +45,7 @@ function App(props) {
         isVerifying={isVerifying}
       />
       <ProtectedRoute
-        exact
-        path="/myChild"
+        path="/myChild/:id"
         component={MyChild}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}

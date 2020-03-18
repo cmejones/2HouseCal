@@ -54,25 +54,24 @@ class UpdateChild extends React.Component {
         super(props);
         
         this.state = {
-            isLoading: true
-        }
+            isLoading: true,
+            firstName: '',
+            lastName: '',
+            childPhoto: '',
+            bloodType: 'bloodDefault',
+            birthday: new Date(),
+            allergies: '',
+            medications: '',
+            bedtime: '',
+            parentId: this.props.user
+        };
         console.log('edit', this.props);
 
-    //     this.state = {
-    //         firstName: '',
-    //         lastName: '',
-    //         childPhoto: '',
-    //         bloodType: 'bloodDefault',
-    //         birthday: new Date(),
-    //         allergies: '',
-    //         medications: '',
-    //         bedtime: '',
-    //         parentId: this.props.user
-    //     };
-    //     this.handleChange = this.handleChange.bind(this);
-    //     this.handleDateChange = this.handleDateChange.bind(this);
-    //     this.handleSelectChange = this.handleSelectChange.bind(this);
-    //     this.handleSubmit = this.handleSubmit.bind(this);
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleDateChange = this.handleDateChange.bind(this);
+        this.handleSelectChange = this.handleSelectChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     // }
     }
 
@@ -88,6 +87,7 @@ class UpdateChild extends React.Component {
                 const data = doc.data();
                 this.setState({
                     isLoading: false,
+                    id: id,
                     firstName: data.firstName,
                     lastName: data.lastName,
                     childPhoto: data.childPhoto,
@@ -132,21 +132,23 @@ class UpdateChild extends React.Component {
             event.preventDefault();
 
             const data = this.state;
-            let id = '';//get DocId of child
+            console.log(this.props);
+            let id = this.state.id;
 
             let childRef = db.collection('children').doc(id);
 
             let updateDoc = childRef.update(data);
 
             this.setState({
-                firstName: '',
-                lastName: '',
-                childPhoto: '',
-                bloodType: 'bloodDefault',
-                birthday: new Date(),
-                medications: '',
-                allergies: '',
-                bedtime: ''
+                firstName: data.firstName,
+                lastName: data.lastName,
+                childPhoto: data.childPhoto,
+                bloodType: data.bloodType,
+                birthday: data.birthday,
+                medications: data.medications,
+                allergies: data.allergies,
+                bedtime: data.bedtime,
+                id: data.id
 
             })
         //update here
