@@ -11,6 +11,7 @@ import AddChildPage from './pages/AddChildPage';
 
 import ProfileMenu from './components/menu-profile/menu-profile.component'
 import AccountView from './components/account-view/account-view.component'
+import AccountDelete from './components/account-delete/account-delete.component'
 
 
 function App(props) {
@@ -49,6 +50,13 @@ function App(props) {
         exact
         path="/account/view"
         component={AccountView}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+       <ProtectedRoute
+        exact
+        path="/account/delete"
+        component={AccountDelete}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />

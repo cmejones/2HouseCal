@@ -49,8 +49,8 @@ class AccountView extends React.Component {
                 <h1>Your Account</h1>
                 <Container maxWidth='sm' >  
                     <div className='userProfileView'>
-                    <p>username: {this.state.data.displayName}</p>
-                    <p>email: {this.state.data.email}</p>
+                        <p>username: {this.state.data.displayName}</p>
+                        <p>email: {this.state.data.email}</p>
                         <p>message: {this.state.data.message}</p>
                     </div>   
                 </Container>
@@ -59,7 +59,5 @@ class AccountView extends React.Component {
         )
     }
 }
-
-
 
 export default connect(mapStateToProps)(AccountView);

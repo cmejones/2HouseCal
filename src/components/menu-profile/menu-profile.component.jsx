@@ -78,7 +78,9 @@ export default function ProfileMenu() {
                                         <Link to='/account/view'>View</Link>
                                     </MenuItem>
                                     <MenuItem onClick={handleClose}>Edit</MenuItem>
-                                    <MenuItem onClick={handleClose}>Delete</MenuItem>
+                                    <MenuItem onClick={handleClose}>
+                                        <Link to='/account/delete'>Delete</Link>
+                                    </MenuItem>
                                 </MenuList>
                             </ClickAwayListener>
                         </Paper>
