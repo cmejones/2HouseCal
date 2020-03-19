@@ -12,6 +12,11 @@ import MyChild from "./components/MyChild";
 import UpdateChild from "./components/Forms/UpdateChild";
 import MyAccount from './pages/MyAccount';
 
+import ProfileMenu from './components/menu-profile/menu-profile.component';
+import AccountView from './components/account-view/account-view.component';
+import AccountDelete from './components/account-delete/account-delete.component';
+import AccountEdit from './components/account-edit/account-edit.component';
+
 
 function App(props) {
   const { isAuthenticated, isVerifying } = props;
@@ -54,6 +59,34 @@ function App(props) {
         exact
         path="/myAccount"
         component={MyAccount}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+            <ProtectedRoute
+        exact
+        path="/account"
+        component={ProfileMenu}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <ProtectedRoute
+        exact
+        path="/account/view"
+        component={AccountView}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <ProtectedRoute
+        exact
+        path="/account/edit"
+        component={AccountEdit}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <ProtectedRoute
+        exact
+        path="/account/delete"
+        component={AccountDelete}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
