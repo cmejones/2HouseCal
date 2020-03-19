@@ -230,6 +230,7 @@ class AddChild extends React.Component {
                                     </a>
                                     <br />
                                     <img
+                                    className="responsive-img"
                                     src={this.state.url || "https://via.placeholder.com/400x300"}
                                     alt="Uploaded Images"
                                     height="300"

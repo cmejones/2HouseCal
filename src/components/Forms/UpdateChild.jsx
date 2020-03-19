@@ -7,7 +7,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 //import { withStyles } from "@material-ui/styles";
 
-import Avatar from "@material-ui/core/Avatar";
+//import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
@@ -161,9 +161,6 @@ class UpdateChild extends React.Component {
         return (
             <Container component="main" maxWidth="xs">
                 <Paper className={styles.paper}>
-                    <Avatar className={styles.avatar}>
-                        <img class="cicle" src={this.state.url} />
-                    </Avatar>
                     <Typography component="h1" variant="h5">
                         Update Child Details
                     </Typography>
@@ -219,7 +216,7 @@ class UpdateChild extends React.Component {
                                     </a>
                                     <br />
                                     <img
-                                    class="responsive-img"
+                                    className="responsive-img"
                                     src={this.state.url || "https://via.placeholder.com/400x300"}
                                     alt="Uploaded Images"
                                     height="300"
