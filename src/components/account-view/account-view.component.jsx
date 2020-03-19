@@ -16,7 +16,8 @@ class AccountView extends React.Component {
         super(props);
         console.log('edit this prop: ', this.props)
         this.state = {
-            data: []
+            data: [],
+           
         }
     }
     

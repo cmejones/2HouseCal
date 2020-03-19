@@ -20,44 +20,75 @@ function mapStateToProps(state) {
 class AccountEdit extends React.Component {
     constructor(props) {
         super(props);
-        console.log('edit this prop: ', this.props)
+
         this.state = {
             message:''
         }
-        console.log('Edit this: ', this.props);
+       
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-        this.setState({
-           message: event.target.value
-        })
-        console.log('handle change state: ', this.state)
-    }
-
-    handleSubmit = async (event) => {
+    componentDidMount() {
 
         const { user } = this.props
-        console.log('userId: ', user.uid);
+        console.log('userId componentDidMount: ', user.uid)
 
-        let data = {
-            message: this.state.message
-        }
+        db.collection('users').doc(user.uid).get()
+            .then(doc => {
+                if (doc.exists) {
+                    console.log("User data - componentDidMount: ", doc.data())
+                    const data = doc.data()
+                    this.setState({
+                        message: data.message
+                    
+                    })
+                } else {
+                    console.log('No such document!')
+                }
+
+            }).catch(function (error) {
+                console.log("Error getting document: ", error);
+            })
+    }
+
+    handleChange(event) {
+        event.preventDefault();
         
-        await db.collection("users").doc(user.uid).update(data)
-            .then(function () {
-                console.log('data: ', data)
+        this.setState = {
+            message: event.target.value
+        }
+       
+        console.log('message to be submitted: ', this.state.message)
+    }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+
+        const { user } = this.props
+        console.log('userId handleSubmit: ', user.uid);
+
+        let data = this.state;
+
+        const userRef = db.collection("users").doc(user.uid)
+        userRef.update(data)
+            .then(() => {
+                this.setState({
+                    message: data.message
+                })
+                console.log('message: ', data.message)
                 alert('Your account has been updated');
                
 
             }).catch(function (error) {
                 console.error("Error removing document: ", error);
             });
+       
+       
     }
 
     render() {
-        console.log('this.state.data: ', this.state.data)
+        console.log('this.state.data-render: ', this.state)
         
         return (
             <div>
@@ -70,15 +101,13 @@ class AccountEdit extends React.Component {
                         <input
                             type='text'
                             name='message'
-                            value={this.state.message}
+                            value={this.state.value}
                             onChange={this.handleChange}
                             required
                             />
                         </label>
                         <Button variant="contained" color="secondary" type='submit'>Save Changes</Button>
-                    </form>
-
-                    
+                    </form>    
                 </Container>
             </div>
         )

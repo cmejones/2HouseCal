@@ -1,5 +1,6 @@
 import React from "react";
-import { Route, Switch } from "react-router-dom";
+
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
@@ -13,6 +14,8 @@ import ProfileMenu from './components/menu-profile/menu-profile.component';
 import AccountView from './components/account-view/account-view.component';
 import AccountDelete from './components/account-delete/account-delete.component';
 import AccountEdit from './components/account-edit/account-edit.component';
+
+import MyCalendar from './components/calendar-view/calendar-view.component'
 
 
 function App(props) {
@@ -68,8 +71,15 @@ function App(props) {
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
+      <ProtectedRoute
+        exact
+        path="/calendar"
+        component={MyCalendar}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/register" component={Register} />
     </Switch>
   );
 }

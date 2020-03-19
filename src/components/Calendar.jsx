@@ -28,7 +28,7 @@ class MyCalendar extends React.Component {
                     defaultView="month"
                     events={this.state.events}
                     style={{ height: "100vh", width: "80vw" }}
-                    selectable
+                    selectable={true}
                     onSelectSlot={(data) => {console.log(data)}} //create function here to add form
                 />
             </div>
