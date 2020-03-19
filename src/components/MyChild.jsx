@@ -1,5 +1,6 @@
 import React from 'react';
 import { db } from '../firebase/firebase';
+import moment from 'moment';
 
 import { connect } from 'react-redux';
 
@@ -38,7 +39,7 @@ class MyChild extends React.Component {
                     ...doc.data()
                 });
                 //console.log(doc.id, '=>', doc.data()); //showing children
-                //console.log(children, 'children')
+                console.log(children, 'children')
             });
         
             this.setState({
@@ -70,7 +71,7 @@ class MyChild extends React.Component {
                             </div>
                             
                             <div className="" key={this.props.id}>
-                                {/* <p>Birthday: {this.props.birthday}</p> */}
+                                <p>Birthday: {moment(this.props.birthday.toDate()).calendar()}</p>
                                 <p>Blood Type: {this.props.bloodType}</p>
                                 <p>Allergies: {this.props.allergies}</p>
                                 <p>Medications: {this.props.medications}</p>

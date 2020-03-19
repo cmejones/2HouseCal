@@ -2,18 +2,17 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { db } from '../../firebase/firebase';
 import FormInput from '../styles/FormInput/FormInput';
+import moment from 'moment';
 import DatePicker from 'react-datepicker';
 //update to better date picker: https://github.com/clauderic/react-infinite-calendar
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 //import { withStyles } from "@material-ui/styles";
 
-//import Avatar from "@material-ui/core/Avatar";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-//import ImageUpload from '../../ImageUpload';
 
 function mapStateToProps(state) { //need to render redux store
     return {
@@ -35,11 +34,6 @@ const styles = () => ({
         flexDirection: "column",
         alignItems: "center"
     },
-    // avatar: {
-    //     marginLeft: "auto",
-    //     marginRight: "auto",
-    //     backgroundColor: "#f50057"
-    // },
     form: {
         marginTop: 1
     },
@@ -86,6 +80,7 @@ class UpdateChild extends React.Component {
             if (doc.exists) {
                 console.log('child exists!', doc.data());
                 const data = doc.data();
+                //const birthday = `${moment(data.birthday.toDate()).calendar()}`;
                 this.setState({
                     isLoading: false,
                     id: id,
@@ -93,7 +88,7 @@ class UpdateChild extends React.Component {
                     lastName: data.lastName,
                     childPhoto: data.url,
                     bloodType: data.bloodType,
-                    birthday: data.birthday,
+                    //birthday: data.birthday,
                     medications: data.medications,
                     allergies: data.allergies,
                     bedtime: data.bedtime,
@@ -160,6 +155,9 @@ class UpdateChild extends React.Component {
 
     };
     render() {
+        //console.log(this.state.birthday)
+        console.log(this.state);
+        //const birthdayNew = `${moment(this.state.birthday.toDate()).calendar()}`
         const redirectToReferrer = this.state.redirectToReferrer;
         if (redirectToReferrer === true) {
             return <Redirect to="/myAccount" />
@@ -291,9 +289,9 @@ class UpdateChild extends React.Component {
                                     label="Bedtime"/>
                             </div>
                         </div>
-                            {/* <div className="field">
+                            <div className="field">
                             <div className="control">
-                    
+                                {/* `${moment(this.state.birthday.toDate()).calendar()}` */}
                                 <DatePicker
                                     dateFormat="MM/dd/yyyy"
                                     time={false}
@@ -307,7 +305,7 @@ class UpdateChild extends React.Component {
                                     label="Birthday"
                                 />
                             </div>
-                        </div>  */}
+                        </div> 
 
                         <div className="field">
                             <div className="control">
