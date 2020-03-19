@@ -61,7 +61,7 @@ class MyChild extends React.Component {
                     {/* <a href={link}> */}
                         <div className="card medium" key={this.props.id} id={this.props.id}>
                         <div className="card-image">
-                            <img className="product-image pos-rel responsive-img" alt={this.props.firstName} src={`${this.state.childPhoto}`} />
+                            <img className="responsive-img" alt={this.props.firstName} src={`${this.props.url}`} />
                         </div>
                         
                         <div className="card-content">

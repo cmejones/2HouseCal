@@ -68,6 +68,7 @@ class UpdateChild extends React.Component {
         //console.log('edit', this.props);
 
         this.handleChange = this.handleChange.bind(this);
+        this.handleImageChange = this.handleImageChange.bind(this); //image
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -88,12 +89,13 @@ class UpdateChild extends React.Component {
                     id: id,
                     firstName: data.firstName,
                     lastName: data.lastName,
-                    childPhoto: data.childPhoto,
+                    childPhoto: data.url,
                     bloodType: data.bloodType,
                     birthday: data.birthday,
                     medications: data.medications,
                     allergies: data.allergies,
-                    bedtime: data.bedtime
+                    bedtime: data.bedtime,
+                    url: data.url
                 })            
             } else {
                 console.log('no doc');
@@ -104,6 +106,10 @@ class UpdateChild extends React.Component {
         })
     }
     
+    handleImageChange(event) {
+        this.setState({childPhoto: event.target.url});
+    }
+
     handleSelectChange(event) {
         this.setState({bloodType: event.target.value});
     }
@@ -139,7 +145,7 @@ class UpdateChild extends React.Component {
         this.setState({
             firstName: data.firstName,
             lastName: data.lastName,
-            childPhoto: data.childPhoto,
+            childPhoto: data.url,
             bloodType: data.bloodType,
             birthday: data.birthday,
             medications: data.medications,
@@ -156,7 +162,7 @@ class UpdateChild extends React.Component {
             <Container component="main" maxWidth="xs">
                 <Paper className={styles.paper}>
                     <Avatar className={styles.avatar}>
-                        
+                        <img class="cicle" src={this.state.url} />
                     </Avatar>
                     <Typography component="h1" variant="h5">
                         Update Child Details
@@ -191,14 +197,35 @@ class UpdateChild extends React.Component {
 
                         <div className="field">
                             <div className="control">
-                                <ImageUpload
-                                    className="input" 
-                                    name="childPhoto" 
-                                    component="input" 
-                                    type="text" 
-                                    value={this.state.childPhoto}
-                                    onChange={this.handleChange}
-                                    label="Child Photo"/>
+                                <div className="center">
+                                    <div className="row">
+                                        <progress value={this.state.progress} max="100" className="progress" />
+                                    </div>
+
+                                    <div className="file-field input-field">
+                                        <div className="btn">
+                                            <span>File</span>
+                                            <input type="file" onChange={this.handleImageChange} />
+                                        </div>
+                                        <div className="file-path-wrapper">
+                                            <input className="file-path validate" type="text" />
+                                        </div>
+                                    </div>
+                                    <a
+                                    onClick={this.handleImageUpload}
+                                    className="btn"
+                                    >
+                                    Upload
+                                    </a>
+                                    <br />
+                                    <img
+                                    class="responsive-img"
+                                    src={this.state.url || "https://via.placeholder.com/400x300"}
+                                    alt="Uploaded Images"
+                                    height="300"
+                                    width="400"
+                                    />
+                                </div>
                             </div>
                         </div>
 

@@ -14,7 +14,7 @@ class ImageUpload extends Component {
         };
     }
 
-    handleChange = e => {
+    handleImageChange = e => {
         if (e.target.files[0]) {
         const image = e.target.files[0];
         this.setState(() => ({ image }));
@@ -59,7 +59,7 @@ class ImageUpload extends Component {
             <div className="file-field input-field">
                 <div className="btn">
                     <span>File</span>
-                    <input type="file" onChange={this.handleChange} />
+                    <input type="file" onChange={this.handleImageChange} />
                 </div>
                 <div className="file-path-wrapper">
                     <input className="file-path validate" type="text" />
@@ -67,18 +67,17 @@ class ImageUpload extends Component {
             </div>
             <button
             onClick={this.handleUpload}
-            className="waves-effect waves-light btn"
+            className="btn"
             >
             Upload
             </button>
-            {/* <br />
             <br />
             <img
             src={this.state.url || "https://via.placeholder.com/400x300"}
             alt="Uploaded Images"
             height="300"
             width="400"
-            /> */}
+            />
         </div>
         );
     }

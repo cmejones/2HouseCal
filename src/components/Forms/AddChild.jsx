@@ -1,5 +1,5 @@
 import React from 'react';
-import { db } from '../../firebase/firebase';
+import { db, storage } from '../../firebase/firebase';
 import FormInput from '../styles/FormInput/FormInput';
 import DatePicker from 'react-datepicker';
 //update to better date picker: https://github.com/clauderic/react-infinite-calendar
@@ -13,6 +13,10 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+
+
+const storageRef = storage.ref();
+const imagesRef = storageRef.child('images');
 
 function mapStateToProps(state) { //need to render redux store
     return {
@@ -56,7 +60,9 @@ class AddChild extends React.Component {
         this.state = {
             firstName: '',
             lastName: '',
-            childPhoto: '',
+            childPhoto: null,
+            url: '',
+            progress: 0,
             bloodType: 'bloodDefault',
             birthday: new Date(),
             allergies: '',
@@ -65,10 +71,53 @@ class AddChild extends React.Component {
             parentId: this.props.user
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleImageChange = this.handleImageChange.bind(this); //image
         this.handleDateChange = this.handleDateChange.bind(this);
         this.handleSelectChange = this.handleSelectChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+        handleImageChange = e => {
+            if (e.target.files[0]) {
+            const childPhoto = e.target.files[0];
+            this.setState(() => ({ childPhoto }));
+            }
+        };
+
+        handleImageUpload = () => {
+        const { childPhoto } = this.state;
+        const uploadTask = storage.ref(`images/${childPhoto.name}`).put(childPhoto);
+        uploadTask.on(
+        "state_changed",
+        snapshot => {
+            // progress function ...
+            const progress = Math.round(
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            this.setState({ progress });
+        },
+        error => {
+            // Error function ...
+            console.log(error);
+        },
+        () => {
+            // complete function ...
+            storage
+            .ref("images")
+            .child(childPhoto.name)
+            .getDownloadURL()
+            .then(url => {
+                this.setState({ 
+                    url,
+                    childPhoto: url
+                });
+            });
+        }
+        );
+    };
+    // handleImageChange(event) {
+    //     this.setState({childPhoto: event.target.url});
+    // }
 
         handleSelectChange(event) {
             this.setState({bloodType: event.target.value});
@@ -89,19 +138,23 @@ class AddChild extends React.Component {
             this.setState({
                 [name]: value
             })
+            console.log(this.state, "handle change");
         }
 
         handleSubmit = async event => {
             event.preventDefault();
 
             const data = this.state;
+            console.log(data, 'data');
 
             let setDoc = db.collection('children').doc().set(data);
 
             this.setState({
                 firstName: '',
                 lastName: '',
-                childPhoto: '',
+                //childPhoto: null,
+                url: '',
+                progress: 0,
                 bloodType: 'bloodDefault',
                 birthday: new Date(),
                 medications: '',
@@ -155,14 +208,34 @@ class AddChild extends React.Component {
 
                         <div className="field">
                             <div className="control">
-                                <FormInput
-                                    className="input" 
-                                    name="childPhoto" 
-                                    component="input" 
-                                    type="text" 
-                                    value={this.state.childPhoto}
-                                    onChange={this.handleChange}
-                                    label="Child Photo"/>
+                                <div className="center">
+                                    <div className="row">
+                                        <progress value={this.state.progress} max="100" className="progress" />
+                                    </div>
+
+                                    <div className="file-field input-field">
+                                        <div className="btn">
+                                            <span>File</span>
+                                            <input type="file" onChange={this.handleImageChange} />
+                                        </div>
+                                        <div className="file-path-wrapper">
+                                            <input className="file-path validate" type="text" />
+                                        </div>
+                                    </div>
+                                    <a
+                                    onClick={this.handleImageUpload}
+                                    className="btn"
+                                    >
+                                    Upload
+                                    </a>
+                                    <br />
+                                    <img
+                                    src={this.state.url || "https://via.placeholder.com/400x300"}
+                                    alt="Uploaded Images"
+                                    height="300"
+                                    width="400"
+                                    />
+                                </div>
                             </div>
                         </div>
 
@@ -173,6 +246,7 @@ class AddChild extends React.Component {
                                 
                                 <select value={this.state.bloodType.value} onChange={this.handleSelectChange}>
                                     <option value="bloodDefault">-- Select --</option>
+                                    <option value="oneg">O negative</option>
                                     <option value="opos">O positive</option>
                                     <option value="aneg">A negative</option>
                                     <option value="apos">A positive</option>
