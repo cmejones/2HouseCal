@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { db } from '../../firebase/firebase';
 import FormInput from '../styles/FormInput/FormInput';
 import DatePicker from 'react-datepicker';
@@ -12,7 +13,7 @@ import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import ImageUpload from '../../ImageUpload';
+//import ImageUpload from '../../ImageUpload';
 
 function mapStateToProps(state) { //need to render redux store
     return {
@@ -34,11 +35,11 @@ const styles = () => ({
         flexDirection: "column",
         alignItems: "center"
     },
-    avatar: {
-        marginLeft: "auto",
-        marginRight: "auto",
-        backgroundColor: "#f50057"
-    },
+    // avatar: {
+    //     marginLeft: "auto",
+    //     marginRight: "auto",
+    //     backgroundColor: "#f50057"
+    // },
     form: {
         marginTop: 1
     },
@@ -63,7 +64,8 @@ class UpdateChild extends React.Component {
             allergies: '',
             medications: '',
             bedtime: '',
-            parentId: this.props.user
+            parentId: this.props.user,
+            redirectToReferrer: false
         };
         //console.log('edit', this.props);
 
@@ -151,13 +153,17 @@ class UpdateChild extends React.Component {
             medications: data.medications,
             allergies: data.allergies,
             bedtime: data.bedtime,
-            id: data.id
+            id: data.id,
+            redirectToReferrer: true
 
         })
 
     };
     render() {
-        //console.log(this.state, 'this state');
+        const redirectToReferrer = this.state.redirectToReferrer;
+        if (redirectToReferrer === true) {
+            return <Redirect to="/myAccount" />
+        }
         return (
             <Container component="main" maxWidth="xs">
                 <Paper className={styles.paper}>
@@ -165,6 +171,40 @@ class UpdateChild extends React.Component {
                         Update Child Details
                     </Typography>
                     <form className="form" onSubmit={this.handleSubmit}>
+                        <div className="field">
+                            <div className="control">
+                                <div className="center">
+                                    {/* <div className="row">
+                                        <progress value={this.state.progress} max="100" className="progress" />
+                                    </div>
+
+                                    <div className="file-field input-field">
+                                        <div className="btn">
+                                            <span>File</span>
+                                            <input type="file" onChange={this.handleImageChange} />
+                                        </div>
+                                        <div className="file-path-wrapper">
+                                            <input className="file-path validate" type="text" />
+                                        </div>
+                                    </div>
+                                    <a
+                                    onClick={this.handleImageUpload}
+                                    className="btn"
+                                    >
+                                    Upload
+                                    </a>
+                                    <br /> */}
+                                    <img
+                                    className="responsive-img"
+                                    src={this.state.url || "https://via.placeholder.com/400x300"}
+                                    alt="Uploaded Images"
+                                    height="300"
+                                    width="400"
+                                    />
+                                </div>
+                            </div>
+                        </div>
+
                         <div className="field">
                             <div className="control">
                                 {/* <label className="label">First Name</label> */}
@@ -194,58 +234,25 @@ class UpdateChild extends React.Component {
 
                         <div className="field">
                             <div className="control">
-                                <div className="center">
-                                    <div className="row">
-                                        <progress value={this.state.progress} max="100" className="progress" />
-                                    </div>
-
-                                    <div className="file-field input-field">
-                                        <div className="btn">
-                                            <span>File</span>
-                                            <input type="file" onChange={this.handleImageChange} />
-                                        </div>
-                                        <div className="file-path-wrapper">
-                                            <input className="file-path validate" type="text" />
-                                        </div>
-                                    </div>
-                                    <a
-                                    onClick={this.handleImageUpload}
-                                    className="btn"
-                                    >
-                                    Upload
-                                    </a>
-                                    <br />
-                                    <img
-                                    className="responsive-img"
-                                    src={this.state.url || "https://via.placeholder.com/400x300"}
-                                    alt="Uploaded Images"
-                                    height="300"
-                                    width="400"
-                                    />
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* <div className="field">
-                            <div className="control">
                                 <div className="group">
                                     <label className="label" type="text">Blood Type 
                                 
-                                <select value={this.state.bloodType.value} onChange={this.handleSelectChange}>
+                                <select value={this.state.bloodType} onChange={this.handleSelectChange}>
                                     <option value="bloodDefault">-- Select --</option>
-                                    <option value="opos">O positive</option>
-                                    <option value="aneg">A negative</option>
-                                    <option value="apos">A positive</option>
-                                    <option value="bneg">B negative</option>
-                                    <option value="bpos">B positive</option>
-                                    <option value="abneg">AB negative</option>
-                                    <option value="abpos">AB positive</option>
+                                    <option value="O negative">O negative</option>                                   
+                                    <option value="O positive">O positive</option>
+                                    <option value="A negative">A negative</option>
+                                    <option value="A positive">A positive</option>
+                                    <option value="B negative">B negative</option>
+                                    <option value="B positive">B positive</option>
+                                    <option value="AB negative">AB negative</option>
+                                    <option value="AB positive">AB positive</option>
                                 </select>
 
                                 </label>
                             </div>
                             </div>
-                        </div>  */}
+                        </div> 
 
                         <div className="field">
                             <div className="control">
