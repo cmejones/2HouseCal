@@ -33,6 +33,10 @@ class AccountDelete extends React.Component {
         db.collection("users").doc(user.uid).delete()
             .then(function () {
                 alert('Your account has been deleted');
+                this.setState = {
+                    user: []
+                }
+                
         }).catch(function (error) {
             console.error("Error removing document: ", error);
         });

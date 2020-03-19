@@ -9,9 +9,10 @@ import Register from './pages/Register';
 //import AddChild from "./components/Forms/AddChild";
 import AddChildPage from './pages/AddChildPage';
 
-import ProfileMenu from './components/menu-profile/menu-profile.component'
-import AccountView from './components/account-view/account-view.component'
-import AccountDelete from './components/account-delete/account-delete.component'
+import ProfileMenu from './components/menu-profile/menu-profile.component';
+import AccountView from './components/account-view/account-view.component';
+import AccountDelete from './components/account-delete/account-delete.component';
+import AccountEdit from './components/account-edit/account-edit.component';
 
 
 function App(props) {
@@ -50,6 +51,13 @@ function App(props) {
         exact
         path="/account/view"
         component={AccountView}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+       <ProtectedRoute
+        exact
+        path="/account/edit"
+        component={AccountEdit}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
