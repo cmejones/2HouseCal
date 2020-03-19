@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { db } from '../../firebase/firebase';
 
 import Container from '@material-ui/core/Container';
+import ProfileMenu from '../menu-profile/menu-profile.component'
 import './account-view.styles.css';
 
 function mapStateToProps(state) { //need to render redux store
@@ -46,6 +47,7 @@ class AccountView extends React.Component {
         console.log('this.state.data: ', this.state.data)
         return (
             <div>
+                <ProfileMenu />
                 <h1>Your Account</h1>
                 <Container maxWidth='sm' >  
                     <div className='userProfileView'>

@@ -4,8 +4,9 @@ import { db } from '../../firebase/firebase';
 
 
 import Container from '@material-ui/core/Container';
-import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button';
 
+import ProfileMenu from '../menu-profile/menu-profile.component'
 import './account-delete.styles.css';
 
 function mapStateToProps(state) { 
@@ -41,6 +42,7 @@ class AccountDelete extends React.Component {
         console.log('this.state.data: ', this.state.data)
         return (
             <div>
+                <ProfileMenu />
                 <Container maxWidth='sm'>
                     <h4>Delete Account?</h4>
                     <Button variant="contained" color="secondary" onClick={this.handleClick}>Delete</Button>
