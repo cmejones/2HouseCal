@@ -11,8 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-
-// import CustomButton from '../components/styles/CustomButton/CustomButton';
+import Header from '../components/header/header.component';
 
 // import { auth, signInWithGoogle } from '../firebase/firebase';
 
@@ -69,6 +68,9 @@ class Login extends Component {
             return <Redirect to="/" />;
         } else {
             return (
+                <div>
+                    <Header />
+           
                 <Container component="main" maxWidth="xs">
                     <Paper className={classes.paper}>
                     <Avatar className={classes.avatar}>
@@ -112,12 +114,14 @@ class Login extends Component {
                             Sign In
                         </Button>
                     </Paper>
+                    <div>Need an account? Register here!</div>
                     {/* Removing google sign in until can figure out how to put in redux */}
                     {/* <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
                         {' '}
                         Sign in with Google{' '}
                     </CustomButton> */}
                 </Container>
+                     </div>
             );
         }
     }
