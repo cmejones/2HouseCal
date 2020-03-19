@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions";
-import { stat } from "fs";
+//import { stat } from "fs";
 
 class Home extends Component {
     handleLogout = () => {
@@ -10,10 +10,11 @@ class Home extends Component {
     };
     render() {
         const { isLoggingOut, logoutError, user } = this.props; //needed to render redux store
+        console.log(this.props);
         return (
         <div>
             <h1>This is your app's protected area.</h1>
-            <p>{user}</p>
+            {/* <p>{user}</p> */}
             <button onClick={this.handleLogout}>Logout</button>
             {isLoggingOut && <p>Logging Out....</p>}
             {logoutError && <p>Error logging out</p>}

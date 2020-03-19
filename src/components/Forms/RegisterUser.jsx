@@ -13,10 +13,20 @@ class SignUp extends React.Component {
 
         this.state = {
             displayName: '',
+            firstName: '',
+            lastName: '',
             email: '',
             password: '', 
             confirmPassword: ''
         }
+    }
+
+
+    handleChange = event => {
+        const { name, value } = event.target
+
+        this.setState({ [name]: value });
+        console.log(this.state);
     }
 
     handleSubmit = async event => {
@@ -39,6 +49,8 @@ class SignUp extends React.Component {
             
             this.setState({
                 displayName: '',
+                firstName: '',
+                lastName: '',
                 email: '',
                 password: '',
                 confirmPassword: ''
@@ -48,19 +60,32 @@ class SignUp extends React.Component {
         }
     };
 
-    handleChange = event => {
-        const { name, value } = event.target
-
-        this.setState({ [name]: value });
-    }
 
     render() {
-        const { displayName, email, password, confirmPassword } = this.state;
+        const { displayName, firstName, lastName, email, password, confirmPassword } = this.state;
         return (
             <div className='sign-up'>
                 <h2 className='title'>Sign up for an Account</h2>
-                <span>By creating an account, you will be able to view your orders</span>
+                <span>By creating an account, you will be able to utilize all of the 2HouseCal features!</span>
                 <form className='sign-up-form' onSubmit={this.handleSubmit} >
+                    <FormInput
+                        type='text'
+                        name='firstName'
+                        value={firstName}
+                        onChange={this.handleChange}
+                        label='First Name'
+                        required
+                    />
+
+                    <FormInput
+                        type='text'
+                        name='lastName'
+                        value={lastName}
+                        onChange={this.handleChange}
+                        label='Last Name'
+                        required
+                    />
+
                     <FormInput
                         type='email'
                         name='email'
@@ -69,7 +94,7 @@ class SignUp extends React.Component {
                         label='Email'
                         required
                     />
-                
+
                     <FormInput
                         type='password'
                         name='password'
@@ -87,7 +112,6 @@ class SignUp extends React.Component {
                         label='Confirm Password'
                         required
                     />
-
                     <FormInput
                         type='text'
                         name='displayName'
@@ -96,7 +120,6 @@ class SignUp extends React.Component {
                         label='Display Name'
                         required
                     />
-
                     <CustomButton type='submit'>SIGN UP</CustomButton>
                 </form>
                 </div>
