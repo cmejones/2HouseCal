@@ -1,4 +1,5 @@
 import React from 'react';
+import { Redirect } from 'react-router';
 import { db, storage } from '../../firebase/firebase';
 import FormInput from '../styles/FormInput/FormInput';
 import DatePicker from 'react-datepicker';
@@ -38,11 +39,11 @@ const styles = () => ({
         flexDirection: "column",
         alignItems: "center"
     },
-    avatar: {
-        marginLeft: "auto",
-        marginRight: "auto",
-        backgroundColor: "#f50057"
-    },
+    // avatar: {
+    //     marginLeft: "auto",
+    //     marginRight: "auto",
+    //     backgroundColor: "#f50057"
+    // },
     form: {
         marginTop: 1
     },
@@ -68,7 +69,8 @@ class AddChild extends React.Component {
             allergies: '',
             medications: '',
             bedtime: '',
-            parentId: this.props.user
+            parentId: this.props.user,
+            redirectToReferrer: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleImageChange = this.handleImageChange.bind(this); //image
@@ -159,13 +161,18 @@ class AddChild extends React.Component {
                 birthday: new Date(),
                 medications: '',
                 allergies: '',
-                bedtime: ''
+                bedtime: '',
+                redirectToReferrer: true
 
             })
         //update here
 
     };
     render() {
+        const redirectToReferrer = this.state.redirectToReferrer;
+        if (redirectToReferrer === true) {
+            return <Redirect to="/myAccount" />
+        }
         console.log(this.state, 'this state');
        // const { user } = this.props; //needed to render redux store
 
@@ -247,14 +254,14 @@ class AddChild extends React.Component {
                                 
                                 <select value={this.state.bloodType.value} onChange={this.handleSelectChange}>
                                     <option value="bloodDefault">-- Select --</option>
-                                    <option value="oneg">O negative</option>
-                                    <option value="opos">O positive</option>
-                                    <option value="aneg">A negative</option>
-                                    <option value="apos">A positive</option>
-                                    <option value="bneg">B negative</option>
-                                    <option value="bpos">B positive</option>
-                                    <option value="abneg">AB negative</option>
-                                    <option value="abpos">AB positive</option>
+                                    <option value="O negative">O negative</option>
+                                    <option value="O positive">O positive</option>
+                                    <option value="A negative">A negative</option>
+                                    <option value="A positive">A positive</option>
+                                    <option value="B negative">B negative</option>
+                                    <option value="B positive">B positive</option>
+                                    <option value="AB negative">AB negative</option>
+                                    <option value="AB positive">AB positive</option>
                                 </select>
     
                                 </label>
