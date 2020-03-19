@@ -2,9 +2,22 @@ import React from 'react';
 import { connect } from "react-redux";
 import { db } from '../../firebase/firebase';
 
+import Container from '@material-ui/core/Container';
 import './account-view.styles.css';
 
+function mapStateToProps(state) { //need to render redux store
+    return {
+        user: state.auth.user
+    };
+}
 class AccountView extends React.Component {
+    constructor(props) {
+        super(props);
+        console.log('edit this prop: ', this.props)
+        this.state = {
+            data: []
+        }
+    }
     
     componentDidMount() {
 
@@ -14,11 +27,11 @@ class AccountView extends React.Component {
         const userRef = db.collection('users').doc(user.uid)
        
         userRef.get()
-            .then(snapshot => {
-                if (snapshot.exists) {
-                    console.log("User data: ", snapshot.data)
+            .then(doc => {
+                if (doc.exists) {
+                    console.log("User data: ", doc.data())
                     this.setState({
-                        ...snapshot.data
+                      data: doc.data()
                     })
                 } else {
                     console.log('No such document!')
@@ -30,30 +43,21 @@ class AccountView extends React.Component {
     }
     
     render() {
-        
-        const { user } = this.props;
-        console.log('render props: ', this.props)
+        console.log('this.state.data: ', this.state.data)
         return (
             <div>
-                <div className='userProfileView'>
-                    <h1>This is the account view page</h1>
-                    <p>{user.email}</p>
-                    <p>{user.uid}</p>
-                    <p>{user.displayName}</p>
-                   
-                </div>
+                <h1>Your Account</h1>
+                <Container maxWidth='sm' >  
+                    <div className='userProfileView'>
+                    <p>username: {this.state.data.displayName}</p>
+                    <p>email: {this.state.data.email}</p>
+                        <p>message: {this.state.data.message}</p>
+                    </div>   
+                </Container>
             </div>
 
         )
     }
-}
-
-function mapStateToProps(state) { //need to render redux store
-    return {
-
-        user: state.auth.user
-    };
-
 }
 
 

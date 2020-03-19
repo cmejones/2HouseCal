@@ -58,13 +58,13 @@ class AddChild extends React.Component {
 
             const data = this.state;
 
-            let setDoc = db.collection('children').doc().set(data);
+             db.collection('children').doc().set(data);
 
         //update here
 
     };
     render() {
-        const { firstName, lastName, birthday, bloodType, childPhoto } = this.state;
+        // const { firstName, lastName, birthday, bloodType, childPhoto } = this.state;
         console.log(this.state, 'this state');
 
         return (
