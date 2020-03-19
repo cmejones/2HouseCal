@@ -80,7 +80,6 @@ class UpdateChild extends React.Component {
             if (doc.exists) {
                 console.log('child exists!', doc.data());
                 const data = doc.data();
-                //const birthday = `${moment(data.birthday.toDate()).calendar()}`;
                 this.setState({
                     isLoading: false,
                     id: id,
@@ -88,7 +87,7 @@ class UpdateChild extends React.Component {
                     lastName: data.lastName,
                     childPhoto: data.url,
                     bloodType: data.bloodType,
-                    //birthday: data.birthday,
+                    birthday: data.birthday.toDate(),
                     medications: data.medications,
                     allergies: data.allergies,
                     bedtime: data.bedtime,
@@ -156,8 +155,7 @@ class UpdateChild extends React.Component {
     };
     render() {
         //console.log(this.state.birthday)
-        console.log(this.state);
-        //const birthdayNew = `${moment(this.state.birthday.toDate()).calendar()}`
+        //console.log(this.state);
         const redirectToReferrer = this.state.redirectToReferrer;
         if (redirectToReferrer === true) {
             return <Redirect to="/myAccount" />
@@ -291,7 +289,6 @@ class UpdateChild extends React.Component {
                         </div>
                             <div className="field">
                             <div className="control">
-                                {/* `${moment(this.state.birthday.toDate()).calendar()}` */}
                                 <DatePicker
                                     dateFormat="MM/dd/yyyy"
                                     time={false}
