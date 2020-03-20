@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "../actions";
+import Header from '../components/header/header.component';
 //import { stat } from "fs";
+import '../index.css';
 
 class Home extends Component {
     handleLogout = () => {
@@ -13,11 +15,9 @@ class Home extends Component {
         console.log(this.props);
         return (
         <div>
-            <h1>This is your app's protected area.</h1>
-            {/* <p>{user}</p> */}
-            <button onClick={this.handleLogout}>Logout</button>
-            {isLoggingOut && <p>Logging Out....</p>}
-            {logoutError && <p>Error logging out</p>}
+            <Header />
+            <img className='responsive-img home-logo' src="https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df" />
+
         </div>
         );
     }

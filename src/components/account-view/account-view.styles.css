@@ -1,6 +1,8 @@
 body {
     margin: 0 auto;
-    padding: 10px;
+    background-color: #F7EEDF;
+    /* padding: 10px; */
+    padding:0 auto;
     text-align: center;
     font-family: 'Roboto', sans-serif;
 }

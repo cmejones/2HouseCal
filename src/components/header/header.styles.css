@@ -1,0 +1,48 @@
+a:link {
+    text-decoration: none; 
+}
+
+nav {
+    background-color: #868736;
+}
+
+nav ul a {
+    color:#4F3D17;
+}
+.logo{
+    width: 60px;
+}
+
+.header {
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 25px;
+    background-color: gray;
+}
+
+/* .logo-container {
+  height: 100%;
+  width: 70px;
+  padding: 25px;
+} */
+
+.options {
+    width: 50%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.option {
+    padding: 10px 15px;
+}
+
+a:hover {
+    color:#000 !important;
+}
+.admin-links {
+    padding-right:10px;
+}

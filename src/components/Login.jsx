@@ -12,7 +12,6 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 
-// import CustomButton from '../components/styles/CustomButton/CustomButton';
 
 // import { auth, signInWithGoogle } from '../firebase/firebase';
 
@@ -20,13 +19,20 @@ import Container from "@material-ui/core/Container";
 const styles = () => ({
     "@global": {
         body: {
-        backgroundColor: "#fff"
+        backgroundColor: "#F7EEDF"
         }
     },
     paper: {
         marginTop: 100,
         display: "flex",
         padding: 20,
+        flexDirection: "column",
+        alignItems: "center"
+    },
+    logo: {
+        marginTop: 0,
+        display: "flex",
+        padding: 0,
         flexDirection: "column",
         alignItems: "center"
     },
@@ -42,6 +48,10 @@ const styles = () => ({
         color: "#f50057",
         marginBottom: 5,
         textAlign: "center"
+    },
+    header: {
+        color:"#4F3D16",
+        paddingTop: 15
     }
 });
 
@@ -69,55 +79,71 @@ class Login extends Component {
             return <Redirect to="/" />;
         } else {
             return (
-                <Container component="main" maxWidth="xs">
-                    <Paper className={classes.paper}>
-                    <Avatar className={classes.avatar}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
-                    </Typography>
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        onChange={this.handleEmailChange}
-                    />
-                    <TextField
-                        variant="outlined"
-                        margin="normal"
-                        fullWidth
-                        name="password"
-                        label="Password"
-                        type="password"
-                        id="password"
-                        onChange={this.handlePasswordChange}
-                    />
-                    {loginError && (
-                        <Typography component="p" className={classes.errorText}>
-                            Incorrect email or password.
+                <div className="row">
+                    <Container className="col m6 hide-on-small-only">
+                        
+                            <div className={classes.logo}><img className='responsive-img home-logo' src="https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df" />
+                            </div>
+                    </Container>
+                    <Container className="show-on-small hide-on-med-and-up">
+                        
+                        <Typography component="h1" variant="h3" className={classes.header}>
+                            2HouseCal
                         </Typography>
-                    )}
-                        <Button
-                            type="button"
+                        
+                    </Container>
+                    <Container className="col s12 m6" component="main" maxWidth="xs">
+                        <Paper className={classes.paper}>
+                        <Avatar className={classes.avatar}>
+                            <LockOutlinedIcon />
+                        </Avatar>
+                        <Typography component="h1" variant="h5">
+                            Sign in
+                        </Typography>
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
                             fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                            onClick={this.handleSubmit}
-                        >
-                            Sign In
-                        </Button>
-                    </Paper>
-                    {/* Removing google sign in until can figure out how to put in redux */}
-                    {/* <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
-                        {' '}
-                        Sign in with Google{' '}
-                    </CustomButton> */}
-                </Container>
+                            id="email"
+                            label="Email Address"
+                            name="email"
+                            onChange={this.handleEmailChange}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            type="password"
+                            id="password"
+                            onChange={this.handlePasswordChange}
+                        />
+                        {loginError && (
+                            <Typography component="p" className={classes.errorText}>
+                                Incorrect email or password.
+                            </Typography>
+                        )}
+                            <Button
+                                type="button"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={classes.submit}
+                                onClick={this.handleSubmit}
+                            >
+                                Sign In
+                            </Button>
+                        </Paper>
+                        <Typography component="h1" variant="h5">Need an account? <a href="/register">Register here!</a>
+                        </Typography>
+                        {/* Removing google sign in until can figure out how to put in redux */}
+                        {/* <CustomButton onClick={signInWithGoogle} isGoogleSignIn>
+                            {' '}
+                            Sign in with Google{' '}
+                        </CustomButton> */}
+                    </Container>
+                </div>
             );
         }
     }

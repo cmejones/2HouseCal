@@ -1,0 +1,10 @@
+.ReactModal__Overlay {
+    height:400px;
+    width: 400px;
+    z-index: 1000;
+    left:25%;
+}
+
+.ReactModal__Overlay--after-open {
+    left:25% !important;
+}

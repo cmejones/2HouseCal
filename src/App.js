@@ -11,6 +11,7 @@ import AddChildPage from './pages/AddChildPage';
 import MyChild from "./components/MyChild";
 import UpdateChild from "./components/Forms/UpdateChild";
 import MyAccount from './pages/MyAccount';
+import './App.css';
 
 import ProfileMenu from './components/menu-profile/menu-profile.component';
 import AccountView from './components/account-view/account-view.component';
@@ -62,7 +63,7 @@ function App(props) {
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
-            <ProtectedRoute
+      <ProtectedRoute
         exact
         path="/account"
         component={ProfileMenu}
