@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-
+import { Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/index";
 import FormInput from '../styles/FormInput/FormInput';
 import CustomButton from '../styles/CustomButton/CustomButton';
 import { auth, createUserProfileDocument } from '../../firebase/firebase';
@@ -34,9 +36,6 @@ const styles = () => ({
         paddingTop: 15
     }
 });
-
-
-//import '../../index.css';
 
 class SignUp extends Component {
     constructor() {
@@ -77,93 +76,105 @@ class SignUp extends Component {
             );
 
             await createUserProfileDocument(user, { displayName })
-            
-            this.setState({
-                displayName: '',
-                firstName: '',
-                lastName: '',
-                email: '',
-                password: '',
-                confirmPassword: ''
-            });
+
         } catch (error) {
             console.error(error);
         }
     };
 
+    handleLogin = () => {
+        const { dispatch } = this.props;
+        const { email, password } = this.state;
+
+        dispatch(loginUser(email, password));
+    };
+
+
 
     render() {
-        const { classes } = this.props;
+        const { classes,  loginError, isAuthenticated } = this.props;
         const { displayName, firstName, lastName, email, password, confirmPassword } = this.state;
-        return (
-            <div className='sign-up'>
-                <Typography className={classes.header} component="h1" variant="h3" >Sign up for an Account</Typography>
-                <Typography className={classes.header}>By creating an account, you will be able to utilize all of the 2HouseCal features!</Typography>
-                <Container className="col s12 m6" component="main" maxWidth="xs">
-                    <Paper className={classes.paper}>
-                        <form className='sign-up-form' onSubmit={this.handleSubmit} >
-                            <FormInput
-                                type='text'
-                                name='firstName'
-                                value={firstName}
-                                onChange={this.handleChange}
-                                label='First Name'
-                                required
-                            />
+        if (isAuthenticated) {
+            return <Redirect to="/" />;
+        } else {
+            return (
+            
+                <div className='sign-up'>
+                    <Typography className={classes.header} component="h1" variant="h3" >Sign up for an Account</Typography>
+                    <Typography className={classes.header}>By creating an account, you will be able to utilize all of the 2HouseCal features!</Typography>
+                    <Container className="col s12 m6" component="main" maxWidth="xs">
+                        <Paper className={classes.paper}>
+                            <form className='sign-up-form' onSubmit={this.handleSubmit} >
+                                <FormInput
+                                    type='text'
+                                    name='firstName'
+                                    value={firstName}
+                                    onChange={this.handleChange}
+                                    label='First Name'
+                                    required
+                                />
 
-                            <FormInput
-                                type='text'
-                                name='lastName'
-                                value={lastName}
-                                onChange={this.handleChange}
-                                label='Last Name'
-                                required
-                            />
+                                <FormInput
+                                    type='text'
+                                    name='lastName'
+                                    value={lastName}
+                                    onChange={this.handleChange}
+                                    label='Last Name'
+                                    required
+                                />
 
-                            <FormInput
-                                type='email'
-                                name='email'
-                                value={email}
-                                onChange={this.handleChange}
-                                label='Email'
-                                required
-                            />
+                                <FormInput
+                                    type='text'
+                                    name='displayName'
+                                    value={displayName}
+                                    onChange={this.handleChange}
+                                    label='Display Name'
+                                    required
+                                />
 
-                            <FormInput
-                                type='password'
-                                name='password'
-                                value={password}
-                                onChange={this.handleChange}
-                                label='Password'
-                                required
-                            />
-                        
-                            <FormInput
-                                type='password'
-                                name='confirmPassword'
-                                value={confirmPassword}
-                                onChange={this.handleChange}
-                                label='Confirm Password'
-                                required
-                            />
-                            <FormInput
-                                type='text'
-                                name='displayName'
-                                value={displayName}
-                                onChange={this.handleChange}
-                                label='Display Name'
-                                required
-                            />
-                            <CustomButton type='submit'>SIGN UP</CustomButton>
-                        </form>
-                    </Paper>
-                </Container>
-                </div>
-        )
-    
+                                <FormInput
+                                    type='email'
+                                    name='email'
+                                    value={email}
+                                    onChange={this.handleChange}
+                                    label='Email'
+                                    required
+                                />
+
+                                <FormInput
+                                    type='password'
+                                    name='password'
+                                    value={password}
+                                    onChange={this.handleChange}
+                                    label='Password'
+                                    required
+                                />
+                            
+                                <FormInput
+                                    type='password'
+                                    name='confirmPassword'
+                                    value={confirmPassword}
+                                    onChange={this.handleChange}
+                                    label='Confirm Password'
+                                    required
+                                />
+
+                                <CustomButton type='submit'>SIGN UP</CustomButton>
+                            </form>
+                        </Paper>
+                    </Container>
+                    </div>
+            )
+        }
     }
 }
+function mapStateToProps(state) {
+    console.log(state, 'state');
+    return {
+        isLoggingIn: state.auth.isLoggingIn,
+        loginError: state.auth.loginError,
+        isAuthenticated: state.auth.isAuthenticated
+    };
+}
 
-//export default SignUp;
-
-export default withStyles(styles)(SignUp);
+export default withStyles(styles)(connect(mapStateToProps)(SignUp));
