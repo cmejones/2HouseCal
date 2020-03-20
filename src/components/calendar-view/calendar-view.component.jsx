@@ -46,6 +46,7 @@ renderModal = () => {
     if (!this.state.modalIsOpen) return;
     return(
         <Modal
+        //appElement={el}
         isOpen={this.state.modalIsOpen}
         onAfterOpen={this.afterOpenModal}
         onRequestClose={this.closeModal}
@@ -94,7 +95,8 @@ renderModal = () => {
                 onSelectEvent={event => alert(event.title)}
                 onSelectSlot={this.handleSelect}
             />
-                <button onClick={this.openModal}>Open Modal</button>
+            {/* hidden hyperlink */}
+                <a onClick={this.openModal}></a>
                 {this.renderModal()}
         </>
         )
