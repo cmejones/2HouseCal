@@ -26,6 +26,25 @@ class MyCalendar extends React.Component {
         }  
     }
 
+    async componentDidMount() {
+        const { user } = this.props;
+
+        let myEventsRef = await db.collection("events").doc(user.uid).collection("myEvents")
+        console.log(myEventsRef)
+        myEventsRef.get()
+        .then(function(querySnapshot) {
+            
+            querySnapshot.forEach(function(doc) {
+                // doc.data() is never undefined for query doc snapshots
+                console.log('hello')
+                console.log(doc.id, " => ", doc.data());
+            });
+        })
+        .catch(function(error) {
+            console.log("Error getting documents: ", error);
+        });
+    }
+
     handleSelect = ({ start, end }) => {
 
          const { user } = this.props
