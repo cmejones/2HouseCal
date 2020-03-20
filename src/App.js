@@ -1,11 +1,10 @@
 import React from "react";
 
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
 import Login from "./components/Login";
-import Calendar from './components/Calendar';
 import Register from './pages/Register';
 //import AddChild from "./components/Forms/AddChild";
 import AddChildPage from './pages/AddChildPage';
@@ -26,13 +25,6 @@ function App(props) {
         exact
         path="/"
         component={Home}
-        isAuthenticated={isAuthenticated}
-        isVerifying={isVerifying}
-      />
-      <ProtectedRoute
-        exact
-        path="/calendar"
-        component={Calendar}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />

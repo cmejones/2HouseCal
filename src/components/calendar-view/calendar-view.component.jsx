@@ -1,25 +1,20 @@
 import React from 'react';
+// import { propTypes } from 'react'
 import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-// import _ from 'lodash'
 
 const localizer = momentLocalizer(moment);
 
 const propTypes = {}
-
 class MyCalendar extends React.Component {
     constructor(...args) {
         super(...args);
     
         this.state = {
             events: []
-     
-        }   
-    //  this.handleSelect = this.handleSelect.bind(this)   
-    
-      
+        }  
     }
 
     handleSelect = ({ start, end }) => {
@@ -37,8 +32,9 @@ class MyCalendar extends React.Component {
       })
   }
 
-        render() {
-            const { localizer } = this.props
+    render() {
+        
+            // const { localizer } = this.props
             return (
                 <div>
                     <Calendar
