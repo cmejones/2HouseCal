@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 //import '../components/products/products.css';
 import MyChild from '../components/MyChild';
+import Header from '../components/header/header.component';
 
 function mapStateToProps(state) { //need to render redux store
     return {
@@ -66,6 +67,7 @@ class MyAccount extends Component {
         return (
             this.state.isLoading ? <div>I am loading</div> :
             <div className="dashboard">
+                <Header />
 
                 <div className="container">
                     <div className="row">

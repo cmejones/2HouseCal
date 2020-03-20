@@ -27,6 +27,7 @@ class Header extends React.Component {
         </Link>
         <ul id='nav-mobile' className='right hide-on-med-and-down'>
             <li><Link className='option' to='/myAccount'>My Account</Link></li>
+            <li><Link className='option' to='/addChild'>Add Child</Link></li>
             <li><Link className='option'><ProfileMenu /></Link></li>
             <li><Link onClick={this.handleLogout}>Logout</Link></li>
             {isLoggingOut && <p>Logging Out....</p>}

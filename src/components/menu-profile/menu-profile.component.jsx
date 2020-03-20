@@ -63,7 +63,7 @@ export default function ProfileMenu() {
                 aria-haspopup="true"
                 onClick={handleToggle}
             >
-                YOUR ACCOUNT
+                Manage Profile
         </Button>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
