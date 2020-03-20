@@ -84,14 +84,14 @@ renderModal = () => {
                 </strong>
             </ExampleControlSlot.Entry>
             <Calendar
-                style={{ height: "100vh", width: "80vw" }}
+                style={{ height: "100vh", width: "60vw" }}
                 //onSelectSlot={(data) => {console.log(data)}} //create function here to add form
                 selectable
                 localizer={localizer}
                 events={this.state.events}
                 defaultView={Views.MONTH}
                 scrollToTime={new Date(1970, 1, 1, 6)}
-                defaultDate={new Date(2020, 3, 12)}
+                defaultDate={new Date()}
                 onSelectEvent={event => alert(event.title)}
                 onSelectSlot={this.handleSelect}
             />
