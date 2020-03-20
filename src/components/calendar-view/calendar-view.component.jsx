@@ -1,7 +1,7 @@
 import React from 'react'
 import { Calendar, Views, momentLocalizer } from 'react-big-calendar'
 import { db } from '../../firebase/firebase';
-import ExampleControlSlot from './ExampleControlSlot'
+import { connect } from 'react-redux';
 import moment from 'moment';
 import Modal from 'react-modal';
 import DatePicker from 'react-datepicker';
@@ -14,20 +14,60 @@ import './calendar-view.styles.css';
 const localizer = momentLocalizer(moment);
 
 const propTypes = {}
-const events = [];
+//const events = [];
+
+function mapStateToProps(state) { //need to render redux store
+    return {
+        user: state.auth.user.uid
+       // userName: state.auth.user.firstName + state.auth.user.lastName
+    };
+}
 
 class CalendarView extends React.Component {
     
-    constructor(...args) {
-        super(...args)
+    constructor(props) {
+        super(props)
 
-        this.state = { events }
+        this.state = { 
+            events:[],
+            parentId: this.props.user
+        }
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
    // this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    async getEvents() {}
+
+    componentDidMount() {
+        //console.log('here');
+        let parentId = this.props.user;
+        console.log(this.props, 'user');
+        //const eventsRef = db.collection('events').where('parentId', '==', parentId)
+        const eventsRef = db.collection('events')
+    
+        eventsRef.get()
+        .then(snapshot => {
+            let events = [];
+            snapshot.forEach(doc => {
+                events.push({
+                    id:doc.id,
+                    ...doc.data()
+                });
+                //console.log(doc.id, '=>', doc.data()); //showing children
+                console.log(events, 'events')
+            });
+        
+            this.setState({
+                events: events
+            })
+        })
+        .catch(err => {
+            console.log('error getting children information', err);
+        })
     }
 
     handleSelect = ({ start, end }) => {
@@ -119,8 +159,14 @@ class CalendarView extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-
-        const data = this.state;
+        console.log(this.state)
+        //add each field here or events will be nested in db
+        const data = {
+            title: this.state.title,
+            start: this.state.start,
+            end: this.state.end,
+            parentId: this.state.parentId
+        }
         console.log(data, 'data');
 
         let setDoc = db.collection('events').doc().set(data);
@@ -133,25 +179,18 @@ class CalendarView extends React.Component {
     };
 
     render() {
-        console.log(this.state);
+
         //const { localizer } = this.props
         return (
         <>
-            {/* <ExampleControlSlot.Entry waitForOutlet>
-                <strong>
-                    Click an event to see more info, or drag the mouse over the calendar
-                    to select a date/time range.
-                </strong>
-            </ExampleControlSlot.Entry> */}
             <Calendar
                 style={{ height: "100vh", width: "60vw" }}
-                //onSelectSlot={(data) => {console.log(data)}} //create function here to add form
                 selectable
                 localizer={localizer}
                 events={this.state.events}
                 defaultView={Views.MONTH}
-                startAccessor="start"
-                endAccessor="end"
+                startAccessor='start'
+                endAccessor='end'
                 scrollToTime={new Date()}
                 defaultDate={new Date()}
                 onSelectEvent={event => alert(event.title)}
@@ -167,4 +206,4 @@ class CalendarView extends React.Component {
 
 CalendarView.propTypes = propTypes
 
-export default CalendarView;
+export default connect(mapStateToProps)(CalendarView);
