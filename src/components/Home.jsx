@@ -17,9 +17,7 @@ class Home extends Component {
         <div>
             <Header />
             <img className='responsive-img home-logo' src="https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df" />
-            <button onClick={this.handleLogout}>Logout</button>
-            {isLoggingOut && <p>Logging Out....</p>}
-            {logoutError && <p>Error logging out</p>}
+
         </div>
         );
     }
