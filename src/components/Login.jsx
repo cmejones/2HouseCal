@@ -11,7 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
-import Header from '../components/header/header.component';
+
 
 // import { auth, signInWithGoogle } from '../firebase/firebase';
 
