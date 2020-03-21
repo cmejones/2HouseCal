@@ -8,7 +8,6 @@ import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 import { withStyles } from "@material-ui/styles";
 
-import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -39,11 +38,6 @@ const styles = () => ({
         flexDirection: "column",
         alignItems: "center"
     },
-    // avatar: {
-    //     marginLeft: "auto",
-    //     marginRight: "auto",
-    //     backgroundColor: "#f50057"
-    // },
     form: {
         marginTop: 1
     },
@@ -81,45 +75,10 @@ class AddChild extends React.Component {
 
         handleImageChange = e => {
             if (e.target.files[0]) {
-            const childPhoto = e.target.files[0];
-            this.setState(() => ({ childPhoto }));
+                const childPhoto = e.target.files[0];
+                this.setState(() => ({ childPhoto }));     
             }
         };
-
-        handleImageUpload = () => {
-        const { childPhoto } = this.state;
-        const uploadTask = storage.ref(`images/${childPhoto.name}`).put(childPhoto);
-        uploadTask.on(
-        "state_changed",
-        snapshot => {
-            // progress function ...
-            const progress = Math.round(
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-            this.setState({ progress });
-        },
-        error => {
-            // Error function ...
-            console.log(error);
-        },
-        () => {
-            // complete function ...
-            storage
-            .ref("images")
-            .child(childPhoto.name)
-            .getDownloadURL()
-            .then(url => {
-                this.setState({ 
-                    url,
-                    childPhoto: url
-                });
-            });
-        }
-        );
-    };
-    // handleImageChange(event) {
-    //     this.setState({childPhoto: event.target.url});
-    // }
 
         handleSelectChange(event) {
             this.setState({bloodType: event.target.value});
@@ -145,29 +104,53 @@ class AddChild extends React.Component {
 
         handleSubmit = async event => {
             event.preventDefault();
-
-            const data = this.state;
-            console.log(data, 'data');
-
-            let setDoc = db.collection('children').doc().set(data);
-
-            this.setState({
-                firstName: '',
-                lastName: '',
-                //childPhoto: null,
-                url: '',
-                progress: 0,
-                bloodType: 'bloodDefault',
-                birthday: new Date(),
-                medications: '',
-                allergies: '',
-                bedtime: '',
-                redirectToReferrer: true
-
-            })
-        //update here
-
-    };
+            const { childPhoto } = this.state;
+            const uploadTask = storage.ref(`images/${childPhoto.name}`).put(childPhoto);
+            uploadTask.on(
+            "state_changed",
+            snapshot => {
+                // progress function ...
+                const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                this.setState({ progress });
+            },
+            error => {
+                // Error function ...
+                console.log(error);
+            },
+            () => {
+                // complete function ...
+                storage
+                .ref("images")
+                .child(childPhoto.name)
+                .getDownloadURL()
+                .then(url => {
+                    this.setState({ 
+                        url,
+                        childPhoto: null
+                    });
+                    return db.collection('children').doc().set(this.state)
+                    .then (() => 
+                        this.setState({
+                            firstName: '',
+                            lastName: '',
+                            childPhoto: null,
+                            url: '',
+                            progress: 0,
+                            bloodType: 'bloodDefault',
+                            birthday: new Date(),
+                            medications: '',
+                            allergies: '',
+                            bedtime: '',
+                            redirectToReferrer: true
+                                    
+                        }))
+                    })
+                });
+            };
+        
+    
     render() {
         const redirectToReferrer = this.state.redirectToReferrer;
         if (redirectToReferrer === true) {
@@ -177,11 +160,8 @@ class AddChild extends React.Component {
        // const { user } = this.props; //needed to render redux store
 
         return (
-                <Container component="main" maxWidth="xs">
-                    <Paper className={styles.paper}>
-                    <Avatar className={styles.avatar}>
-                        
-                    </Avatar>
+            <Container component="main" maxWidth="xs">
+                <Paper className={styles.paper}>
                     <Typography component="h1" variant="h5">
                         Add Child Details
                     </Typography>
@@ -190,9 +170,9 @@ class AddChild extends React.Component {
                             <div className="control">
                                 {/* <label className="label">First Name</label> */}
                                 <FormInput
-                                    className="input" 
+                                    className="form-input" 
                                     name="firstName" 
-                                    component="input" 
+                                    component="" 
                                     type="text" 
                                     value={this.state.firstName}
                                     onChange={this.handleChange}
@@ -203,7 +183,7 @@ class AddChild extends React.Component {
                         <div className="field">
                             <div className="control">
                                 <FormInput
-                                    className="input" 
+                                    className="form-input" 
                                     name="lastName" 
                                     component="input" 
                                     type="text" 
@@ -213,66 +193,49 @@ class AddChild extends React.Component {
                             </div>
                         </div>
 
+                        <div className="field center">
+                            <div className="file-field">
+                                <Button className="waves-effect orange accent-2">
+                                    <input type="file" onChange={this.handleImageChange} />
+                                    Browse for Image
+                                </Button>
+                                <div className="">
+                                    <input className="file-path validate" type="text" />
+                                </div>
+                            </div>
+                            <img
+                            className="responsive-img"
+                            src={this.state.childPhoto ? URL.createObjectURL(this.state.childPhoto) : "https://via.placeholder.com/400x300"}
+                            alt="Uploaded Images"
+                            height="300"
+                            width="400"
+                            />
+                        </div>
+
                         <div className="field">
                             <div className="control">
-                                <div className="center">
-                                    <div className="row">
-                                        <progress value={this.state.progress} max="100" className="progress" />
-                                    </div>
-
-                                    <div className="file-field input-field">
-                                        <div className="btn">
-                                            <span>File</span>
-                                            <input type="file" onChange={this.handleImageChange} />
-                                        </div>
-                                        <div className="file-path-wrapper">
-                                            <input className="file-path validate" type="text" />
-                                        </div>
-                                    </div>
-                                    <a
-                                    onClick={this.handleImageUpload}
-                                    className="btn"
-                                    >
-                                    Upload
-                                    </a>
-                                    <br />
-                                    <img
-                                    className="responsive-img"
-                                    src={this.state.url || "https://via.placeholder.com/400x300"}
-                                    alt="Uploaded Images"
-                                    height="300"
-                                    width="400"
-                                    />
+                                <div className="group">
+                                    <label className="label" type="text">Blood Type                               
+                                        <select value={this.state.bloodType.value} onChange={this.handleSelectChange}>
+                                            <option value="bloodDefault">-- Select --</option>
+                                            <option value="O negative">O negative</option>
+                                            <option value="O positive">O positive</option>
+                                            <option value="A negative">A negative</option>
+                                            <option value="A positive">A positive</option>
+                                            <option value="B negative">B negative</option>
+                                            <option value="B positive">B positive</option>
+                                            <option value="AB negative">AB negative</option>
+                                            <option value="AB positive">AB positive</option>
+                                        </select>
+                                    </label>
                                 </div>
                             </div>
                         </div>
 
                         <div className="field">
                             <div className="control">
-                                <div className="group">
-                                    <label className="label" type="text">Blood Type 
-                                
-                                <select value={this.state.bloodType.value} onChange={this.handleSelectChange}>
-                                    <option value="bloodDefault">-- Select --</option>
-                                    <option value="O negative">O negative</option>
-                                    <option value="O positive">O positive</option>
-                                    <option value="A negative">A negative</option>
-                                    <option value="A positive">A positive</option>
-                                    <option value="B negative">B negative</option>
-                                    <option value="B positive">B positive</option>
-                                    <option value="AB negative">AB negative</option>
-                                    <option value="AB positive">AB positive</option>
-                                </select>
-    
-                                </label>
-                            </div>
-                            </div>
-                        </div>
-
-                        <div className="field">
-                            <div className="control">
                                 <FormInput
-                                    className="input" 
+                                    className="form-input" 
                                     name="medications" 
                                     component="input" 
                                     type="text" 
@@ -285,7 +248,7 @@ class AddChild extends React.Component {
                         <div className="field">
                             <div className="control">
                                 <FormInput
-                                    className="input" 
+                                    className="form-input" 
                                     name="allergies" 
                                     component="input" 
                                     type="text" 
@@ -297,7 +260,7 @@ class AddChild extends React.Component {
                         <div className="field">
                             <div className="control">
                                 <FormInput
-                                    className="input" 
+                                    className="form-input" 
                                     name="bedtime" 
                                     component="input" 
                                     type="text" 
@@ -312,7 +275,7 @@ class AddChild extends React.Component {
                                 <DatePicker
                                     dateFormat="MM/dd/yyyy"
                                     time={false}
-                                    //className="input" 
+                                    className="form-input" 
                                     name="birthday" 
                                     component="date" 
                                     type="date" 
@@ -320,13 +283,16 @@ class AddChild extends React.Component {
                                     value={this.state.birthday}
                                     onChange={this.handleDateChange}
                                     label="Birthday"
-                                />
+/>
                             </div>
                         </div>
 
                         <div className="field">
                             <div className="control">
                                 <button>Add Child</button>
+                                <div className="row">
+                                    <progress value={this.state.progress} max="100" className="progress" />
+                                </div>
                             </div>
                         </div>
                     </form>

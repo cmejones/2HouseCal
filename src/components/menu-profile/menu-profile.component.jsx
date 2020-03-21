@@ -57,14 +57,14 @@ export default function ProfileMenu() {
 
     return (
         <div className={classes.root}>
-            <Button
+            <a
                 ref={anchorRef}
                 aria-controls={open ? 'menu-list-grow' : undefined}
                 aria-haspopup="true"
                 onClick={handleToggle}
             >
                 Manage Profile
-        </Button>
+        </a>
             <Popper open={open} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
                 {({ TransitionProps, placement }) => (
                     <Grow

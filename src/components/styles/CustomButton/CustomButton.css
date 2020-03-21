@@ -14,6 +14,9 @@
     cursor: pointer;
 }
 
+.waves-effect .waves-brown .waves-ripple {
+    background-color: rgba(121, 85, 72, 0.65);
+}
 .custom-button:hover {
     background-color: white;
     color: #4F3D16;

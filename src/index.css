@@ -21,3 +21,11 @@ select {
   padding-top:.5em;
 }
 
+.card.medium .card-content {
+  max-height:90%;
+}
+
+.card.medium .card-image {
+  max-height:40%;
+}
+

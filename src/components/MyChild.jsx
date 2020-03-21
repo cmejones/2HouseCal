@@ -3,6 +3,7 @@ import { db } from '../firebase/firebase';
 import moment from 'moment';
 
 import { connect } from 'react-redux';
+import '../index.css';
 
 
 function mapStateToProps(state) { //need to render redux store
