@@ -23,7 +23,7 @@ class Header extends React.Component {
 
         <a className="brand-logo left" href='/'>
             Home
-            {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df' /> */}
+            {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' /> */}
         </a>
         <ul id='nav-mobile' className='right hide-on-med-and-down'>
             <li><a href='/myAccount'>My Account</a></li>
