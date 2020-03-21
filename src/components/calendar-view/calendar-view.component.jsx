@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 import Modal from 'react-modal';
 import DatePicker from 'react-datepicker';
+import FormInput from '../styles/FormInput/FormInput';
 //update to better date picker: https://github.com/clauderic/react-infinite-calendar
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -93,45 +94,54 @@ class CalendarView extends React.Component {
             contentLabel="Calender Modal"
             >
 
-                <h2>Add event</h2>
+                <p><strong>ADD EVENT</strong></p>
                 <form onSubmit={this.handleSubmit}>
-                    <input   
-                        className="input" 
-                        name="title" 
-                        component="input" 
-                        type="text" 
-                        value={this.state.title}
-                        onChange={this.handleChange}
-                        label="Title"/>
-                    
-                    <DatePicker
-                        dateFormat="MM/dd/yyyy"
-                        //time={false}
-                        //className="input" 
-                        name="startDate" 
-                        component="date" 
-                        type="date" 
-                        selected={this.state.start}
-                        value={this.state.start}
-                        onChange={this.handleDateChange}
-                        label="Start"
-                    />
-                    <DatePicker
-                        dateFormat="MM/dd/yyyy"
-                        //time={false}
-                        //className="input" 
-                        name="endDate" 
-                        component="date" 
-                        type="date" 
-                        selected={this.state.end}
-                        value={this.state.end}
-                        onChange={this.handleDateChange}
-                        label="End"
-                    />
+                    <div class="input-field col s6">
+                        <FormInput                         
+                            placeholder="Event Title"
+                            className="validate" 
+                            name="title" 
+                            component="input" 
+                            type="text" 
+                            value={this.state.title}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <div class="input-field col s6">
+                        <label>Start</label>
+                        <DatePicker
+                            dateFormat="MM/dd/yyyy"
+                            //time={false}
+                            //className="input" 
+                            name="start" 
+                            component="date" 
+                            type="date" 
+                            selected={this.state.start}
+                            value={this.state.start}
+                            onChange={this.handleDateChange}
+                            label="Start"
+                        />
+                    </div>
+
+                    <div class="input-field col s6">
+                        <label>End</label>
+                        <DatePicker
+                            dateFormat="MM/dd/yyyy"
+                            //time={false}
+                            //className="input" 
+                            name="end" 
+                            component="date" 
+                            type="date" 
+                            selected={this.state.end}
+                            value={this.state.end}
+                            onChange={this.handleDateChange}
+                            label="End"
+                        />
+                    </div>
 
 
-                    <input type="submit" value="Submit" /><br />
-                    <button onClick={this.closeModal}>close</button>
+                    <input className="btn" type="submit" value="Add Event" /><br />
+                    <br /><button className="btn" onClick={this.closeModal}>Close</button>
                 </form>
             </Modal>
         );

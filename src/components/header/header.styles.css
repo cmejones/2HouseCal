@@ -7,8 +7,10 @@ nav {
 }
 
 nav ul a {
-    color:#4F3D17;
+    color:#fff;
+    font-size: 1.25em;
 }
+
 .logo{
     width: 60px;
 }
@@ -40,9 +42,7 @@ nav ul a {
     padding: 10px 15px;
 }
 
-a:hover {
-    color:#000 !important;
-}
+
 .admin-links {
     padding-right:10px;
 }
