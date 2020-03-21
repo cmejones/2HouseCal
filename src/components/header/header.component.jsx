@@ -21,15 +21,15 @@ class Header extends React.Component {
 
     <nav className='nav-wrapper'>
 
-        <Link to='/'>
+        <a className="brand-logo left" href='/'>
             Home
             {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df' /> */}
-        </Link>
+        </a>
         <ul id='nav-mobile' className='right hide-on-med-and-down'>
-            <li><Link className='option' to='/myAccount'>My Account</Link></li>
-            <li><Link className='option' to='/addChild'>Add Child</Link></li>
-            <li><Link className='option'><ProfileMenu /></Link></li>
-            <li><Link onClick={this.handleLogout}>Logout</Link></li>
+            <li><a href='/myAccount'>My Account</a></li>
+            <li><a href='/addChild'>Add Child</a></li>
+            <li><a><ProfileMenu /></a></li>
+            <li><a onClick={this.handleLogout}>Logout</a></li>
             {isLoggingOut && <p>Logging Out....</p>}
             {logoutError && <p>Error logging out</p>}
 

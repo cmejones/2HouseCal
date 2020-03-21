@@ -29,7 +29,7 @@ class MyChild extends React.Component {
         console.log(this.props, 'user');
         const childrenRef = db.collection('children').where('parentId', '==', parentId)
     
-        let myChildren = childrenRef.get()
+        childrenRef.get()
         .then(snapshot => {
             //console.log(snapshot);
             let children = [];
