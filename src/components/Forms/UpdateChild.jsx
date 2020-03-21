@@ -8,6 +8,7 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
 //import { withStyles } from "@material-ui/styles";
+import Header from '../header/header.component';
 
 import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
@@ -136,7 +137,7 @@ class UpdateChild extends React.Component {
 
         let childRef = db.collection('children').doc(id);
 
-        let updateDoc = childRef.update(data);
+        childRef.update(data);
 
         this.setState({
             firstName: data.firstName,
@@ -161,6 +162,8 @@ class UpdateChild extends React.Component {
             return <Redirect to="/myAccount" />
         }
         return (
+            <>
+            <Header />
             <Container component="main" maxWidth="xs">
                 <Paper className={styles.paper}>
                     <Typography component="h1" variant="h5">
@@ -312,6 +315,7 @@ class UpdateChild extends React.Component {
                     </form>
                 </Paper>
             </Container>
+            </>
         );
     }
 }

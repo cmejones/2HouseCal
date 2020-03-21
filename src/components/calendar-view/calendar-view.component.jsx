@@ -41,24 +41,19 @@ class CalendarView extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    async getEvents() {}
-
-    componentDidMount() {
-        //console.log('here');
-        let parentId = this.props.user;
-        console.log(this.props, 'user');
-        //const eventsRef = db.collection('events').where('parentId', '==', parentId)
+    updateEvents() {
         const eventsRef = db.collection('events')
     
         eventsRef.get()
         .then(snapshot => {
             let events = [];
             snapshot.forEach(doc => {
+                const { start, end , ...data } = doc.data();
                 events.push({
                     id:doc.id,
-                    // start: start.toDate(),
-                    // end: end.toDate(),
-                    ...doc.data()
+                    start: start.toDate(),
+                    end: end.toDate(),
+                    ...data
                 });
                 //console.log(doc.id, '=>', doc.data()); //showing children
                 console.log(events, 'events')
@@ -71,6 +66,14 @@ class CalendarView extends React.Component {
         .catch(err => {
             console.log('error getting children information', err);
         })
+    }
+
+    componentDidMount() {
+        //console.log('here');
+        let parentId = this.props.user;
+        console.log(this.props, 'user');
+        //const eventsRef = db.collection('events').where('parentId', '==', parentId)
+        this.updateEvents();
     }
 
     handleSelect = ({ start, end }) => {
@@ -99,7 +102,8 @@ class CalendarView extends React.Component {
                 <p><strong>ADD EVENT</strong></p>
                 <form onSubmit={this.handleSubmit}>
                     <div class="input-field col s6">
-                        <FormInput                         
+                        <FormInput    
+                            required                     
                             placeholder="Event Title"
                             className="validate" 
                             name="title" 
@@ -187,7 +191,7 @@ class CalendarView extends React.Component {
             modalIsOpen: false
 
         })
-
+        this.updateEvents();
     };
 
     render() {
