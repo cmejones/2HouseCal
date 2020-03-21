@@ -56,6 +56,8 @@ class CalendarView extends React.Component {
             snapshot.forEach(doc => {
                 events.push({
                     id:doc.id,
+                    // start: start.toDate(),
+                    // end: end.toDate(),
                     ...doc.data()
                 });
                 //console.log(doc.id, '=>', doc.data()); //showing children
@@ -194,7 +196,7 @@ class CalendarView extends React.Component {
         return (
         <>
             <Calendar
-                style={{ height: "100vh", width: "60vw" }}
+                style={{ height: "100vh", width: "auto" }}
                 selectable
                 localizer={localizer}
                 events={this.state.events}

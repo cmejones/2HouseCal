@@ -7,6 +7,7 @@ import '../index.css';
 import CalendarView from "./calendar-view/calendar-view.component";
 import AddChild from '../components/Forms/AddChild';
 import MyAccount from '../pages/MyAccount';
+import MenuProfile from '../components/menu-profile/menu-profile.component';
 
 class Home extends Component {
     // handleLogout = () => {
@@ -19,24 +20,23 @@ class Home extends Component {
         return (
         <div>
             <Header />
-            {/* <div class="row">
-                <div className="col m4">
- 
-                </div>
-                <div className="col m4">
-                    <div>Add information here</div>
-                </div>
-            </div>   */}
-
-            <div className="row">
-                <div className="col s12 m8">
-                    <CalendarView />
-                </div>
-                <div className="col s12 m4">
-                    <img className='responsive-img home-logo' src="https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df" />
+            <div className="container d-flex justify-content-center mt-3">
+                <div className="row">
+                    <main>
+                        <div>
+                            <MenuProfile />
+                        </div>
+                        <div className="row">
+                            <div className="col s12 m10">
+                                <CalendarView />
+                            </div>
+                            <div className="col s12 m2">
+                                <img className='responsive-img home-logo' src="https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df" />
+                            </div>
+                        </div>
+                    </main>
                 </div>
             </div>
-
         </div>
         );
     }
