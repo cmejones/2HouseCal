@@ -46,3 +46,7 @@ nav ul a {
 .admin-links {
     padding-right:10px;
 }
+
+nav .brand-logo {
+    left: 15px;
+}

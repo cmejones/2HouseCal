@@ -29,10 +29,10 @@ class Home extends Component {
             </div>   */}
 
             <div className="row">
-                <div className="col m8">
+                <div className="col s12 m8">
                     <CalendarView />
                 </div>
-                <div className="col m4">
+                <div className="col s12 m4">
                     <img className='responsive-img home-logo' src="https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df" />
                 </div>
             </div>
