@@ -1,5 +1,4 @@
 import React from 'react';
-// import { propTypes } from 'react'
 import { Calendar, Views, momentLocalizer } from 'react-big-calendar';
 import moment from 'moment';
 
@@ -24,20 +23,28 @@ class MyCalendar extends React.Component {
         this.state = {
             events: []
         }  
+        this.handleSelect = this.handleSelect.bind(this);
     }
 
     async componentDidMount() {
         const { user } = this.props;
 
         let myEventsRef = await db.collection("events").doc(user.uid).collection("myEvents")
-        console.log(myEventsRef)
+        console.log('myEventsRef: ', myEventsRef)
         myEventsRef.get()
-        .then(function(querySnapshot) {
+        .then(function(snapshot) {
             
-            querySnapshot.forEach(function(doc) {
-                // doc.data() is never undefined for query doc snapshots
-                console.log('hello')
-                console.log(doc.id, " => ", doc.data());
+                let events = [];
+                snapshot.forEach(doc => {
+                    events.push({
+                        id:doc.id,
+                        ...doc.data()
+                    });
+                    this.setState = {
+                        events: events
+                    }
+                    //console.log(doc.id, '=>', doc.data()); //showing children
+                    console.log(events, 'events')
             });
         })
         .catch(function(error) {
@@ -45,36 +52,37 @@ class MyCalendar extends React.Component {
         });
     }
 
-    handleSelect = ({ start, end }) => {
+    handleSelect = ({ start, end }) => {    
 
-         const { user } = this.props
+        const { user } = this.props
         console.log('userId handleSelect: ', user.uid)
-
-        let events = []
+       
         const title = window.prompt('New Event name')
-        if (title)
+        if (title) 
+        
         this.setState({
             events: [
             ...this.state.events,
-            {
-                start,
-                end,
-                title,
-                
-                },
-        
-            ], 
-          
+                {
+                    start,
+                    end,
+                    title,
+
+                }
+            ],  
         })
-            events.push(this.state.events);
-            console.log('handle select state: ', events) 
+        console.log('this.setState: ', this.state.events)
+
+    // getting last item from events array 
+    let dataToAdd = this.state.events[(this.state.events.length - 1)]
+    // convert array to object for firestore
+    let data = {dataToAdd}
+    console.log('data: ', data)
         
-            // convert events array to object for firestore
-            let data = {...events}
-            // Add events to Firestore by user 
-        db.collection("events").doc(user.uid)
-            .collection("myEvents").doc().set(data, { merge: true })   
-        
+    // Add event to Firestore by user 
+    db.collection("events").doc(user.uid)
+    .collection("myEvents").doc().set({data}, { merge: true })   
+    
   }
 
     render() {
@@ -91,8 +99,8 @@ class MyCalendar extends React.Component {
                         style={{ height: "100vh", width: "80vw" }} 
                         onSelectEvent={event => alert(event.title)}//create function here to add form
                         onSelectSlot={this.handleSelect}
-                    />
-                
+            
+                    />               
                 </div>
             )
         }  
