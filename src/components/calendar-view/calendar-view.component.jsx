@@ -15,7 +15,6 @@ import './calendar-view.styles.css';
 const localizer = momentLocalizer(moment);
 
 const propTypes = {}
-//const events = [];
 
 function mapStateToProps(state) { //need to render redux store
     return {
@@ -37,11 +36,12 @@ class CalendarView extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
-   // this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     updateEvents() {
+        let parentId = this.props.user;
+        //const eventsRef = db.collection('events').where('parentId', '==', parentId)
         const eventsRef = db.collection('events')
     
         eventsRef.get()
@@ -55,8 +55,7 @@ class CalendarView extends React.Component {
                     end: end.toDate(),
                     ...data
                 });
-                //console.log(doc.id, '=>', doc.data()); //showing children
-                console.log(events, 'events')
+                //console.log(events, 'events')
             });
         
             this.setState({
@@ -69,9 +68,7 @@ class CalendarView extends React.Component {
     }
 
     componentDidMount() {
-        //console.log('here');
-        let parentId = this.props.user;
-        console.log(this.props, 'user');
+        // let parentId = this.props.user;
         //const eventsRef = db.collection('events').where('parentId', '==', parentId)
         this.updateEvents();
     }
@@ -185,7 +182,7 @@ class CalendarView extends React.Component {
         }
         console.log(data, 'data');
 
-        let setDoc = db.collection('events').doc().set(data);
+        db.collection('events').doc().set(data);
 
         this.setState({
             modalIsOpen: false

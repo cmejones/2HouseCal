@@ -14,9 +14,10 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 
+//TO DO: error handling; image will override previous image if it has the same name
 
 const storageRef = storage.ref();
-const imagesRef = storageRef.child('images');
+storageRef.child('images');
 
 function mapStateToProps(state) { //need to render redux store
     return {
@@ -156,27 +157,28 @@ class AddChild extends React.Component {
         if (redirectToReferrer === true) {
             return <Redirect to="/myAccount" />
         }
-        console.log(this.state, 'this state');
+        //console.log(this.state, 'this state');
        // const { user } = this.props; //needed to render redux store
 
         return (
             <Container component="main" maxWidth="xs">
-                <Paper className={styles.paper}>
+                <Paper className={styles.paper} className="card">
                     <Typography component="h1" variant="h5">
                         Add Child Details
                     </Typography>
                     <form className="form" onSubmit={this.handleSubmit}>
                         <div className="field">
                             <div className="control">
-                                {/* <label className="label">First Name</label> */}
                                 <FormInput
+                                    required
                                     className="form-input" 
                                     name="firstName" 
                                     component="" 
                                     type="text" 
                                     value={this.state.firstName}
                                     onChange={this.handleChange}
-                                    label="First Name"/>
+                                    label="First Name"
+                                />
                             </div>
                         </div>
 
@@ -189,7 +191,8 @@ class AddChild extends React.Component {
                                     type="text" 
                                     value={this.state.lastName}
                                     onChange={this.handleChange}
-                                    label="Last Name"/>
+                                    label="Last Name"
+                                />
                             </div>
                         </div>
 
@@ -204,19 +207,19 @@ class AddChild extends React.Component {
                                 </div>
                             </div>
                             <img
-                            className="responsive-img"
-                            src={this.state.childPhoto ? URL.createObjectURL(this.state.childPhoto) : "https://via.placeholder.com/400x300"}
-                            alt="Uploaded Images"
-                            height="300"
-                            width="400"
+                                className="responsive-img"
+                                src={this.state.childPhoto ? URL.createObjectURL(this.state.childPhoto) : "https://via.placeholder.com/400x300"}
+                                alt="Uploaded Images"
+                                height="300"
+                                width="400"
                             />
                         </div>
 
                         <div className="field">
                             <div className="control">
-                                <div className="group">
-                                    <label className="label" type="text">Blood Type                               
-                                        <select value={this.state.bloodType.value} onChange={this.handleSelectChange}>
+                                <div className="group label">
+                                    <label className="label-inner" type="text">Blood Type                               
+                                        <select required value={this.state.bloodType.value} onChange={this.handleSelectChange}>
                                             <option value="bloodDefault">-- Select --</option>
                                             <option value="O negative">O negative</option>
                                             <option value="O positive">O positive</option>
@@ -235,63 +238,76 @@ class AddChild extends React.Component {
                         <div className="field">
                             <div className="control">
                                 <FormInput
+                                    required
                                     className="form-input" 
                                     name="medications" 
                                     component="input" 
                                     type="text" 
                                     value={this.state.medications}
                                     onChange={this.handleChange}
-                                    label="medications"/>
+                                    label="medications"
+                                />
                             </div>
                         </div>
 
                         <div className="field">
                             <div className="control">
                                 <FormInput
+                                    required
                                     className="form-input" 
                                     name="allergies" 
                                     component="input" 
                                     type="text" 
                                     value={this.state.allergies}
                                     onChange={this.handleChange}
-                                    label="allergies"/>
+                                    label="allergies"
+                                />
                             </div>
                         </div>
+                        
                         <div className="field">
                             <div className="control">
                                 <FormInput
+                                    required
                                     className="form-input" 
                                     name="bedtime" 
                                     component="input" 
                                     type="text" 
                                     value={this.state.bedtime}
                                     onChange={this.handleChange}
-                                    label="Bedtime"/>
+                                    label="Bedtime"
+                                />
                             </div>
                         </div>
+                        
                         <div className="field">
                             <div className="control">
-                                {/* <label className="label">Birthday</label> */}
-                                <DatePicker
-                                    dateFormat="MM/dd/yyyy"
-                                    time={false}
-                                    className="form-input" 
-                                    name="birthday" 
-                                    component="date" 
-                                    type="date" 
-                                    selected={this.state.birthday}
-                                    value={this.state.birthday}
-                                    onChange={this.handleDateChange}
-                                    label="Birthday"
-/>
+                                <div className="group label">
+                                    <label className="label-inner">Birthday
+                                    </label>
+                                    <div>
+                                        <DatePicker
+                                            dateFormat="MM/dd/yyyy"
+                                            time={false}
+                                            className="form-input" 
+                                            name="birthday" 
+                                            component="date" 
+                                            type="date" 
+                                            selected={this.state.birthday}
+                                            value={this.state.birthday}
+                                            onChange={this.handleDateChange}
+                                            label="Birthday"
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                         <div className="field">
                             <div className="control">
-                                <button>Add Child</button>
+                                <button className="newSubmit waves-effect orange accent-2">ADD CHILD</button>
                                 <div className="row">
-                                    <progress value={this.state.progress} max="100" className="progress" />
+                                    <progress value={this.state.progress} max="100" className="progressBar" />
                                 </div>
                             </div>
                         </div>
