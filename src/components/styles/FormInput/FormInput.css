@@ -19,13 +19,17 @@
     background-color: white;
     color: black;
     font-size: 18px;
-    padding: 10px 10px 10px 5px;
+    padding: 0px 0px 0px 15px;
     display: block;
     width: 100%;
     border: none;
     border-radius: 0;
     border-bottom: 1px solid grey;
     margin: 25px 0;
+}
+input[type=text], .file-field input.file-path {
+    padding-left: 15px;
+    width: 96%;
 }
 
 input[type='password'] {
@@ -38,7 +42,7 @@ input[type='password'] {
     font-weight: normal;
     position: absolute;
     pointer-events: none;
-    left: 5px;
+    left: 15px;
     top: 10px;
     transition: 300ms ease all;
 }
