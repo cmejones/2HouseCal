@@ -53,3 +53,48 @@ input[type='password'] {
     color: black;
 }
 
+.MuiTypography-h5 {
+    padding-top:.5em;
+}
+
+.label-inner {
+    color: grey;
+    font-size: 16px;
+    font-weight: normal;
+}
+.label {
+    background-color: transparent;
+    text-align:left;
+    outline: none;
+    height: 3rem;
+    width: 90%;
+    margin: 2em 0;
+    padding-left: 15px;
+    padding-bottom: 30px;
+    box-shadow: none;
+    box-sizing: content-box;
+    color: grey;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.progressBar {
+    margin: .5em;
+    border-radius: 5px;
+}
+
+.newSubmit {
+    border-radius: 5px;
+    color: rgba(0, 0, 0, 0.87);
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms,border 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+}

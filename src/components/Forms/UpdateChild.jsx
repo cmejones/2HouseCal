@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import { db } from '../../firebase/firebase';
 import FormInput from '../styles/FormInput/FormInput';
-import moment from 'moment';
+//import moment from 'moment';
 import DatePicker from 'react-datepicker';
 //update to better date picker: https://github.com/clauderic/react-infinite-calendar
 import 'react-datepicker/dist/react-datepicker.css';
@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 //import { withStyles } from "@material-ui/styles";
 import Header from '../header/header.component';
 
-import TextField from "@material-ui/core/TextField";
+//import TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
@@ -165,7 +165,7 @@ class UpdateChild extends React.Component {
             <>
             <Header />
             <Container component="main" maxWidth="xs">
-                <Paper className={styles.paper}>
+                <Paper className={styles.paper} className="card">
                     <Typography component="h1" variant="h5">
                         Update Child Details
                     </Typography>
@@ -309,7 +309,7 @@ class UpdateChild extends React.Component {
 
                         <div className="field">
                             <div className="control">
-                                <button>Save Changes</button>
+                                <button className="newSubmit waves-effect orange accent-2">Update Information</button>
                             </div>
                         </div>
                     </form>

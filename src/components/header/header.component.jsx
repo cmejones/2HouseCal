@@ -1,11 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-//import { auth } from '../../firebase/firebase';
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/index";
 import ProfileMenu from '../menu-profile/menu-profile.component';
-
-// import { ReactComponent as Logo} from '../../../assets/coffee-cup.svg';
 
 import './header.styles.css';
 
@@ -19,31 +15,23 @@ class Header extends React.Component {
         console.log(this.props);
         return (
 
-    <nav className='nav-wrapper'>
+            <nav className='nav-wrapper'>
 
-        <a className="brand-logo left" href='/'>
-            Home
-            {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' /> */}
-        </a>
-        <ul id='nav-mobile' className='right hide-on-med-and-down'>
-            <li><a href='/myAccount'>My Account</a></li>
-            <li><a href='/addChild'>Add Child</a></li>
-            <li><a><ProfileMenu /></a></li>
-            <li><a onClick={this.handleLogout}>Logout</a></li>
-            {isLoggingOut && <p>Logging Out....</p>}
-            {logoutError && <p>Error logging out</p>}
-
-            {/* {
-                currentUser ? 
-                    <a className='option' onClick={() => auth.signOut()}>SIGN OUT</a>
-                    :
-                    <Link className='option' to='/login'>Log In</Link>
-            } */}
-            
-        </ul>
-
-    </nav>
-)
+                <a href='/' className="brand-logo left" >
+                    Home
+                    {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' /> */}
+                </a>
+                <ul id='nav-mobile' className='right hide-on-med-and-down'>
+                    <li><a href='/myAccount'>My Account</a></li>
+                    <li><a href='/addChild'>Add Child</a></li>
+                    <li><ProfileMenu /></li>
+                    <li><span onClick={this.handleLogout}>Logout</span></li>
+                    {isLoggingOut && <p>Logging Out....</p>}
+                    {logoutError && <p>Error logging out</p>}
+                    
+                </ul>
+            </nav>
+        )
     }
 }
 

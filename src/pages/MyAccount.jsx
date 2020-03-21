@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import { db } from '../firebase/firebase';
-
 import { connect } from 'react-redux';
-
-//import '../components/products/products.css';
 import MyChild from '../components/MyChild';
 import Header from '../components/header/header.component';
 
@@ -26,12 +23,12 @@ class MyAccount extends Component {
         
     }
     componentDidMount() {
-        console.log(this.props.user, 'user');
+        //console.log(this.props.user, 'user');
         let parentId = this.props.user; //set parentId to logged in user
 
         const childrenRef = db.collection('children').where('parentId', '==', parentId);
     
-        let allChildren = childrenRef.get()
+        childrenRef.get()
         .then(snapshot => {
             console.log(snapshot);
             let children = [];
@@ -55,17 +52,16 @@ class MyAccount extends Component {
 
     render() {
     
-        console.log(this.state);
-        const { isLoading, children } = this.state;
-        // console.log(this.state);
+        //console.log(this.state);
+        //const { isLoading, children } = this.state;
         
         const myChildren = this.state.children.map((child) => {
             return <MyChild key={child.id} {...child} />
         });
-        console.log(myChildren);  //children now in props
+        //console.log(myChildren);  //children now in props
 
         return (
-            this.state.isLoading ? <div>I am loading</div> :
+            this.state.isLoading ? <div>Loading...</div> :
             <div className="dashboard">
                 <Header />
 
