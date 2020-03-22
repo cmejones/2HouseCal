@@ -13,6 +13,7 @@ import ProfileMenu from './components/menu-profile/menu-profile.component';
 import AccountView from './components/account-view/account-view.component';
 import AccountDelete from './components/account-delete/account-delete.component';
 import AccountEdit from './components/account-edit/account-edit.component';
+import AccountSearch from './components/account-search/seachAccount.component'
 
 import MyCalendar from './components/calendar-view/calendar-view.component'
 
@@ -60,6 +61,13 @@ function App(props) {
         exact
         path="/account/delete"
         component={AccountDelete}
+        isAuthenticated={isAuthenticated}
+        isVerifying={isVerifying}
+      />
+       <ProtectedRoute
+        exact
+        path="/account/search"
+        component={AccountSearch}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
