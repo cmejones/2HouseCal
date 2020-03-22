@@ -10,7 +10,7 @@ import FormInput from '../styles/FormInput/FormInput';
 import 'react-datepicker/dist/react-datepicker.css';
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import './calendar-view.styles.css';
+import '../calendar-view/calendar-view.styles.css';
 
 const localizer = momentLocalizer(moment);
 
@@ -24,7 +24,7 @@ function mapStateToProps(state) { //need to render redux store
 }
 
 
-class CalendarView extends React.Component {
+class CalendarEdit extends React.Component {
     
     constructor(props) {
         super(props)
@@ -100,7 +100,7 @@ class CalendarView extends React.Component {
             contentLabel="Calender Modal"
             >
 
-                <p><strong>EVENT</strong></p>
+                <p><strong>ADD EVENT</strong></p>
                 <form onSubmit={this.handleSubmit}>
                     <div className="input-field col s6">
                         <FormInput    
@@ -154,20 +154,17 @@ class CalendarView extends React.Component {
         );
     }  
 
-
 //here for editing
 
-    handleEventSelect (event) {
-        const id = event.id;
-        console.log(id);
+    handleEventSelect (props) {
+        const id = props.id;
         const eventRef = db.collection('events').doc(id);
         
         eventRef.get().then (doc => {
             if(doc.exists) {
-                console.log('event', doc.data());
+                //console.log('event', doc.data());
                 const data = doc.data();
                 this.setState({
-                    events: [],
                     modalEditIsOpen: true,
                     id: id,
                     start: data.start.toDate(),
@@ -177,18 +174,16 @@ class CalendarView extends React.Component {
             } else {
                 console.log('error');
             }
-            // {this.renderEditModal()}
-             console.log(this.state); //returning all events in array         
         });
-
+        console.log(this.state);
     }
     
     renderEditModal = () => {
         if (!this.state.modalEditIsOpen) return;
        // console.log(this.state);
+        //console.log('here');
         return(
             <Modal
-            contentRef={node => (this.handleEventSelect = node)}
             isOpen={this.state.modalEditIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
@@ -205,7 +200,7 @@ class CalendarView extends React.Component {
                             name="title" 
                             component="input" 
                             type="text" 
-                            value={this.state.title}
+                            value={this.props.title}
                             onChange={this.handleChange}
                         />
                     </div>
@@ -218,8 +213,8 @@ class CalendarView extends React.Component {
                             name="start" 
                             component="date" 
                             type="date" 
-                            selected={this.state.start}
-                            value={this.state.start}
+                            selected={this.props.start}
+                            value={this.props.start}
                             onChange={this.handleDateChange}
                             label="Start"
                         />
@@ -234,15 +229,15 @@ class CalendarView extends React.Component {
                             name="end" 
                             component="date" 
                             type="date" 
-                            selected={this.state.end}
-                            value={this.state.end}
+                            selected={this.props.end}
+                            value={this.props.end}
                             onChange={this.handleDateChange}
                             label="End"
                         />
                     </div>
 
 
-                    <input className="btn" type="submit" value="Update Event" /><br />
+                    <input className="btn" type="submit" value="Add Event" /><br />
                     <br /><button className="btn" onClick={this.closeModal}>Close</button>
                 </form>
             </Modal>
@@ -299,7 +294,7 @@ class CalendarView extends React.Component {
         <>
             <Calendar
                 popup={false}
-                //onSelectEvent={this.handleEventSelect.bind(this.id)}
+                onSelectEvent={this.handleEventSelect.bind(this.id)}
                 style={{ height: "100vh", width: "auto" }}
                 selectable
                 localizer={localizer}
@@ -310,19 +305,17 @@ class CalendarView extends React.Component {
                 scrollToTime={new Date()}
                 defaultDate={new Date()}
                 //onSelectEvent={event => alert(event.title)}
-                onSelectEvent={event => this.handleEventSelect(event)}
                 onSelectSlot={this.handleSelect}
                 //components={{ event: Event}}
             />
             {/* hidden hyperlink */}
                 <a onClick={this.openModal}></a>
                 {this.renderModal()}
-                {this.renderEditModal()}
         </>
         )
     }
 }
 
-CalendarView.propTypes = propTypes
+CalendarEdit.propTypes = propTypes
 
-export default connect(mapStateToProps)(CalendarView);
+export default connect(mapStateToProps)(CalendarEdit);
