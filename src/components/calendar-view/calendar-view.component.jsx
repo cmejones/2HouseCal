@@ -41,6 +41,7 @@ class CalendarView extends React.Component {
 
     updateEvents() {
         let parentId = this.props.user;
+        //causes error if no events found
         //const eventsRef = db.collection('events').where('parentId', '==', parentId)
         const eventsRef = db.collection('events')
     
