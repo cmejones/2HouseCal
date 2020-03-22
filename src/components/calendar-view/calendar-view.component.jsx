@@ -23,6 +23,7 @@ function mapStateToProps(state) { //need to render redux store
     };
 }
 
+
 class CalendarView extends React.Component {
     
     constructor(props) {
@@ -74,6 +75,7 @@ class CalendarView extends React.Component {
         //let parentId = this.props.user;
         //const eventsRef = db.collection('events').where('parentId', '==', parentId)
         this.updateEvents();
+        Modal.setAppElement('main');
     }
 
     handleSelect = ({ start, end }) => {
@@ -88,11 +90,9 @@ class CalendarView extends React.Component {
 
     renderModal = () => {
         if (!this.state.modalIsOpen) return;
-        console.log(this.state);
+        //console.log(this.state);
         return(
-        
             <Modal
-            //appElement={el}
             isOpen={this.state.modalIsOpen}
             onAfterOpen={this.afterOpenModal}
             onRequestClose={this.closeModal}
@@ -101,7 +101,7 @@ class CalendarView extends React.Component {
 
                 <p><strong>ADD EVENT</strong></p>
                 <form onSubmit={this.handleSubmit}>
-                    <div class="input-field col s6">
+                    <div className="input-field col s6">
                         <FormInput    
                             required                     
                             placeholder="Event Title"
@@ -113,7 +113,7 @@ class CalendarView extends React.Component {
                             onChange={this.handleChange}
                         />
                     </div>
-                    <div class="input-field col s6">
+                    <div className="input-field col s6">
                         <label>Start</label>
                         <DatePicker
                             dateFormat="MM/dd/yyyy"
@@ -129,7 +129,7 @@ class CalendarView extends React.Component {
                         />
                     </div>
 
-                    <div class="input-field col s6">
+                    <div className="input-field col s6">
                         <label>End</label>
                         <DatePicker
                             dateFormat="MM/dd/yyyy"
@@ -160,7 +160,7 @@ class CalendarView extends React.Component {
         this.setState({
             [name]: value
         })
-        console.log(this.state, "handle change");
+        //console.log(this.state, "handle change");
     }
 
     handleDateChange = (date) => {
@@ -175,7 +175,7 @@ class CalendarView extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-        console.log(this.state)
+        //console.log(this.state)
         //add each field here or events will be nested in db
         const data = {
             title: this.state.title,
@@ -183,7 +183,7 @@ class CalendarView extends React.Component {
             end: this.state.end,
             parentId: this.state.parentId
         }
-        console.log(data, 'data');
+        //console.log(data, 'data');
 
         db.collection('events').doc().set(data);
 
