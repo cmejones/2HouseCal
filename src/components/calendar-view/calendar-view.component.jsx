@@ -290,6 +290,27 @@ class CalendarView extends React.Component {
         this.updateEvents();
     };
 
+    handleUpdate = async event => {
+        event.preventDefault();
+        console.log(this.state)
+        //add each field here or events will be nested in db
+        let id = this.state.id;
+        const data = {
+            title: this.state.title,
+            start: this.state.start,
+            end: this.state.end,
+            parentId: this.state.parentId
+        }
+        //console.log(data, 'data');
+
+        db.collection('events').doc(id).update(data);
+        //eventRef.update(data);
+        this.setState({
+            modalEditIsOpen: false
+        })
+        this.updateEvents();
+    };
+
     render() {
         if (this.props.user) {
             this.updateEvents();
