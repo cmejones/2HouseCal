@@ -59,7 +59,7 @@ class AccountSearch extends React.Component {
                     if(doc.exists) {
                         const data = doc.data();
                         console.log(data.email);
-                    } else {
+                    } else { //not working
                         alert('no such email')
                         console.log('no doc')
                     }

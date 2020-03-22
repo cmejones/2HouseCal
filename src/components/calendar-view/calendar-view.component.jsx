@@ -41,9 +41,9 @@ class CalendarView extends React.Component {
 
     updateEvents() {
         let parentId = this.props.user;
-        //causes error if no events found
-        //const eventsRef = db.collection('events').where('parentId', '==', parentId)
-        const eventsRef = db.collection('events')
+        if(parentId) {
+        const eventsRef = db.collection('events').where('parentId', '==', parentId)
+        //const eventsRef = db.collection('events')
     
         eventsRef.get()
         .then(snapshot => {
@@ -63,13 +63,15 @@ class CalendarView extends React.Component {
                 events: events
             })
         })
+        
         .catch(err => {
-            console.log('error getting children information', err);
+            console.log('error getting event information', err);
         })
+        }
     }
 
     componentDidMount() {
-        // let parentId = this.props.user;
+        //let parentId = this.props.user;
         //const eventsRef = db.collection('events').where('parentId', '==', parentId)
         this.updateEvents();
     }
@@ -193,8 +195,10 @@ class CalendarView extends React.Component {
     };
 
     render() {
-
-        //const { localizer } = this.props
+        if (this.props.user) {
+            this.updateEvents();
+            //set this here to make sure site has userid before displaying events
+        }
         return (
         <>
             <Calendar
