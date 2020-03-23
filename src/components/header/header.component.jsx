@@ -11,8 +11,8 @@ class Header extends React.Component {
         dispatch(logoutUser());
     };
     render() {
-        const { isLoggingOut, logoutError, user } = this.props; //needed to render redux store
-        console.log(this.props);
+        const { isLoggingOut, logoutError } = this.props; //needed to render redux store
+        //console.log(this.props);
         return (
 
             <nav className='nav-wrapper'>

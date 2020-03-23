@@ -16,7 +16,7 @@ function mapStateToProps(state) { //need to render redux store
 class MyChild extends React.Component {
     constructor(props) {
         super(props);
-        console.log('edit', this.props);
+        //console.log('edit', this.props);
         this.state = {
             children: []
         }
@@ -27,7 +27,7 @@ class MyChild extends React.Component {
     componentDidMount() {
         //console.log('here');
         let parentId = this.props.user;
-        console.log(this.props, 'user');
+        //console.log(this.props, 'user');
         const childrenRef = db.collection('children').where('parentId', '==', parentId)
     
         childrenRef.get()
@@ -40,7 +40,7 @@ class MyChild extends React.Component {
                     ...doc.data()
                 });
                 //console.log(doc.id, '=>', doc.data()); //showing children
-                console.log(children, 'children')
+                //console.log(children, 'children')
             });
         
             this.setState({

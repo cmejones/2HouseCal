@@ -82,7 +82,7 @@ class Login extends Component {
                 <div className="row">
                     <Container className="col m6 hide-on-small-only">
                         
-                            <div className={classes.logo}><img className='responsive-img home-logo' src="https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df" />
+                            <div className={classes.logo}><img alt="2HouseCalLogo" className='responsive-img home-logo' src="https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/2HouseCalLogoLg.png?alt=media&token=257a6cc6-2801-40f2-b7b4-7329258ea1df" />
                             </div>
                     </Container>
                     <Container className="show-on-small hide-on-med-and-up">

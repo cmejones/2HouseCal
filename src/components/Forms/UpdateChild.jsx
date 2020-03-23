@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import Header from '../header/header.component';
 
 //import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
+//import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
@@ -176,149 +176,151 @@ class UpdateChild extends React.Component {
             <>
             <Header />
             <Container component="main" maxWidth="xs">
-                <Paper className={styles.paper} className="card">
-                    <Typography component="h1" variant="h5">
-                        Update Child Details
-                    </Typography>
-                    <form className="form" onSubmit={this.handleSubmit}>
-                        <div className="field center">
-                            <img
-                                className="responsive-img"
-                                src={this.state.url || "https://via.placeholder.com/400x300"}
-                                alt="Uploaded Images"
-                                height="300"
-                                width="400"
-                            />
-                            {/* <div className="file-field">                               
-                                <Button className="waves-effect orange accent-2">
-                                    <input type="file" onChange={this.handleImageChange} />
-                                    Browse for Image
-                                </Button>
-                                <div className="">
-                                    <input className="file-path validate" type="text" />
-                                </div>
-                            </div> */}
-                        </div>
-
-                        <div className="field">
-                            <div className="control">
-                                {/* <label className="label">First Name</label> */}
-                                <FormInput
-                                    className="input" 
-                                    name="firstName" 
-                                    component="input" 
-                                    type="text" 
-                                    value={this.state.firstName}
-                                    onChange={this.handleChange}
-                                    label="First Name"/>
-                            </div>
-                        </div>
-
-                        <div className="field">
-                            <div className="control">
-                                <FormInput
-                                    className="input" 
-                                    name="lastName" 
-                                    component="input" 
-                                    type="text" 
-                                    value={this.state.lastName}
-                                    onChange={this.handleChange}
-                                    label="Last Name"/>
-                            </div>
-                        </div>
-
-                        <div className="field">
-                            <div className="control">
-                                <div className="group label">
-                                    <label className="label-inner" type="text">Blood Type 
-                                
-                                <select value={this.state.bloodType} onChange={this.handleSelectChange}>
-                                    <option value="bloodDefault">-- Select --</option>
-                                    <option value="O negative">O negative</option>                                   
-                                    <option value="O positive">O positive</option>
-                                    <option value="A negative">A negative</option>
-                                    <option value="A positive">A positive</option>
-                                    <option value="B negative">B negative</option>
-                                    <option value="B positive">B positive</option>
-                                    <option value="AB negative">AB negative</option>
-                                    <option value="AB positive">AB positive</option>
-                                </select>
-
-                                </label>
-                            </div>
-                            </div>
-                        </div> 
-
-                        <div className="field">
-                            <div className="control">
-                                <FormInput
-                                    className="input" 
-                                    name="medications" 
-                                    component="input" 
-                                    type="text" 
-                                    value={this.state.medications}
-                                    onChange={this.handleChange}
-                                    label="medications"/>
-                            </div>
-                        </div>
-
-                        <div className="field">
-                            <div className="control">
-                                <FormInput
-                                    className="input" 
-                                    name="allergies" 
-                                    component="input" 
-                                    type="text" 
-                                    value={this.state.allergies}
-                                    onChange={this.handleChange}
-                                    label="allergies"/>
-                            </div>
-                        </div>
-                        <div className="field">
-                            <div className="control">
-                                <FormInput
-                                    className="input" 
-                                    name="bedtime" 
-                                    component="input" 
-                                    type="text" 
-                                    value={this.state.bedtime}
-                                    onChange={this.handleChange}
-                                    label="Bedtime"/>
-                            </div>
-                        </div>
-                            <div className="field">
-                            <div className="control">
-                                <div className="group label">
-                                    <label className="label-inner">Birthday
-                                    </label>
-                                    <div>                                
-                                        <DatePicker
-                                            dateFormat="MM/dd/yyyy"
-                                            time={false}
-                                            className="form-input" 
-                                            name="birthday" 
-                                            component="date" 
-                                            type="date" 
-                                            selected={this.state.birthday}
-                                            value={this.state.birthday}
-                                            onChange={this.handleDateChange}
-                                            label="Birthday"
-                                        />
+                <div className="card">
+                    <Paper className={styles.paper}>
+                        <Typography component="h1" variant="h5">
+                            Update Child Details
+                        </Typography>
+                        <form className="form" onSubmit={this.handleSubmit}>
+                            <div className="field center">
+                                <img
+                                    className="responsive-img"
+                                    src={this.state.url || "https://via.placeholder.com/400x300"}
+                                    alt="Uploaded Images"
+                                    height="300"
+                                    width="400"
+                                />
+                                {/* <div className="file-field">                               
+                                    <Button className="waves-effect orange accent-2">
+                                        <input type="file" onChange={this.handleImageChange} />
+                                        Browse for Image
+                                    </Button>
+                                    <div className="">
+                                        <input className="file-path validate" type="text" />
                                     </div>
-                                </div> 
+                                </div> */}
                             </div>
-                        </div>
 
-                        <div className="field">
-                            <div className="control">
-                                <button className="newSubmit waves-effect orange accent-2">Update Information</button>
-                                <div className="row">
-                                    <progress value={this.state.progress} max="100" className="progressBar" />
+                            <div className="field">
+                                <div className="control">
+                                    {/* <label className="label">First Name</label> */}
+                                    <FormInput
+                                        className="input" 
+                                        name="firstName" 
+                                        component="input" 
+                                        type="text" 
+                                        value={this.state.firstName}
+                                        onChange={this.handleChange}
+                                        label="First Name"/>
                                 </div>
                             </div>
-                        </div>
-                    </form>
-                </Paper>
+
+                            <div className="field">
+                                <div className="control">
+                                    <FormInput
+                                        className="input" 
+                                        name="lastName" 
+                                        component="input" 
+                                        type="text" 
+                                        value={this.state.lastName}
+                                        onChange={this.handleChange}
+                                        label="Last Name"/>
+                                </div>
+                            </div>
+
+                            <div className="field">
+                                <div className="control">
+                                    <div className="group label">
+                                        <label className="label-inner" type="text">Blood Type 
+                                    
+                                    <select value={this.state.bloodType} onChange={this.handleSelectChange}>
+                                        <option value="bloodDefault">-- Select --</option>
+                                        <option value="O negative">O negative</option>                                   
+                                        <option value="O positive">O positive</option>
+                                        <option value="A negative">A negative</option>
+                                        <option value="A positive">A positive</option>
+                                        <option value="B negative">B negative</option>
+                                        <option value="B positive">B positive</option>
+                                        <option value="AB negative">AB negative</option>
+                                        <option value="AB positive">AB positive</option>
+                                    </select>
+
+                                    </label>
+                                </div>
+                                </div>
+                            </div> 
+
+                            <div className="field">
+                                <div className="control">
+                                    <FormInput
+                                        className="input" 
+                                        name="medications" 
+                                        component="input" 
+                                        type="text" 
+                                        value={this.state.medications}
+                                        onChange={this.handleChange}
+                                        label="medications"/>
+                                </div>
+                            </div>
+
+                            <div className="field">
+                                <div className="control">
+                                    <FormInput
+                                        className="input" 
+                                        name="allergies" 
+                                        component="input" 
+                                        type="text" 
+                                        value={this.state.allergies}
+                                        onChange={this.handleChange}
+                                        label="allergies"/>
+                                </div>
+                            </div>
+                            <div className="field">
+                                <div className="control">
+                                    <FormInput
+                                        className="input" 
+                                        name="bedtime" 
+                                        component="input" 
+                                        type="text" 
+                                        value={this.state.bedtime}
+                                        onChange={this.handleChange}
+                                        label="Bedtime"/>
+                                </div>
+                            </div>
+                                <div className="field">
+                                <div className="control">
+                                    <div className="group label">
+                                        <label className="label-inner">Birthday
+                                        </label>
+                                        <div>                                
+                                            <DatePicker
+                                                dateFormat="MM/dd/yyyy"
+                                                time={false}
+                                                className="form-input" 
+                                                name="birthday" 
+                                                component="date" 
+                                                type="date" 
+                                                selected={this.state.birthday}
+                                                value={this.state.birthday}
+                                                onChange={this.handleDateChange}
+                                                label="Birthday"
+                                            />
+                                        </div>
+                                    </div> 
+                                </div>
+                            </div>
+
+                            <div className="field">
+                                <div className="control">
+                                    <button className="newSubmit waves-effect orange accent-2">Update Information</button>
+                                    <div className="row">
+                                        <progress value={this.state.progress} max="100" className="progressBar" />
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </Paper>
+                </div>
             </Container>
             </>
         );
