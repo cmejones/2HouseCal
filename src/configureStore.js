@@ -7,13 +7,14 @@ import thunkMiddleware from 'redux-thunk';
 import { verifyAuth } from './actions/';
 import rootReducer from './reducers';
 
+const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
+
 export default function configureStore(persistedState) {
     const store = createStore(
         rootReducer,
         persistedState,
-        compose(
-            applyMiddleware(thunkMiddleware),
-            window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+        composeEnhancers(
+            applyMiddleware(thunkMiddleware)
         )
     );
     store.dispatch(verifyAuth());
