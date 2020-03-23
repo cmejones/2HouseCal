@@ -1,8 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import { db } from '../../firebase/firebase';
+import { db, storage } from '../../firebase/firebase';
 import FormInput from '../styles/FormInput/FormInput';
-//import moment from 'moment';
 import DatePicker from 'react-datepicker';
 //update to better date picker: https://github.com/clauderic/react-infinite-calendar
 import 'react-datepicker/dist/react-datepicker.css';
@@ -11,9 +10,14 @@ import { connect } from 'react-redux';
 import Header from '../header/header.component';
 
 //import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+
+
+const storageRef = storage.ref();
+storageRef.child('images');
 
 function mapStateToProps(state) { //need to render redux store
     return {
@@ -103,9 +107,15 @@ class UpdateChild extends React.Component {
         })
     }
     
-    handleImageChange(event) {
-        this.setState({childPhoto: event.target.url});
-    }
+    // handleImageChange(event) {
+    //     this.setState({childPhoto: event.target.url});
+    // }
+    handleImageChange = e => {
+        if (e.target.files[0]) {
+            const childPhoto = e.target.files[0];
+            this.setState(() => ({ childPhoto }));     
+        }
+    };
 
     handleSelectChange(event) {
         this.setState({bloodType: event.target.value});
@@ -132,6 +142,50 @@ class UpdateChild extends React.Component {
         event.preventDefault();
 
         const data = this.state;
+        const { childPhoto } = this.state;
+        const uploadTask = storage.ref(`images/${childPhoto.name}`).put(childPhoto);
+                    uploadTask.on(
+            "state_changed",
+            snapshot => {
+                // progress function ...
+                const progress = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+                this.setState({ progress });
+            },
+            error => {
+                // Error function ...
+                console.log(error);
+            },
+            () => {
+                // complete function ...
+                storage
+                .ref("images")
+                .child(childPhoto.name)
+                .getDownloadURL()
+                .then(url => {
+                    this.setState({ 
+                        url,
+                        childPhoto: null
+                    });
+                    return db.collection('children').doc().set(this.state)
+                    .then (() => 
+                        this.setState({
+                            firstName: '',
+                            lastName: '',
+                            childPhoto: null,
+                            url: '',
+                            progress: 0,
+                            bloodType: 'bloodDefault',
+                            birthday: new Date(),
+                            medications: '',
+                            allergies: '',
+                            bedtime: '',
+                            redirectToReferrer: true
+                                    
+                        }))
+                    })
+                });
         console.log(this.props);
         let id = this.state.id;
 
@@ -173,33 +227,24 @@ class UpdateChild extends React.Component {
                         <div className="field">
                             <div className="control">
                                 <div className="center">
-                                    {/* <div className="row">
-                                        <progress value={this.state.progress} max="100" className="progress" />
-                                    </div>
-
-                                    <div className="file-field input-field">
-                                        <div className="btn">
-                                            <span>File</span>
-                                            <input type="file" onChange={this.handleImageChange} />
-                                        </div>
-                                        <div className="file-path-wrapper">
-                                            <input className="file-path validate" type="text" />
-                                        </div>
-                                    </div>
-                                    <a
-                                    onClick={this.handleImageUpload}
-                                    className="btn"
-                                    >
-                                    Upload
-                                    </a>
-                                    <br /> */}
                                     <img
-                                    className="responsive-img"
-                                    src={this.state.url || "https://via.placeholder.com/400x300"}
-                                    alt="Uploaded Images"
-                                    height="300"
-                                    width="400"
+                                        className="responsive-img"
+                                        src={this.state.url || "https://via.placeholder.com/400x300"}
+                                        alt="Uploaded Images"
+                                        height="300"
+                                        width="400"
                                     />
+                                    <div className="field center">
+                                        <div className="file-field">
+                                            <Button className="waves-effect orange accent-2">
+                                                <input type="file" onChange={this.handleImageChange} />
+                                                Browse for Image
+                                            </Button>
+                                            <div className="">
+                                                <input className="file-path validate" type="text" />
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -233,8 +278,8 @@ class UpdateChild extends React.Component {
 
                         <div className="field">
                             <div className="control">
-                                <div className="group">
-                                    <label className="label" type="text">Blood Type 
+                                <div className="group label">
+                                    <label className="label-inner" type="text">Blood Type 
                                 
                                 <select value={this.state.bloodType} onChange={this.handleSelectChange}>
                                     <option value="bloodDefault">-- Select --</option>
@@ -292,20 +337,26 @@ class UpdateChild extends React.Component {
                         </div>
                             <div className="field">
                             <div className="control">
-                                <DatePicker
-                                    dateFormat="MM/dd/yyyy"
-                                    time={false}
-                                    
-                                    name="birthday" 
-                                    component="date" 
-                                    type="date" 
-                                    selected={this.state.birthday}
-                                    value={this.state.birthday}
-                                    onChange={this.handleDateChange}
-                                    label="Birthday"
-                                />
+                                <div className="group label">
+                                    <label className="label-inner">Birthday
+                                    </label>
+                                    <div>                                
+                                        <DatePicker
+                                            dateFormat="MM/dd/yyyy"
+                                            time={false}
+                                            className="form-input" 
+                                            name="birthday" 
+                                            component="date" 
+                                            type="date" 
+                                            selected={this.state.birthday}
+                                            value={this.state.birthday}
+                                            onChange={this.handleDateChange}
+                                            label="Birthday"
+                                        />
+                                    </div>
+                                </div> 
                             </div>
-                        </div> 
+                        </div>
 
                         <div className="field">
                             <div className="control">
