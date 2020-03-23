@@ -29,3 +29,24 @@
     right:20px;
 
 }
+
+.results-container {
+    padding-top: 20px;
+}
+
+.root {
+    min-width: 275;
+  }
+
+.bullet {
+    display: inline-block;
+    transform: scale(0.8);
+  }
+  
+.title {
+    font-size: 14;
+  }
+  
+.pos {
+    margin-bottom:  12;
+  }
