@@ -82,15 +82,16 @@ class AccountSearch extends React.Component {
             if( axios.isCancel(error) || error ) {
                 this.setState({
                     loading: false, 
-                    message: 'Failed to fetch data. Please check network.'
+                    message: 'Sorry, email does not exist.'
                 })
+               
             }
         })  
       
     }
 
     renderEmailSearchResults = () => {
-        const { results } = this.state;
+        const { results, message } = this.state;
         console.log(results);
         if(results) {
             return (
@@ -111,6 +112,20 @@ class AccountSearch extends React.Component {
         <Button size="medium">Add Family</Button>
       </CardActions>
     </Card>
+            )
+        } else {
+            return (
+              
+                <Card className="root">
+                <CardContent>
+                  <Typography className="title" color="textSecondary" gutterBottom>
+                    User Found: 
+                  </Typography>
+                  <Typography variant="h5" component="h2">
+                   {message}
+                   </Typography>
+                  </CardContent>
+                  </Card>
             )
         }
     };
