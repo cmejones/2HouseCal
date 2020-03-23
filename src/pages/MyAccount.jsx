@@ -30,7 +30,7 @@ class MyAccount extends Component {
     
         childrenRef.get()
         .then(snapshot => {
-            console.log(snapshot);
+            //console.log(snapshot);
             let children = [];
             snapshot.forEach(doc => {
                 children.push({

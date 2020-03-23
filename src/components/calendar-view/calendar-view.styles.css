@@ -8,3 +8,7 @@
 .ReactModal__Overlay--after-open {
     left:25% !important;
 }
+
+.hidden {
+    display: none;
+}

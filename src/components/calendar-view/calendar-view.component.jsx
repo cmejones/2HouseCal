@@ -330,13 +330,11 @@ class CalendarView extends React.Component {
                 endAccessor='end'
                 scrollToTime={new Date()}
                 defaultDate={new Date()}
-                //onSelectEvent={event => alert(event.title)}
                 onSelectEvent={event => this.handleEventSelect(event)}
                 onSelectSlot={this.handleSelect}
-                //components={{ event: Event}}
             />
             {/* hidden hyperlink */}
-                <a onClick={this.openModal}></a>
+                <button className="hidden" onClick={this.openModal}></button>
                 {this.renderModal()}
                 {this.renderEditModal()}
         </>
