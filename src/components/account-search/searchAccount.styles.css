@@ -1,3 +1,6 @@
+body {
+    background-color: #F7EEDF;
+}
 .container {
     margin: 36px auto;
     width: 100%;
@@ -27,15 +30,17 @@
     font-size: 24px;
     color: #555;
     right:20px;
-
+    color: #A75D1D;
 }
 
 .results-container {
     padding-top: 20px;
+   
 }
 
 .root {
     min-width: 275;
+    background-color: #BEC357;
   }
 
 .bullet {
@@ -50,3 +55,8 @@
 .pos {
     margin-bottom:  12;
   }
+
+#add-family-button {
+    color: white;
+    background-color: #BEC357;
+}

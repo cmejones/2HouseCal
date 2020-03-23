@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import { db } from '../../firebase/firebase';
 
@@ -48,6 +49,7 @@ class AccountView extends React.Component {
         console.log('this.state.data: ', this.state.data)
         return (
             <div>
+                 <Link to='/'>Home</Link>
                 <ProfileMenu />
                 <h1>Your Account</h1>
                 <Container maxWidth='sm' >  

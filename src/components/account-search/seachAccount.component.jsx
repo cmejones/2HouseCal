@@ -1,10 +1,8 @@
 import React from 'react';
 import { connect } from "react-redux";
-// import { db } from '../../firebase/firebase';
 import axios from 'axios';
 
 import SearchIcon from '@material-ui/icons/Search';
-// import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -83,11 +81,9 @@ class AccountSearch extends React.Component {
                 this.setState({
                     loading: false, 
                     message: 'Sorry, email does not exist.'
-                })
-               
+                })   
             }
-        })  
-      
+        })    
     }
 
     renderEmailSearchResults = () => {
@@ -96,22 +92,22 @@ class AccountSearch extends React.Component {
         if(results) {
             return (
                 <Card className="root">
-      <CardContent>
-        <Typography className="title" color="textSecondary" gutterBottom>
-          User Found: 
-        </Typography>
-        <Typography variant="h5" component="h2">
-                email: {results.email}
-        </Typography>
-        <Typography className="pos" color="textSecondary">
-          username: {results.displayName}
-        </Typography>
-        
-      </CardContent>
-      <CardActions>
-        <Button size="medium">Add Family</Button>
-      </CardActions>
-    </Card>
+                    <CardContent>
+                        <Typography className="title" color="textSecondary" gutterBottom>
+                        User Found: 
+                        </Typography>
+                        <Typography variant="h5" component="h2">
+                                email: {results.email}
+                        </Typography>
+                        <Typography className="pos" color="textSecondary">
+                        username: {results.displayName}
+                        </Typography>
+                        
+                    </CardContent>
+                    <CardActions>
+                        <Button id="add-family-button" size="medium" color="#BEC357">Add Family</Button>
+                    </CardActions>
+                </Card>
             )
         } else {
             return (
