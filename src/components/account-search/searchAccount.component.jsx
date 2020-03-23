@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from "react-redux";
 import axios from 'axios';
 
+
 import SearchIcon from '@material-ui/icons/Search';
 // import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -10,8 +11,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import './searchAccount.styles.css'
-
-
+require('dotenv').config()
 
 function mapStateToProps(state) {
     return {
@@ -51,10 +51,8 @@ class AccountSearch extends React.Component {
     }
 
     fetchEmailSearchResults = (query) =>{
-        
-        console.log("email: ", query)
 
-        let searchUrl = `https://api-2housecal.herokuapp.com/api/users/search/${query}` 
+        let searchUrl = `${process.env.REACT_APP_API_URL}/api/users/search/${query}`;
 
         // cancel previous request; see axios cancel token
         if(this.cancel !== ''){
