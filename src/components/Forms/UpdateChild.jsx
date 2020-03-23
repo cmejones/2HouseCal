@@ -90,7 +90,7 @@ class UpdateChild extends React.Component {
                     id: id,
                     firstName: data.firstName,
                     lastName: data.lastName,
-                    childPhoto: data.url,
+                    childPhoto: data.childPhoto,
                     bloodType: data.bloodType,
                     birthday: data.birthday.toDate(),
                     medications: data.medications,
@@ -108,12 +108,14 @@ class UpdateChild extends React.Component {
     }
     
     // handleImageChange(event) {
-    //     this.setState({childPhoto: event.target.url});
+    //     this.setState({childPhoto: event.target.files[0]});
+    //     console.log(this.state)
     // }
     handleImageChange = e => {
         if (e.target.files[0]) {
             const childPhoto = e.target.files[0];
-            this.setState(() => ({ childPhoto }));     
+            this.setState(() => ({ childPhoto }));  
+            console.log(this.state);   
         }
     };
 
@@ -140,52 +142,8 @@ class UpdateChild extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
-
         const data = this.state;
-        const { childPhoto } = this.state;
-        const uploadTask = storage.ref(`images/${childPhoto.name}`).put(childPhoto);
-                    uploadTask.on(
-            "state_changed",
-            snapshot => {
-                // progress function ...
-                const progress = Math.round(
-                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                );
-                this.setState({ progress });
-            },
-            error => {
-                // Error function ...
-                console.log(error);
-            },
-            () => {
-                // complete function ...
-                storage
-                .ref("images")
-                .child(childPhoto.name)
-                .getDownloadURL()
-                .then(url => {
-                    this.setState({ 
-                        url,
-                        childPhoto: null
-                    });
-                    return db.collection('children').doc().set(this.state)
-                    .then (() => 
-                        this.setState({
-                            firstName: '',
-                            lastName: '',
-                            childPhoto: null,
-                            url: '',
-                            progress: 0,
-                            bloodType: 'bloodDefault',
-                            birthday: new Date(),
-                            medications: '',
-                            allergies: '',
-                            bedtime: '',
-                            redirectToReferrer: true
-                                    
-                        }))
-                    })
-                });
+    
         console.log(this.props);
         let id = this.state.id;
 
@@ -204,10 +162,9 @@ class UpdateChild extends React.Component {
             bedtime: data.bedtime,
             id: data.id,
             redirectToReferrer: true
-
         })
-
     };
+
     render() {
         //console.log(this.state.birthday)
         //console.log(this.state);
@@ -224,29 +181,23 @@ class UpdateChild extends React.Component {
                         Update Child Details
                     </Typography>
                     <form className="form" onSubmit={this.handleSubmit}>
-                        <div className="field">
-                            <div className="control">
-                                <div className="center">
-                                    <img
-                                        className="responsive-img"
-                                        src={this.state.url || "https://via.placeholder.com/400x300"}
-                                        alt="Uploaded Images"
-                                        height="300"
-                                        width="400"
-                                    />
-                                    <div className="field center">
-                                        <div className="file-field">
-                                            <Button className="waves-effect orange accent-2">
-                                                <input type="file" onChange={this.handleImageChange} />
-                                                Browse for Image
-                                            </Button>
-                                            <div className="">
-                                                <input className="file-path validate" type="text" />
-                                            </div>
-                                        </div>
-                                    </div>
+                        <div className="field center">
+                            <img
+                                className="responsive-img"
+                                src={this.state.url || "https://via.placeholder.com/400x300"}
+                                alt="Uploaded Images"
+                                height="300"
+                                width="400"
+                            />
+                            {/* <div className="file-field">                               
+                                <Button className="waves-effect orange accent-2">
+                                    <input type="file" onChange={this.handleImageChange} />
+                                    Browse for Image
+                                </Button>
+                                <div className="">
+                                    <input className="file-path validate" type="text" />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
 
                         <div className="field">
@@ -361,6 +312,9 @@ class UpdateChild extends React.Component {
                         <div className="field">
                             <div className="control">
                                 <button className="newSubmit waves-effect orange accent-2">Update Information</button>
+                                <div className="row">
+                                    <progress value={this.state.progress} max="100" className="progressBar" />
+                                </div>
                             </div>
                         </div>
                     </form>
