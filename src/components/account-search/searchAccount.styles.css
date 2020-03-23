@@ -1,8 +1,8 @@
-.container {
+.search-container {
     margin: 36px auto;
     width: 100%;
     max-width: 560px;
-   
+
 }
 
 .search-label {
@@ -10,7 +10,7 @@
 
 }
 
-.container input {
+.search-container input {
     width: 100%;
     padding: 16px;
     font-size: 24px;
