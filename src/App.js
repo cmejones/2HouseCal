@@ -5,7 +5,6 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Calendar from './components/Calendar';
-import CalendarEdit from './components/calendar-edit/calendar-edit.component';
 import Register from './pages/Register';
 import AddChildPage from './pages/AddChildPage';
 import MyChild from "./components/MyChild";
@@ -36,13 +35,6 @@ function App(props) {
         exact
         path="/calendar"
         component={Calendar}
-        isAuthenticated={isAuthenticated}
-        isVerifying={isVerifying}
-      />
-      <ProtectedRoute
-        exact
-        path="/event/edit/:id"
-        component={CalendarEdit}
         isAuthenticated={isAuthenticated}
         isVerifying={isVerifying}
       />
