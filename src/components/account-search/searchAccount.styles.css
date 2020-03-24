@@ -1,13 +1,17 @@
+
+body {
+    background-color: #F7EEDF;
+}
 .search-container {
     margin: 36px auto;
     width: 100%;
     max-width: 560px;
-
+    background-color:#fff;
 }
 
 .search-label {
     position: relative;
-
+    color:#444;
 }
 
 .search-container input {
@@ -27,5 +31,32 @@
     font-size: 24px;
     color: #555;
     right:20px;
+}
 
+.results-container {
+    padding-top: 20px;
+    background-color: #fff;
+}
+
+.root {
+    min-width: 275;
+    background-color: #BEC357;
+}
+
+.bullet {
+    display: inline-block;
+    transform: scale(0.8);
+}
+
+.title {
+    font-size: 14;
+}
+
+.pos {
+    margin-bottom:  12;
+}
+
+#add-family-button {
+    color: white;
+    background-color: #868736;
 }

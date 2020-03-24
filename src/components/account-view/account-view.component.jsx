@@ -1,9 +1,11 @@
 import React from 'react';
+import Header from '../header/header.component';
 import { connect } from "react-redux";
 import { db } from '../../firebase/firebase';
 
 import Container from '@material-ui/core/Container';
 import ProfileMenu from '../menu-profile/menu-profile.component'
+import AccountSearch from '../account-search/searchAccount.component';
 import './account-view.styles.css';
 
 function mapStateToProps(state) { //need to render redux store
@@ -16,29 +18,23 @@ class AccountView extends React.Component {
         super(props);
         console.log('edit this prop: ', this.props)
         this.state = {
-            data: []
+            data: [],
         }
     }
     
     componentDidMount() {
-        console.log('here');
 
-        //const { user } = this.props
-        console.log('userId: ', this.props.user.uid)
-        let id = this.props.user.uid;
-        console.log(id);
+        const { user } = this.props
+        console.log('userId: ', user.uid)
         
-        const userRef = db.collection('users').doc(id)
-        //console.log(userRef);
-    
+        const userRef = db.collection('users').doc(user.uid)
+
         userRef.get()
             .then(doc => {
                 if (doc.exists) {
-                    console.log("User data: ", doc.data());
-                    const data = doc.data();
-                    console.log(data, 'data');
+                    console.log("User data: ", doc.data())
                     this.setState({
-                        data: doc.data()
+                    data: doc.data()
                     })
                 } else {
                     console.log('No such document!')
@@ -46,24 +42,37 @@ class AccountView extends React.Component {
             
             }).catch(function (error) {
                 console.log("Error getting document: ", error);
-            })            
+        })            
     }
     
     render() {
-        console.log('this.state.data: ', this.state)
+        console.log(this.state.data)
+
+        const family = this.state.data.map((family) => {
+            return <ul>
+                <li>
+                    {family.name}
+                </li>
+            </ul>});
+
+        console.log('this.state.data: ', this.state.data)
         return (
             <div>
+                <Header />
                 <ProfileMenu />
-                <h1>Your Account</h1>
                 <Container maxWidth='sm' >  
                     <div className='userProfileView'>
+                        <div className='profile-header'>
+                            <h5>Account Info</h5>
+                        </div>
+                        <hr />
                         <p>username: {this.state.data.displayName}</p>
                         <p>email: {this.state.data.email}</p>
-                        <p>message: {this.state.data.message}</p>
+                        <p>Account members: {family}</p>
                     </div>   
                 </Container>
+                <AccountSearch />
             </div>
-
         )
     }
 }
