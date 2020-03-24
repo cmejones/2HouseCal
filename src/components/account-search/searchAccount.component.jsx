@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { db } from '../../firebase/firebase';
 import { connect } from "react-redux";
@@ -90,7 +89,6 @@ class AccountSearch extends React.Component {
 
     handleClick = async() => {
     
-
         const { user } = this.props
         const { results } = this.state;
     
@@ -142,20 +140,19 @@ class AccountSearch extends React.Component {
             )
         } else {
             if(results) {
-            return (
-            
-                <Container maxWidth='sm'>  
-                    <CardContent className="results-container">
-                        <Typography className="title" color="textSecondary" gutterBottom>
-                            User Found: 
-                        </Typography>
-                        <Typography variant="h5" component="h2">
-                            {message}
-                        </Typography>
-                    </CardContent>
-                </Container>
-            )
-        }
+                return (   
+                    <Container maxWidth='sm'>  
+                        <CardContent className="results-container">
+                            <Typography className="title" color="textSecondary" gutterBottom>
+                                User Found: 
+                            </Typography>
+                            <Typography variant="h5" component="h2">
+                                {message}
+                            </Typography>
+                        </CardContent>
+                    </Container>
+                )
+            }
         }
     }
     

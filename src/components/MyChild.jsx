@@ -32,15 +32,12 @@ class MyChild extends React.Component {
     
         childrenRef.get()
         .then(snapshot => {
-            //console.log(snapshot);
             let children = [];
             snapshot.forEach(doc => {
                 children.push({
                     id:doc.id,
                     ...doc.data()
                 });
-                //console.log(doc.id, '=>', doc.data()); //showing children
-                //console.log(children, 'children')
             });
         
             this.setState({
@@ -54,8 +51,6 @@ class MyChild extends React.Component {
 
         render() {
             let editLink = '/updateChild/' + this.props.id;
-
-            //console.log(this.state);
 
             return (
                 <div className="col s12 m6 l4">

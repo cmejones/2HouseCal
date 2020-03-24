@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/index";
-import ProfileMenu from '../menu-profile/menu-profile.component';
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 
@@ -15,10 +14,6 @@ class Sidenav extends Component {
             draggable: true
         };
         M.Sidenav.init(this.Sidenav);
-
-        //let instance = M.Sidenav.getInstance(this.Sidenav);
-        //instance.open();
-        //console.log(instance.isOpen);
     }
     handleLogout = () => {
         const { dispatch } = this.props;
@@ -28,9 +23,6 @@ class Sidenav extends Component {
         const { isLoggingOut, logoutError } = this.props; //needed to render redux store
         return (
             <div className="show-on-medium-and-down hide-on-large-only">
-                {/* <a href="#!" data-target="slide-out" className="sidenav-trigger show-on-medium-and-down">
-                    <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' />
-                </a> */}
                 <ul
                 ref={Sidenav => {
                     this.Sidenav = Sidenav;

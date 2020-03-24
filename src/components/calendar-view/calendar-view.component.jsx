@@ -45,7 +45,6 @@ class CalendarView extends React.Component {
         let parentId = this.props.user;
         if(parentId) {
         const eventsRef = db.collection('events').where('parentId', '==', parentId)
-        //const eventsRef = db.collection('events')
     
         eventsRef.get()
         .then(snapshot => {
@@ -58,7 +57,6 @@ class CalendarView extends React.Component {
                     end: end.toDate(),
                     ...data
                 });
-                //console.log(events, 'events')
             });
         
             this.setState({
@@ -73,8 +71,6 @@ class CalendarView extends React.Component {
     }
 
     componentDidMount() {
-        //let parentId = this.props.user;
-        //const eventsRef = db.collection('events').where('parentId', '==', parentId)
         this.updateEvents();
         Modal.setAppElement('main');
     }

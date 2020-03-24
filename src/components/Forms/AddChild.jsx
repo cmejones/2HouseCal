@@ -6,10 +6,7 @@ import DatePicker from 'react-datepicker';
 //update to better date picker: https://github.com/clauderic/react-infinite-calendar
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
-//import { withStyles } from "@material-ui/styles";
-
 import Button from "@material-ui/core/Button";
-// TextField from "@material-ui/core/TextField";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";

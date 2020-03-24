@@ -1,11 +1,7 @@
 import React, { Component } from "react";
-//import { connect } from "react-redux";
-//import { logoutUser } from "../actions";
 import Header from '../components/header/header.component';
-//import { stat } from "fs";
 import '../index.css';
 import CalendarView from "./calendar-view/calendar-view.component";
-//import MenuProfile from '../components/menu-profile/menu-profile.component';
 import Sidenav from "./header/sidebar";
 
 class Home extends Component {
