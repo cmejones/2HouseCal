@@ -100,9 +100,9 @@ class AccountSearch extends React.Component {
         };
 
         const familyRef = await db.collection("users").doc(user.uid);
-
+// TO DO get current members then add new one to array; otherwise only 1 will be saved
         familyRef.update({
-            family: data    
+            family: [data]    
         })
         .then(function() {
             if (window.confirm('User successfully added to family list.')) 
@@ -164,23 +164,27 @@ class AccountSearch extends React.Component {
 
             console.warn("warn this.state: ", this.state)
             return (
-                <Container maxWidth='sm'>  
+                <Container maxWidth='sm'> 
                     <CardContent className="search-container">
-                    <form className='search-form' noValidate autoComplete="off" >
-                    
-                        <label className="search-label" htmlFor="search-email">
-                            <input
-                                type="text"
-                                name="query"
-                                value={query}
-                                id="search-email"
-                                placeholder="Search by email..."
-                                onChange={this.handleChange}
-                                
-                            />
-                            <SearchIcon className="search-icon" fontSize="large"  />   
-                        </label>
-                    </form>
+                        <div className='profile-header'>
+                            <h5>Add account members</h5>
+                        </div>
+                        <hr />
+                        <form className='search-form' noValidate autoComplete="off" >
+                        
+                            <label className="search-label" htmlFor="search-email">
+                                <input
+                                    type="text"
+                                    name="query"
+                                    value={query}
+                                    id="search-email"
+                                    placeholder="Search by email..."
+                                    onChange={this.handleChange}
+                                    
+                                />
+                                <SearchIcon className="search-icon" fontSize="large"  />   
+                            </label>
+                        </form>
                     {/* Results */}
                     <div>
                         {this.renderEmailSearchResults()}

@@ -22,9 +22,13 @@ select {
 }
 
 .card.medium .card-content {
-  max-height:90%;
+  max-height:90% !important;
 }
 
 .card.medium .card-image {
-  max-height:40%;
+  max-height:40% !important;
+}
+
+.home-calendar {
+  padding-top: 10px !important;
 }
