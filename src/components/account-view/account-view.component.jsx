@@ -7,6 +7,8 @@ import Container from '@material-ui/core/Container';
 import ProfileMenu from '../menu-profile/menu-profile.component'
 import './account-view.styles.css';
 
+import Sidenav from '../header/sidebar.component'
+
 function mapStateToProps(state) { //need to render redux store
     return {
         user: state.auth.user
@@ -51,7 +53,9 @@ class AccountView extends React.Component {
         return (
             <div>
                  <Link to='/'>Home</Link>
+                 <Sidenav />
                 <ProfileMenu />
+                
                
                 <Container maxWidth='sm' >  
                     <div className='userProfileView'>

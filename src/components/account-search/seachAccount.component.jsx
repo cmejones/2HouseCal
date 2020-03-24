@@ -11,6 +11,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import './searchAccount.styles.css'
 
+
+
 function mapStateToProps(state) {
     return {
         user: state.auth.user    
@@ -120,6 +122,7 @@ class AccountSearch extends React.Component {
        
         const { results, message } = this.state;
         console.log(results);
+        
         if(results) {
             return (
                 <Card className="root">

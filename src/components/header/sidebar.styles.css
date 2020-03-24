@@ -1,0 +1,18 @@
+
+#slide-out {
+    background-color: #F7EEDF;
+    color: #D57426;
+    text-align: right;
+}
+
+.sidenav li a {
+    color:#D57426;
+}
+
+.sidenav li a:hover {
+    color:#BEC357;
+}
+li:nth-child(3){
+    margin-right: 30px;
+    font-weight: 500; 
+}
