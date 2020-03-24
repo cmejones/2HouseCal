@@ -11,12 +11,9 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import './searchAccount.styles.css'
 
-
-
 function mapStateToProps(state) {
     return {
-        user: state.auth.user
-        
+        user: state.auth.user    
     };
 }
 class AccountSearch extends React.Component {
@@ -24,7 +21,6 @@ class AccountSearch extends React.Component {
         super(props);
 
         this.state={
-            familyId:'',
             query:'',
             results: '',
             loading: false,
@@ -93,6 +89,7 @@ class AccountSearch extends React.Component {
 
     handleClick = async() => {
        
+
         const { user } = this.props
         const { results } = this.state;
       
@@ -107,10 +104,15 @@ class AccountSearch extends React.Component {
             family: data    
         })
         .then(function() {
-            console.log('User successfully added to family list')
+            if (window.confirm('User successfully added to family list.')) 
+            {
+            window.location.href='/account/view';
+            };
+            
+                 
         })
         .catch(function(error) {
-            console.log('Error updating document: ', error)
+            window.alert('Error updating document')
         });
     }
 
@@ -180,9 +182,8 @@ class AccountSearch extends React.Component {
                 {/* Results */}
                 <div className="results-container">
                 {this.renderEmailSearchResults()}
-                </div>
-            </div>
-           
+                </div>   
+            </div>   
         )
         }
     }

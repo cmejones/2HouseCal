@@ -46,19 +46,27 @@ class AccountView extends React.Component {
     }
     
     render() {
+  
         console.log('this.state.data: ', this.state.data)
         return (
             <div>
                  <Link to='/'>Home</Link>
                 <ProfileMenu />
-                <h1>Your Account</h1>
+               
                 <Container maxWidth='sm' >  
                     <div className='userProfileView'>
+                        <div className='profile-header'>
+                        <h5>Account Info</h5>
+                        </div>
+                        <hr />
                         <p>username: {this.state.data.displayName}</p>
                         <p>email: {this.state.data.email}</p>
-                        <p>message: {this.state.data.message}</p>
+                      
                     </div>   
                 </Container>
+
+    
+               
             </div>
 
         )
