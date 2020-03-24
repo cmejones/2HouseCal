@@ -94,36 +94,36 @@ class Login extends Component {
                     </Container>
                     <Container className="col s12 m6" component="main" maxWidth="xs">
                         <Paper className={classes.paper}>
-                        <Avatar className={classes.avatar}>
-                            <LockOutlinedIcon />
-                        </Avatar>
-                        <Typography component="h1" variant="h5">
-                            Sign in
-                        </Typography>
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            onChange={this.handleEmailChange}
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            fullWidth
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            onChange={this.handlePasswordChange}
-                        />
-                        {loginError && (
-                            <Typography component="p" className={classes.errorText}>
-                                Incorrect email or password.
+                            <Avatar className={classes.avatar}>
+                                <LockOutlinedIcon />
+                            </Avatar>
+                            <Typography component="h1" variant="h5">
+                                Sign in
                             </Typography>
-                        )}
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                name="email"
+                                onChange={this.handleEmailChange}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                fullWidth
+                                name="password"
+                                label="Password"
+                                type="password"
+                                id="password"
+                                onChange={this.handlePasswordChange}
+                            />
+                            {loginError && (
+                                <Typography component="p" className={classes.errorText}>
+                                    Incorrect email or password.
+                                </Typography>
+                            )}
                             <Button
                                 type="button"
                                 fullWidth
