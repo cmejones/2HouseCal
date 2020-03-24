@@ -61,6 +61,7 @@ class AccountView extends React.Component {
                         <hr />
                         <p>username: {this.state.data.displayName}</p>
                         <p>email: {this.state.data.email}</p>
+                       
                       
                     </div>   
                 </Container>
