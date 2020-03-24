@@ -25,7 +25,6 @@ function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
     <Switch>
-      {/* <Sidebar /> */}
       <ProtectedRoute
         exact
         path="/"

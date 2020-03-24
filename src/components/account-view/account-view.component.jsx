@@ -17,7 +17,7 @@ function mapStateToProps(state) { //need to render redux store
 class AccountView extends React.Component {
     constructor(props) {
         super(props);
-        console.log('edit this prop: ', this.props)
+        //console.log('edit this prop: ', this.props)
         this.state = {
             data: [],
             family: [],
@@ -27,7 +27,7 @@ class AccountView extends React.Component {
 
     async componentDidMount() {
         const { user } = this.props
-        console.log('userId: ', user.uid)
+        //console.log('userId: ', user.uid)
         
         const userRef = await db.collection('users').doc(user.uid)
 
@@ -80,7 +80,8 @@ class AccountView extends React.Component {
     // }
 
     render() {
-        const familyMembers  = this.state.familyMembers;
+        //const familyMembers  = this.state.familyMembers;
+        //console.log(this.state.family.email);
 
         return (
             <div>
@@ -96,9 +97,9 @@ class AccountView extends React.Component {
                             <hr />
                             <p>username: {this.state.data.displayName}</p>
                             <p>email: {this.state.data.email}</p>
-                            <p>Account members: {familyMembers.map((family) => {
+                            {/* <p>Account members: {familyMembers.map((family) => {
                                 return `${family.email}`})}
-                            </p>
+                            </p> */}
                         </div>  
                     </div> 
                 </Container>

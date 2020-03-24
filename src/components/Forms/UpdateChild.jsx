@@ -6,11 +6,8 @@ import DatePicker from 'react-datepicker';
 //update to better date picker: https://github.com/clauderic/react-infinite-calendar
 import 'react-datepicker/dist/react-datepicker.css';
 import { connect } from 'react-redux';
-//import { withStyles } from "@material-ui/styles";
 import Header from '../header/header.component';
 
-//import TextField from "@material-ui/core/TextField";
-//import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
@@ -107,10 +104,6 @@ class UpdateChild extends React.Component {
         })
     }
     
-    // handleImageChange(event) {
-    //     this.setState({childPhoto: event.target.files[0]});
-    //     console.log(this.state)
-    // }
     handleImageChange = e => {
         if (e.target.files[0]) {
             const childPhoto = e.target.files[0];
@@ -166,8 +159,6 @@ class UpdateChild extends React.Component {
     };
 
     render() {
-        //console.log(this.state.birthday)
-        //console.log(this.state);
         const redirectToReferrer = this.state.redirectToReferrer;
         if (redirectToReferrer === true) {
             return <Redirect to="/myAccount" />
