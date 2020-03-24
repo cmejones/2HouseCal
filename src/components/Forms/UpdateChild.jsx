@@ -11,6 +11,7 @@ import Header from '../header/header.component';
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
+import '../../index.css';
 
 
 const storageRef = storage.ref();
