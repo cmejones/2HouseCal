@@ -20,20 +20,26 @@
     color: black;
     font-size: 18px;
     padding: 0px 0px 0px 15px;
+    padding-left: 15px;
     display: block;
     width: 100%;
     border: none;
     border-radius: 0;
     border-bottom: 1px solid grey;
     margin: 25px 0;
+    margin-left: 15px;
 }
 input[type=text], .file-field input.file-path {
-    padding-left: 15px;
-    width: 96%;
+    padding-left: 15px !important;
+    width: 96% !important;
 }
 
 input[type='password'] {
     letter-spacing: 0.3em;
+}
+
+select {
+    display:block;
 }
 
 .form-input-label {
