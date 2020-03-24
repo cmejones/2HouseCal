@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../header/header.component';
+import Sidenav from '../header/sidebar';
 import { connect } from "react-redux";
 import { db } from '../../firebase/firebase';
 
@@ -84,6 +85,7 @@ class AccountView extends React.Component {
         return (
             <div>
                 <Header />
+                <Sidenav />
 
                 <Container maxWidth='sm'>  
                     <div className="card">

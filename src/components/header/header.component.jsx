@@ -15,7 +15,11 @@ class Header extends React.Component {
         return (
             <>
             <nav className='nav-wrapper'>
-                <div className="">
+                <a href="#!" data-target="slide-out" className="sidenav-trigger show-on-medium-and-down">
+                    <img className='logo circle' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' />
+                </a>
+                <div className="right hide-on-med-and-down">
+
                     <a href='/' className="brand-logo left" >
                         Home
                         {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' /> */}

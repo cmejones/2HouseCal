@@ -28,9 +28,9 @@ class Sidenav extends Component {
         const { isLoggingOut, logoutError } = this.props; //needed to render redux store
         return (
             <div className="show-on-medium-and-down hide-on-large-only">
-                <a href="#!" data-target="slide-out" className="sidenav-trigger show-on-medium-and-down">
-                    <i className="material-icons">menu</i>
-                </a>
+                {/* <a href="#!" data-target="slide-out" className="sidenav-trigger show-on-medium-and-down">
+                    <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' />
+                </a> */}
                 <ul
                 ref={Sidenav => {
                     this.Sidenav = Sidenav;
@@ -38,6 +38,7 @@ class Sidenav extends Component {
                 id="slide-out"
                 className="sidenav"
                 >
+                <li><a href='/'>Home</a></li>
                 <li><a href='/myAccount'>My Account</a></li>
                 <li><a href='/addChild'>Add Child</a></li>
                 <li><a href='/account/view'>Manage Profile</a></li>
