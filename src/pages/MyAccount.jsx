@@ -3,6 +3,7 @@ import { db } from '../firebase/firebase';
 import { connect } from 'react-redux';
 import MyChild from '../components/MyChild';
 import Header from '../components/header/header.component';
+import Sidenav from '../components/header/sidebar';
 import '../index.css';
 
 function mapStateToProps(state) { //need to render redux store
@@ -65,6 +66,7 @@ class MyAccount extends Component {
             this.state.isLoading ? <div>Loading...</div> :
             <div className="dashboard">
                 <Header />
+                <Sidenav />
 
                 <div className="container">
                     <div className="row">
