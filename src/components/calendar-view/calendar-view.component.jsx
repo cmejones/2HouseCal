@@ -268,6 +268,7 @@ class CalendarView extends React.Component {
 
     handleSubmit = async event => {
         event.preventDefault();
+        console.log(this.state.parentId);
         //console.log(this.state)
         //add each field here or events will be nested in db
         const data = {

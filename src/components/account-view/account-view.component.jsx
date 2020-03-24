@@ -80,7 +80,8 @@ class AccountView extends React.Component {
     // }
 
     render() {
-        const familyMembers  = this.state.familyMembers;
+        //const familyMembers  = this.state.familyMembers;
+        //console.log(this.state.family.email);
 
         return (
             <div>
@@ -96,9 +97,9 @@ class AccountView extends React.Component {
                             <hr />
                             <p>username: {this.state.data.displayName}</p>
                             <p>email: {this.state.data.email}</p>
-                            <p>Account members: {familyMembers.map((family) => {
+                            {/* <p>Account members: {familyMembers.map((family) => {
                                 return `${family.email}`})}
-                            </p>
+                            </p> */}
                         </div>  
                     </div> 
                 </Container>
