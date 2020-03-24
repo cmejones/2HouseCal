@@ -2,6 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Sidebar from './components/header/sidebar';
 import Home from "./components/Home";
 import Login from "./components/Login";
 import Calendar from './components/Calendar';
@@ -24,6 +25,7 @@ function App(props) {
   const { isAuthenticated, isVerifying } = props;
   return (
     <Switch>
+      {/* <Sidebar /> */}
       <ProtectedRoute
         exact
         path="/"

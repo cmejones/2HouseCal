@@ -14,23 +14,25 @@ class Header extends React.Component {
         const { isLoggingOut, logoutError } = this.props; //needed to render redux store
         //console.log(this.props);
         return (
-
+            <>
             <nav className='nav-wrapper'>
-
-                <a href='/' className="brand-logo left" >
-                    Home
-                    {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' /> */}
-                </a>
-                <ul id='nav-mobile' className='right hide-on-med-and-down'>
-                    <li><a href='/myAccount'>My Account</a></li>
-                    <li><a href='/addChild'>Add Child</a></li>
-                    <li><ProfileMenu /></li>
-                    <li><span onClick={this.handleLogout}>Logout</span></li>
-                    {isLoggingOut && <p>Logging Out....</p>}
-                    {logoutError && <p>Error logging out</p>}
-                    
-                </ul>
-            </nav>
+                <div className="container">
+                    <a href='/' className="brand-logo left" >
+                        Home
+                        {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' /> */}
+                    </a>
+                    <ul className='right hide-on-med-and-down'>
+                        <li><a href='/myAccount'>My Account</a></li>
+                        <li><a href='/addChild'>Add Child</a></li>
+                        <li><ProfileMenu /></li>
+                        <li><span onClick={this.handleLogout}>Logout</span></li>
+                        {isLoggingOut && <p>Logging Out....</p>}
+                        {logoutError && <p>Error logging out</p>}
+                        
+                    </ul>
+                </div>
+            </nav>        
+            </>
         )
     }
 }

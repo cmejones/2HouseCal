@@ -6,12 +6,14 @@ import Header from '../components/header/header.component';
 import '../index.css';
 import CalendarView from "./calendar-view/calendar-view.component";
 import MenuProfile from '../components/menu-profile/menu-profile.component';
+import Sidenav from "./header/sidebar";
 
 class Home extends Component {
     render() {
         return (
         <div>
             <Header />
+            <Sidenav />
             <div className="container d-flex justify-content-center mt-3">
                 <div className="row">
                     <main>
