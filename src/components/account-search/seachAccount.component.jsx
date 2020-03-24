@@ -1,4 +1,5 @@
 import React from 'react';
+import { db } from '../../firebase/firebase';
 import { connect } from "react-redux";
 import axios from 'axios';
 
@@ -23,6 +24,7 @@ class AccountSearch extends React.Component {
         super(props);
 
         this.state={
+            familyId:'',
             query:'',
             results: '',
             loading: false,
@@ -31,7 +33,8 @@ class AccountSearch extends React.Component {
     
         this.cancel = '';
         this.handleChange = this.handleChange.bind(this);
-        this.fetchEmailSearchResults = this.fetchEmailSearchResults.bind(this);    
+        this.fetchEmailSearchResults = this.fetchEmailSearchResults.bind(this);  
+        this.handleClick = this.handleClick.bind(this);  
     }
 
    handleChange = (event) => {
@@ -69,12 +72,14 @@ class AccountSearch extends React.Component {
         })
         .then( response => {
             const resultNotFoundMsg = ! response.data ? 'No user found' : '';
-            console.log(response.data);
+         
             this.setState({
+        
                 results: response.data,
                 message: resultNotFoundMsg, 
                 loading: false
             })
+          
         })
         .catch(error => {
             if( axios.isCancel(error) || error ) {
@@ -86,7 +91,31 @@ class AccountSearch extends React.Component {
         })    
     }
 
+    handleClick = async() => {
+       
+        const { user } = this.props
+        const { results } = this.state;
+      
+        let data = {
+            name: results.displayName, 
+            email: results.email
+        };
+
+        const familyRef = await db.collection("users").doc(user.uid);
+
+        familyRef.update({
+            family: data    
+        })
+        .then(function() {
+            console.log('User successfully added to family list')
+        })
+        .catch(function(error) {
+            console.log('Error updating document: ', error)
+        });
+    }
+
     renderEmailSearchResults = () => {
+       
         const { results, message } = this.state;
         console.log(results);
         if(results) {
@@ -105,7 +134,7 @@ class AccountSearch extends React.Component {
                         
                     </CardContent>
                     <CardActions>
-                        <Button id="add-family-button" size="medium" color="#BEC357">Add Family</Button>
+                        <Button variant="contained" id="add-family-button" onClick={this.handleClick}>Add Family</Button>
                     </CardActions>
                 </Card>
             )
@@ -124,8 +153,8 @@ class AccountSearch extends React.Component {
                   </Card>
             )
         }
-    };
-       
+    }
+     
         render() {
             const { query } = this.state;
 
