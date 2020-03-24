@@ -3,6 +3,7 @@ import { db } from '../firebase/firebase';
 import { connect } from 'react-redux';
 import MyChild from '../components/MyChild';
 import Header from '../components/header/header.component';
+import '../index.css';
 
 function mapStateToProps(state) { //need to render redux store
     return {

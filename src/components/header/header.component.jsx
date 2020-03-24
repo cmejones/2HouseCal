@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { logoutUser } from "../../actions/index";
-import ProfileMenu from '../menu-profile/menu-profile.component';
 
 import './header.styles.css';
 
@@ -16,7 +15,7 @@ class Header extends React.Component {
         return (
             <>
             <nav className='nav-wrapper'>
-                <div className="container">
+                <div className="">
                     <a href='/' className="brand-logo left" >
                         Home
                         {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' /> */}
@@ -24,8 +23,8 @@ class Header extends React.Component {
                     <ul className='right hide-on-med-and-down'>
                         <li><a href='/myAccount'>My Account</a></li>
                         <li><a href='/addChild'>Add Child</a></li>
-                        <li><ProfileMenu /></li>
-                        <li><span onClick={this.handleLogout}>Logout</span></li>
+                        <li><a href='/account/view'>Manage Profile</a></li>
+                        <li><a onClick={this.handleLogout}>Logout</a></li>
                         {isLoggingOut && <p>Logging Out....</p>}
                         {logoutError && <p>Error logging out</p>}
                         

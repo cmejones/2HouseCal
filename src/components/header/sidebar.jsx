@@ -5,6 +5,8 @@ import ProfileMenu from '../menu-profile/menu-profile.component';
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
 
+import './sidebar.styles.css'
+
 class Sidenav extends Component {
     componentDidMount() {
         const options = {
@@ -26,6 +28,9 @@ class Sidenav extends Component {
         const { isLoggingOut, logoutError } = this.props; //needed to render redux store
         return (
             <div className="show-on-medium-and-down hide-on-large-only">
+                <a href="#!" data-target="slide-out" className="sidenav-trigger show-on-medium-and-down">
+                    <i className="material-icons">menu</i>
+                </a>
                 <ul
                 ref={Sidenav => {
                     this.Sidenav = Sidenav;
@@ -35,19 +40,16 @@ class Sidenav extends Component {
                 >
                 <li><a href='/myAccount'>My Account</a></li>
                 <li><a href='/addChild'>Add Child</a></li>
+                <li><a href='/account/view'>Manage Profile</a></li>
 
-                <li><span onClick={this.handleLogout}>Logout</span></li>
-                {isLoggingOut && <p>Logging Out....</p>}
-                {logoutError && <p>Error logging out</p>}
-            
                 <li>
                     <div className="divider" />
                 </li>
-                <li><ProfileMenu /></li>
+                <li><a onClick={this.handleLogout}>Logout</a></li>
+                    {isLoggingOut && <p>Logging Out....</p>}
+                    {logoutError && <p>Error logging out</p>}
                 </ul>
-                <a href="#!" data-target="slide-out" className="sidenav-trigger show-on-medium-and-down">
-                    <i className="material-icons">menu</i>
-                </a>
+
             </div>
         );
     }
