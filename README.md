@@ -1,4 +1,8 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 2 House Cal
+2 House Cal is designed to keep households in sync with a joint calendar and child information repository. It was built using React.js, React Big Calendar, Firebase, and Materialize CSS framework.
+
+## Live Demo
+Currently deployed to Heroku at https://housecal.herokuapp.com/
 
 ## Available Scripts
 
