@@ -3,7 +3,7 @@ a:link {
 }
 
 nav {
-    background-color: #868736;
+    background-color: #868736 !important;
 }
 
 nav ul a {
