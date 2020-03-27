@@ -184,6 +184,7 @@ class AddChild extends React.Component {
                             <div className="field">
                                 <div className="control">
                                     <FormInput
+                                        required
                                         className="form-input" 
                                         name="lastName" 
                                         component="input" 
@@ -198,7 +199,7 @@ class AddChild extends React.Component {
                             <div className="field center">
                                 <div className="file-field">
                                     <Button className="waves-effect orange accent-2">
-                                        <input type="file" onChange={this.handleImageChange} />
+                                        <input required type="file" onChange={this.handleImageChange} />
                                         Browse for Image
                                     </Button>
                                     <div className="">
