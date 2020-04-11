@@ -5,13 +5,12 @@ import { db } from '../../firebase/firebase';
 //import axios from 'axios';
 
 import SearchIcon from '@material-ui/icons/Search';
-// import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
+import Container from '@material-ui/core/Container';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import './searchAccount.styles.css'
+import './searchAccount.styles.css';
 
 function mapStateToProps(state) {
     return {
@@ -27,120 +26,181 @@ class AccountSearch extends React.Component {
         this.state = {
             email:'',
             parentId: this.props.user, //adding so we can assign primary parent id to this user
-            // results: '',
-            // message: '',
+            displayName: '',
+            results: '',
             loading: false
         }
         this.cancel = '';
         this.handleChange = this.handleChange.bind(this);
         this.fetchEmailSearchResults = this.fetchEmailSearchResults.bind(this);
-        
+       // console.log(this.state);
     }
 
     handleChange = (event) => {
         event.preventDefault();
-
-        //const query = event.target.value;
+        //const query = '';
+        const results = '';
         const email = event.target.value;
-        console.log(email);
+        //console.log(email);
         this.setState({
             email: email,
-            //query: query,
-            loading: true
-            // message: ''
+            //displayName: displayName,
+            loading: true,
+            results: '' //put empty string here to force only actual results to display
         }, () => {
             this.fetchEmailSearchResults(email)
+        });
+        console.log('new state', this.state);
+    }
+
+
+    fetchEmailSearchResults(email) {
+        if(email) {
+            let usersRef = db.collection("users").where("email", "==", email);
+    
+            usersRef.get()
+                .then(querySnapshot => {
+                    querySnapshot.forEach(documentSnapshot => {
+                        this.setState({
+                            results: documentSnapshot.data(),
+                            loading:false
+                        })
+                    })
+                    // let docs = querySnapshot.docs;
+                    // for (let doc of docs) {
+                    //     //console.log(user);
+                    //     if(doc.exists) {
+                    //         this.setState({
+                    //             results: doc.data(),
+                    //             loading:false
+                    //         })
+                    //     }
+                    //     else {
+                    //         console.log('no user found');
+                    //         this.setState({
+                    //             results: '',
+                    //             loading:false
+                    //         })
+                    //     }
+                    // }
+                    // querySnapshot.find(doc) {
+                    //     //console.log(doc.id, '=>', doc.data());
+                    //     if(doc.exists) {
+                    //         // const data = doc.data();
+                    //         // console.log(data);
+                    //         this.setState({
+                    //             results: doc.data(),
+                    //             loading: false
+                    //         })
+                    //         .catch(err => {
+                    //             console.log('error getting event information', err);
+                    //         })
+                    //     }
+                    // })
+                })
+        }
+    }
+
+    handleClick = async() => {
+
+        const { user } = this.props
+        const { results } = this.state;
+    
+        let data = {
+            name: results.displayName, 
+            email: results.email
+        };
+
+        const familyRef = await db.collection("users").doc(user);
+// TO DO get current members then add new one to array; otherwise only 1 will be saved
+        familyRef.update({
+            family: [data]    
+        })
+        .then(function() {
+            if (window.confirm('User successfully added to family list.')) 
+            {
+                window.location.href='/account/view';
+            };
+            
+        })
+        .catch(function(error) {
+            window.alert('Error updating document')
         });
     }
 
 
-    fetchEmailSearchResults = (event) => {
-       // event.preventDefault();
-
-        //console.log("email: ", query)
-        const email = this.state.email;
-
-        const usersRef = db.collection("users").where("email", "==", email);
+    renderEmailSearchResults = () => {
     
-        usersRef.get()
-            //add cancel function here
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    //console.log(doc.id, '=>', doc.data());
-                    if(doc.exists) {
-                        const data = doc.data();
-                        console.log(data.email);
-                        
-                    } else { //not working
-                        alert('no such email')
-                        console.log('no doc')
-                    }
-                    this.setState({
-                        email: email,
-                        loading: false
-                })
-                //.catch(function(error) {
-               // console.log('Error getting user by email', error);
-            })
-
-            })
-            //})
-        }
-
-        renderEmailSearchResults = () => {
-            console.log(this.state);
-        const { results } = this.state;
+        const { results, message } = this.state;
         console.log(results);
         if(results) {
             return (
-                <Card className="root">
-        <CardContent>
-        <Typography className="title" color="textSecondary" gutterBottom>
-            User Found: 
-        </Typography>
-        <Typography variant="h5" component="h2">
-                email: {results.email}
-        </Typography>
-        <Typography className="pos" color="textSecondary">
-            username: {results.displayName}
-        </Typography>
-        
-        </CardContent>
-        <CardActions>
-            <Button size="medium">Add Family</Button>
-        </CardActions>
-        </Card>
+                <Container maxWidth='sm' className="">  
+                    <CardContent>
+                        <Typography className="title" color="textSecondary" gutterBottom>
+                        User Found: 
+                        </Typography>
+                        <Typography variant="h5" component="h2">
+                                email: {results.email}
+                        </Typography>
+                        <Typography className="pos" color="textSecondary">
+                            username: {results.displayName}
+                        </Typography>
+                        
+                    </CardContent>
+                    <CardActions>
+                        <Button variant="contained" id="add-family-button" onClick={this.handleClick}>Add to Family</Button>
+                    </CardActions>
+                </Container>
             )
+        } else {
+            if(results) {
+                return (   
+                    <Container maxWidth='sm'>  
+                        <CardContent className="results-container">
+                            <Typography className="title" color="textSecondary" gutterBottom>
+                                User Found: 
+                            </Typography>
+                            <Typography variant="h5" component="h2">
+                                {message}
+                            </Typography>
+                        </CardContent>
+                    </Container>
+                )
+            }
         }
-    };
+    }
     
         render() {
-            //const { query } = this.state;
-            const email  = this.state.email;
-            //console.log(this.state.email);
-            //console.warn("warn this.state: ", this.state.email)
+            //const email  = this.state.email;
             return (
-                <div className="container">
-                    <form className='search-form' noValidate autoComplete="off" onSubmit={this.fetchEmailSearchResults}>
-                    
-                        <label className="search-label" htmlFor="search-email">
-                            <input
-                                type="text"
-                                name="email"
-                                value={this.state.email}
-                                id="search-email"
-                                placeholder="Search by email..."
-                                onChange={this.handleChange}
-                                
-                            />
-                            <SearchIcon className="search-icon" fontSize="large"  />   
-                        </label>
-                    </form>
-                {/* Results */}
-                <div className="results-container">
-                    {this.renderEmailSearchResults()}
-                </div>
-            </div>
+                <Container maxWidth='sm'> 
+                    <CardContent className="search-container">
+                        <div className='profile-header'>
+                            <h5>Add account members</h5>
+                        </div>
+                        <hr />
+                        <form className='search-form' noValidate autoComplete="off" onSubmit={this.fetchEmailSearchResults}>
+                        
+                            <label className="search-label" htmlFor="search-email">
+                                <input
+                                    type="text"
+                                    name="email"
+                                    value={this.state.email}
+                                    id="search-email"
+                                    placeholder="Search by email..."
+                                    onChange={this.handleChange}
+                                    
+                                />
+                                <SearchIcon className="search-icon" fontSize="large"  />   
+                            </label>
+                        </form>
+                    {/* Results */}
+                    <div>
+                        {this.renderEmailSearchResults()}
+                    </div>    
+                </CardContent>
+            </Container>
             )
         }
     }
