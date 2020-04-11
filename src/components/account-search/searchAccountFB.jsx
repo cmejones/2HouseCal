@@ -101,8 +101,8 @@ class AccountSearch extends React.Component {
         }
     }
 
-        handleClick = async() => {
-    
+    handleClick = async() => {
+
         const { user } = this.props
         const { results } = this.state;
     
@@ -111,7 +111,7 @@ class AccountSearch extends React.Component {
             email: results.email
         };
 
-        const familyRef = await db.collection("users").doc(user.uid);
+        const familyRef = await db.collection("users").doc(user);
 // TO DO get current members then add new one to array; otherwise only 1 will be saved
         familyRef.update({
             family: [data]    
