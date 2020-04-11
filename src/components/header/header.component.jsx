@@ -25,7 +25,7 @@ class Header extends React.Component {
                         {/* <img className='logo' src='https://firebasestorage.googleapis.com/v0/b/housecal-4ff38.appspot.com/o/houseCal.png?alt=media&token=00ee52f6-64bc-4d74-be2d-97eb19f1cc8a' /> */}
                     </a>
                     <ul className='right hide-on-med-and-down'>
-                        <li><a href='/myAccount'>My Account</a></li>
+                        <li><a href='/myAccount'>My Children</a></li>
                         <li><a href='/addChild'>Add Child</a></li>
                         <li><a href='/account/view'>Manage Profile</a></li>
                         <li><a onClick={this.handleLogout}>Logout</a></li>
