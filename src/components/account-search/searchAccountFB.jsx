@@ -2,7 +2,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { db } from '../../firebase/firebase';
-//import axios from 'axios';
 
 import SearchIcon from '@material-ui/icons/Search';
 import Container from '@material-ui/core/Container';
@@ -15,7 +14,6 @@ import './searchAccount.styles.css';
 function mapStateToProps(state) {
     return {
         user: state.auth.user.uid
-        
     };
 }
 
@@ -38,13 +36,10 @@ class AccountSearch extends React.Component {
 
     handleChange = (event) => {
         event.preventDefault();
-        //const query = '';
         const results = '';
         const email = event.target.value;
-        //console.log(email);
-        this.setState({
+            this.setState({
             email: email,
-            //displayName: displayName,
             loading: true,
             results: '' //put empty string here to force only actual results to display
         }, () => {
@@ -59,45 +54,14 @@ class AccountSearch extends React.Component {
             let usersRef = db.collection("users").where("email", "==", email);
     
             usersRef.get()
-                .then(querySnapshot => {
-                    querySnapshot.forEach(documentSnapshot => {
-                        this.setState({
-                            results: documentSnapshot.data(),
-                            loading:false
-                        })
+            .then(querySnapshot => {
+                querySnapshot.forEach(documentSnapshot => {
+                    this.setState({
+                        results: documentSnapshot.data(),
+                        loading:false
                     })
-                    // let docs = querySnapshot.docs;
-                    // for (let doc of docs) {
-                    //     //console.log(user);
-                    //     if(doc.exists) {
-                    //         this.setState({
-                    //             results: doc.data(),
-                    //             loading:false
-                    //         })
-                    //     }
-                    //     else {
-                    //         console.log('no user found');
-                    //         this.setState({
-                    //             results: '',
-                    //             loading:false
-                    //         })
-                    //     }
-                    // }
-                    // querySnapshot.find(doc) {
-                    //     //console.log(doc.id, '=>', doc.data());
-                    //     if(doc.exists) {
-                    //         // const data = doc.data();
-                    //         // console.log(data);
-                    //         this.setState({
-                    //             results: doc.data(),
-                    //             loading: false
-                    //         })
-                    //         .catch(err => {
-                    //             console.log('error getting event information', err);
-                    //         })
-                    //     }
-                    // })
                 })
+            })
         }
     }
 
@@ -132,7 +96,7 @@ class AccountSearch extends React.Component {
     renderEmailSearchResults = () => {
     
         const { results, message } = this.state;
-        console.log(results);
+        //console.log(results);
         if(results) {
             return (
                 <Container maxWidth='sm' className="">  
@@ -172,7 +136,6 @@ class AccountSearch extends React.Component {
     }
     
         render() {
-            //const email  = this.state.email;
             return (
                 <Container maxWidth='sm'> 
                     <CardContent className="search-container">

@@ -31,7 +31,7 @@ class Sidenav extends Component {
                 className="sidenav"
                 >
                 <li><a href='/'>Home</a></li>
-                <li><a href='/myAccount'>My Account</a></li>
+                <li><a href='/myAccount'>My Children</a></li>
                 <li><a href='/addChild'>Add Child</a></li>
                 <li><a href='/account/view'>Manage Profile</a></li>
 
