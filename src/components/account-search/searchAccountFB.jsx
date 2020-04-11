@@ -27,70 +27,81 @@ class AccountSearch extends React.Component {
         this.state = {
             email:'',
             parentId: this.props.user, //adding so we can assign primary parent id to this user
-            // results: '',
-            // message: '',
+            displayName: '',
+            //message: '',
             loading: false
         }
         this.cancel = '';
         this.handleChange = this.handleChange.bind(this);
         this.fetchEmailSearchResults = this.fetchEmailSearchResults.bind(this);
-        
+       // console.log(this.state);
     }
 
     handleChange = (event) => {
         event.preventDefault();
-
-        //const query = event.target.value;
+        //const query = '';
         const email = event.target.value;
-        console.log(email);
+        //console.log(email);
         this.setState({
             email: email,
-            //query: query,
+            //displayName: displayName,
             loading: true
-            // message: ''
+           // message: ''
+    //     });
+    // }
         }, () => {
             this.fetchEmailSearchResults(email)
         });
+        console.log('new state', this.state);
     }
 
 
-    fetchEmailSearchResults = (event) => {
-       // event.preventDefault();
-
-        //console.log("email: ", query)
-        const email = this.state.email;
-
-        const usersRef = db.collection("users").where("email", "==", email);
+    fetchEmailSearchResults(email) {
+        if(email) {
+            const usersRef = db.collection("users").where("email", "==", email);
     
-        usersRef.get()
-            //add cancel function here
-            .then(function(querySnapshot) {
-                querySnapshot.forEach(function(doc) {
-                    //console.log(doc.id, '=>', doc.data());
-                    if(doc.exists) {
-                        const data = doc.data();
-                        console.log(data.email);
-                        
-                    } else { //not working
-                        alert('no such email')
-                        console.log('no doc')
+            usersRef.get()
+                //add cancel function here
+                .then(querySnapshot => {
+                    let docs = querySnapshot.docs;
+                    for (let doc of docs) {
+                        //console.log(user);
+                        if(doc.exists) {
+                            this.setState({
+                                results: doc.data(),
+                                loading:false
+                            })
+                        }
+                        else {
+                            console.log('no user found');
+                            this.setState({
+                                results: '',
+                                loading:false
+                            })
+                        }
                     }
-                    this.setState({
-                        email: email,
-                        loading: false
+                    // querySnapshot.find(doc) {
+                    //     //console.log(doc.id, '=>', doc.data());
+                    //     if(doc.exists) {
+                    //         // const data = doc.data();
+                    //         // console.log(data);
+                    //         this.setState({
+                    //             results: doc.data(),
+                    //             loading: false
+                    //         })
+                    //         .catch(err => {
+                    //             console.log('error getting event information', err);
+                    //         })
+                    //     }
+                    // })
                 })
-                //.catch(function(error) {
-               // console.log('Error getting user by email', error);
-            })
-
-            })
-            //})
         }
+    }
 
         renderEmailSearchResults = () => {
-            console.log(this.state);
+            console.log('this.state', this.state);
         const { results } = this.state;
-        console.log(results);
+        console.log('results', results);
         if(results) {
             return (
                 <Card className="root">
@@ -138,6 +149,7 @@ class AccountSearch extends React.Component {
                     </form>
                 {/* Results */}
                 <div className="results-container">
+                    Results
                     {this.renderEmailSearchResults()}
                 </div>
             </div>

@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import { db } from '../../firebase/firebase';
 
 import Container from '@material-ui/core/Container';
-import AccountSearch from '../account-search/searchAccount.component';
+//import AccountSearch from '../account-search/searchAccount.component';
+import AccountSearch from '../account-search/searchAccountFB';
 import './account-view.styles.css';
 
 function mapStateToProps(state) { //need to render redux store
