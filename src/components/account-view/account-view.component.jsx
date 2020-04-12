@@ -21,7 +21,7 @@ class AccountView extends React.Component {
         //console.log('edit this prop: ', this.props)
         this.state = {
             data: [],
-            family: [],
+           // family: [],
             familyMembers: []
         }
     }
@@ -38,7 +38,7 @@ class AccountView extends React.Component {
                     console.log("User data: ", doc.data())
                     this.setState({
                         data: doc.data(),
-                        family: doc.data(),
+                        //family: doc.data(),
                         familyMembers: doc.data().family
                     })
                 } else {
@@ -48,41 +48,12 @@ class AccountView extends React.Component {
             }).catch(function (error) {
                 console.log("Error getting document: ", error);
         })  
-        //this.getFamilyMembers();
     }
 
-    // async getFamilyMembers() {
-    //     let parentId = this.props.user.uid;
-    //     if(parentId) {
-    //         const familyRef = await db.collection('users').where('parentId', '==', parentId)
-
-    //     await familyRef.get()
-    //     .then(snapshot => {
-    //         let familyMembers = [];
-    //         snapshot.forEach(doc => {
-    //             const { displayName, email} = doc.data().family;
-    //             familyMembers.push({
-    //                 id:doc.id,
-    //                 displayName: displayName,
-    //                 email: email
-                    
-    //             });
-    //         });
-    //         this.setState ({
-    //             familyMembers: familyMembers
-    //         })
-    //         //console.log(this.state.familyMembers);
-    //     })
-        
-    //     .catch(err => {
-    //         console.log('error getting family information', err);
-    //     })
-    //     }
-    // }
 
     render() {
-        //const familyMembers  = this.state.familyMembers;
-        //console.log(this.state.family.email);
+        const familyMembers  = this.state.familyMembers;
+        //console.log('array', this.state.familyMembers);
 
         return (
             <div>
@@ -98,9 +69,9 @@ class AccountView extends React.Component {
                             <hr />
                             <p>username: {this.state.data.displayName}</p>
                             <p>email: {this.state.data.email}</p>
-                            {/* <p>Account members: {familyMembers.map((family) => {
-                                return `${family.email}`})}
-                            </p> */}
+                            <p>Account members: {familyMembers.map((family) => {
+                                return `${family.email}; `})}
+                            </p>
                         </div>  
                     </div> 
                 </Container>

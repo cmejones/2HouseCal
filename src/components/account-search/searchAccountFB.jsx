@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from "react-redux";
 import { db } from '../../firebase/firebase';
+import firebase from 'firebase/app';
 
 import SearchIcon from '@material-ui/icons/Search';
 import Container from '@material-ui/core/Container';
@@ -9,6 +10,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+
 import './searchAccount.styles.css';
 
 function mapStateToProps(state) {
@@ -26,13 +28,15 @@ class AccountSearch extends React.Component {
             parentId: this.props.user, //adding so we can assign primary parent id to this user
             displayName: '',
             results: '',
+            family: [],
             loading: false
         }
-        this.cancel = '';
+        //this.cancel = '';
         this.handleChange = this.handleChange.bind(this);
         this.fetchEmailSearchResults = this.fetchEmailSearchResults.bind(this);
-       // console.log(this.state);
+        console.log(this.state);
     }
+
 
     handleChange = (event) => {
         event.preventDefault();
@@ -66,19 +70,21 @@ class AccountSearch extends React.Component {
     }
 
     handleClick = async() => {
-
+        console.log(this.props);
         const { user } = this.props
         const { results } = this.state;
+        const family = [];
     
         let data = {
             name: results.displayName, 
             email: results.email
         };
+        console.log(data);
 
         const familyRef = await db.collection("users").doc(user);
-// TO DO get current members then add new one to array; otherwise only 1 will be saved
         familyRef.update({
-            family: [data]    
+            family: firebase.firestore.FieldValue.arrayUnion(data)
+
         })
         .then(function() {
             if (window.confirm('User successfully added to family list.')) 
@@ -92,7 +98,12 @@ class AccountSearch extends React.Component {
         });
     }
 
-
+    keyPressed = ({ key }) => {
+        // Capture search on Enter key
+        if (key === "Enter") {
+        this.fetchEmailSearchResults()
+        }
+    }
     renderEmailSearchResults = () => {
     
         const { results, message } = this.state;
@@ -153,6 +164,7 @@ class AccountSearch extends React.Component {
                                     id="search-email"
                                     placeholder="Search by email..."
                                     onChange={this.handleChange}
+                                    onKeyPress={this.keyPressed}
                                     
                                 />
                                 <SearchIcon className="search-icon" fontSize="large"  />   
