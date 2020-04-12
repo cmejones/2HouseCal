@@ -162,6 +162,7 @@ class AccountSearch extends React.Component {
             console.warn("warn this.state: ", this.state)
             return (
                 <Container maxWidth='sm'> 
+                    <div className="card">
                     <CardContent className="search-container">
                         <div className='profile-header'>
                             <h5>Add account members</h5>
@@ -187,6 +188,7 @@ class AccountSearch extends React.Component {
                         {this.renderEmailSearchResults()}
                     </div>    
                 </CardContent>
+            </div> 
             </Container>
 
 
