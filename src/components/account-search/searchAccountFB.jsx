@@ -149,32 +149,34 @@ class AccountSearch extends React.Component {
         render() {
             return (
                 <Container maxWidth='sm'> 
-                    <CardContent className="search-container">
-                        <div className='profile-header'>
-                            <h5>Add account members</h5>
-                        </div>
-                        <hr />
-                        <form className='search-form' noValidate autoComplete="off" onSubmit={this.fetchEmailSearchResults}>
-                        
-                            <label className="search-label" htmlFor="search-email">
-                                <input
-                                    type="text"
-                                    name="email"
-                                    value={this.state.email}
-                                    id="search-email"
-                                    placeholder="Search by email..."
-                                    onChange={this.handleChange}
-                                    onKeyPress={this.keyPressed}
-                                    
-                                />
-                                <SearchIcon className="search-icon" fontSize="large"  />   
-                            </label>
-                        </form>
-                    {/* Results */}
-                    <div>
-                        {this.renderEmailSearchResults()}
-                    </div>    
-                </CardContent>
+                    <div className="card">
+                        <CardContent className="search-container">
+                            <div className='profile-header'>
+                                <h5>Add account members</h5>
+                            </div>
+                            <hr />
+                            <form className='search-form' noValidate autoComplete="off" onSubmit={this.fetchEmailSearchResults}>
+                            
+                                <label className="search-label" htmlFor="search-email">
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        value={this.state.email}
+                                        id="search-email"
+                                        placeholder="Search by email..."
+                                        onChange={this.handleChange}
+                                        onKeyPress={this.keyPressed}
+                                        
+                                    />
+                                    <SearchIcon className="search-icon" fontSize="large"  />   
+                                </label>
+                            </form>
+                        {/* Results */}
+                        <div>
+                            {this.renderEmailSearchResults()}
+                        </div>    
+                    </CardContent>
+                </div>
             </Container>
             )
         }
